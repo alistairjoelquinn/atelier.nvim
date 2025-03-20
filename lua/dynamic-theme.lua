@@ -1,27 +1,25 @@
 local palette = require 'palette'
-local groups = require 'groups'
+local create_highlight_groups = require 'create-highlight-groups'
 
-local M
+local M = {}
 
 M.setup = function(opts)
   opts = opts or {}
 
-  -- create a new table with palette as the base
-  local palette_overwrite = {}
+  -- create a new table to add palette as the base
+  local custom_palette = {}
 
   -- copy all values from the base palette
   for k, v in pairs(palette) do
-    palette_overwrite[k] = v
+    custom_palette[k] = v
   end
 
   -- override with values with options passed in by the user
-  if opts.overwrite then
-    for k, v in pairs(opts.overwrite) do
-      palette_overwrite[k] = v
-    end
+  for k, v in pairs(opts) do
+    custom_palette[k] = v
   end
 
-  local highlight_groups = groups.create_theme_groups(palette_overwrite)
+  local highlight_groups = create_highlight_groups(custom_palette)
 
   for group, settings in pairs(highlight_groups) do
     vim.api.nvim_set_hl(0, group, settings)

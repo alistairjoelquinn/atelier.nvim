@@ -1,6 +1,4 @@
-local M
-
-M.create_theme_groups = function(colors)
+return function(colors)
   return {
     -- editor basics
     Normal = { fg = colors.fg, bg = colors.bg },
@@ -120,5 +118,3 @@ M.create_theme_groups = function(colors)
     NvimTreeFolderIcon = { fg = colors.fg_darker },
   }
 end
-
-return M
