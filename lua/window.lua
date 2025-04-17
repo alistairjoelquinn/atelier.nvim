@@ -1,6 +1,7 @@
 local M = {}
 
 local create_window = function(opts)
+  print 'new window created'
   opts = opts or {}
   local width = math.floor(vim.o.columns * 0.8)
   local height = math.floor(vim.o.lines * 0.8)
@@ -28,6 +29,7 @@ end
 
 M.open_window = function(window_data, opts)
   if window_data and vim.api.nvim_win_is_valid(window_data.win) then
+    print 'old window used'
     vim.api.nvim_set_current_win(window_data.win)
     return
   end
