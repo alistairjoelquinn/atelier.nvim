@@ -12,6 +12,15 @@ M.open_window = function(opts)
   end
 
   window_data = create_window(opts)
+
+  -- Map 'q' to close the window
+  vim.api.nvim_buf_set_keymap(
+    window_data.buf,
+    'n',
+    'q',
+    ':DynamicThemeClose<CR>',
+    { noremap = true, silent = true }
+  )
 end
 
 M.close_window = function()
