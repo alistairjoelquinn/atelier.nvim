@@ -3,7 +3,6 @@ local window = require 'window'
 local create_highlight_groups = require 'create-highlight-groups'
 
 local M = {}
-local window_data = nil
 
 M.setup = function(opts)
   opts = opts or {}
@@ -29,11 +28,11 @@ M.setup = function(opts)
 
   -- Create commands for opening and closing the window
   vim.api.nvim_create_user_command('DynamicThemeOpen', function()
-    window.open_window(window_data, {})
+    window.open_window {}
   end, {})
 
   vim.api.nvim_create_user_command('DynamicThemeClose', function()
-    window.close_window(window_data)
+    window.close_window()
   end, {})
 end
 
