@@ -1,5 +1,16 @@
 local M = {}
 
+-- Map 'q' to close the window
+local create_keymaps = function(window_data)
+  vim.api.nvim_buf_set_keymap(
+    window_data.buf,
+    'n',
+    'q',
+    ':DynamicThemeClose<CR>',
+    { noremap = true, silent = true }
+  )
+end
+
 local create_window = function(opts)
   print 'new window created'
   opts = opts or {}
@@ -31,10 +42,12 @@ M.open_window = function(window_data, opts)
   if window_data and vim.api.nvim_win_is_valid(window_data.win) then
     print 'old window used'
     vim.api.nvim_set_current_win(window_data.win)
+    create_keymaps(window_data)
     return
   end
 
   window_data = create_window(opts)
+  create_keymaps(window_data)
 end
 
 M.close_window = function(window_data)

@@ -3,7 +3,7 @@ local window = require 'window'
 local create_highlight_groups = require 'create-highlight-groups'
 
 local M = {}
-local window_data = { buf = nil, win = nil }
+local window_data = nil
 
 M.setup = function(opts)
   opts = opts or {}
@@ -35,15 +35,6 @@ M.setup = function(opts)
   vim.api.nvim_create_user_command('DynamicThemeClose', function()
     window.close_window(window_data)
   end, {})
-
-  -- Map 'q' to close the window
-  vim.api.nvim_buf_set_keymap(
-    window_data.buf,
-    'n',
-    'q',
-    ':DynamicThemeClose<CR>',
-    { noremap = true, silent = true }
-  )
 end
 
 return M
