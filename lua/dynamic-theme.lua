@@ -4,6 +4,10 @@ local create_highlight_groups = require 'create-highlight-groups'
 
 local M = {}
 
+-- TODO:
+--   save command for user
+--   write saved values to json file in the root of the directory
+
 M.setup = function(opts)
   opts = opts or {}
 
