@@ -28,12 +28,10 @@ M.setup = function(opts)
 
   -- Create commands for opening and closing the window
   vim.api.nvim_create_user_command('DynamicThemeOpen', function()
-    print 'trying to open window via command'
     window.open_window {}
   end, {})
 
   vim.api.nvim_create_user_command('DynamicThemeClose', function()
-    print 'trying to close window via command'
     window.close_window()
   end, {})
 end

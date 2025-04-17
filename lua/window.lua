@@ -4,7 +4,6 @@ local window_data = {}
 
 -- Map 'q' to close the window
 local create_keymaps = function()
-  print 'creating keymaps'
   if window_data.buf then
     vim.api.nvim_buf_set_keymap(
       window_data.buf,
@@ -17,7 +16,6 @@ local create_keymaps = function()
 end
 
 local create_window = function(opts)
-  print 'new window created'
   opts = opts or {}
   local width = math.floor(vim.o.columns * 0.8)
   local height = math.floor(vim.o.lines * 0.8)
@@ -45,7 +43,6 @@ end
 
 M.open_window = function(opts)
   if window_data.win and vim.api.nvim_win_is_valid(window_data.win) then
-    print 'old window used'
     vim.api.nvim_set_current_win(window_data.win)
     create_keymaps()
     return
