@@ -1,5 +1,5 @@
 local palette = require 'palette'
-local create_window = require 'create-window'
+local create_window = require 'window'
 local create_highlight_groups = require 'create-highlight-groups'
 
 local M = {}
