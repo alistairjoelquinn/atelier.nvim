@@ -5,7 +5,7 @@ local create_highlight_groups = require 'create-highlight-groups'
 local M = {}
 local window_data = nil
 
-M.open_window = function(opts)
+local open_window = function(opts)
   if window_data and vim.api.nvim_win_is_valid(window_data.win) then
     vim.api.nvim_set_current_win(window_data.win)
     return
@@ -23,7 +23,7 @@ M.open_window = function(opts)
   )
 end
 
-M.close_window = function()
+local close_window = function()
   if window_data and vim.api.nvim_win_is_valid(window_data.win) then
     vim.api.nvim_win_close(window_data.win, true)
     window_data = nil
@@ -54,11 +54,11 @@ M.setup = function(opts)
 
   -- Create commands for opening and closing the window
   vim.api.nvim_create_user_command('DynamicThemeOpen', function()
-    M.open_window()
+    open_window()
   end, {})
 
   vim.api.nvim_create_user_command('DynamicThemeClose', function()
-    M.close_window()
+    close_window()
   end, {})
 end
 
