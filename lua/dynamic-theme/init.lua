@@ -1,0 +1,1 @@
+return require('dynamic-theme')
