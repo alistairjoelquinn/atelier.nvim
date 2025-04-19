@@ -3,7 +3,7 @@ local M = {}
 ---@class WindowData
 ---@field win number Window handle/ID
 ---@field buf number Buffer handle/ID
-
+---@field content table Buffer content lines
 ---@type WindowData|nil
 local window_data = nil
 
@@ -45,6 +45,29 @@ local create_window = function()
   return { buf = buf, win = win }
 end
 
+local save_buffer_content = function()
+  if window_data and vim.api.nvim_buf_is_valid(window_data.buf) then
+    local content = vim.api.nvim_buf_get_lines(window_data.buf, 0, -1, false)
+    window_data.content = content
+  end
+end
+
+local restore_buffer_content = function()
+  if
+    window_data
+    and window_data.content
+    and vim.api.nvim_buf_is_valid(window_data.buf)
+  then
+    vim.api.nvim_buf_set_lines(
+      window_data.buf,
+      0,
+      -1,
+      false,
+      window_data.content
+    )
+  end
+end
+
 M.open_window = function()
   if window_data and vim.api.nvim_win_is_valid(window_data.win) then
     vim.api.nvim_set_current_win(window_data.win)
@@ -52,13 +75,14 @@ M.open_window = function()
     return
   end
   window_data = create_window()
+  restore_buffer_content()
   create_keymaps()
 end
 
 M.close_window = function()
   if window_data and vim.api.nvim_win_is_valid(window_data.win) then
-    vim.api.nvim_win_close(window_data.win, true)
-    window_data = nil
+    save_buffer_content()
+    vim.api.nvim_win_close(window_data.win, false)
   end
 end
 
