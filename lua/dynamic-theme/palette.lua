@@ -8,9 +8,9 @@ return {
 
   -- accent colors
   subtle_yellow = '#afa35b',
-  subtle_pink = '#ff5733', -- actually a red for testing
+  subtle_pink = '#b77e89',
   subtle_green = '#7a8574',
-  subtle_blue = '#33fff6', -- more like a turqoise for testing
+  subtle_blue = '#7B8FA6',
   subtle_purple = '#8b7b8f',
 
   -- ui colors
