@@ -3,12 +3,12 @@ local M = {}
 ---@class WindowData
 ---@field win number Window handle/ID
 ---@field buf number Buffer handle/ID
----@field content table Buffer content lines
+---@field content table|nil Buffer content lines
 ---@type WindowData
 local window_data = {
   win = -1,
   buf = -1,
-  content = {},
+  content = nil,
 }
 
 -- Map 'q' to close the window
@@ -63,7 +63,7 @@ local save_buffer_content = function()
 end
 
 local restore_buffer_content = function()
-  if vim.api.nvim_buf_is_valid(window_data.buf) then
+  if window_data.content and vim.api.nvim_buf_is_valid(window_data.buf) then
     vim.api.nvim_buf_set_lines(
       window_data.buf,
       0,
