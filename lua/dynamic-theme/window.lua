@@ -8,7 +8,6 @@ local M = {}
 local window_data = {
   win = -1,
   buf = -1,
-  content = nil,
 }
 
 -- Map 'q' to close the window
