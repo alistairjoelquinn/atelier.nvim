@@ -1,10 +1,15 @@
 local M = {}
 
-local window_data = {}
+---@class WindowData
+---@field win number Window handle/ID
+---@field buf number Buffer handle/ID
+
+---@type WindowData|nil
+local window_data = nil
 
 -- Map 'q' to close the window
 local create_keymaps = function()
-  if window_data.buf then
+  if window_data then
     vim.api.nvim_buf_set_keymap(
       window_data.buf,
       'n',
@@ -42,7 +47,7 @@ local create_window = function(opts)
 end
 
 M.open_window = function(opts)
-  if window_data.win and vim.api.nvim_win_is_valid(window_data.win) then
+  if window_data and vim.api.nvim_win_is_valid(window_data.win) then
     vim.api.nvim_set_current_win(window_data.win)
     create_keymaps()
     return
@@ -53,9 +58,9 @@ M.open_window = function(opts)
 end
 
 M.close_window = function()
-  if window_data.win and vim.api.nvim_win_is_valid(window_data.win) then
+  if window_data and vim.api.nvim_win_is_valid(window_data.win) then
     vim.api.nvim_win_close(window_data.win, true)
-    window_data = {}
+    window_data = nil
   end
 end
 

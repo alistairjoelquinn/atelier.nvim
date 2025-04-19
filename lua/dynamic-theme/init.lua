@@ -1,6 +1,6 @@
-local palette = require('dynamic-theme.palette')
-local window = require('dynamic-theme.window')
-local create_highlight_groups = require('dynamic-theme.create-highlight-groups')
+local palette = require 'dynamic-theme.palette'
+local window = require 'dynamic-theme.window'
+local create_highlight_groups = require 'dynamic-theme.create-highlight-groups'
 
 local M = {}
 
@@ -41,3 +41,4 @@ M.setup = function(opts)
 end
 
 return M
+
