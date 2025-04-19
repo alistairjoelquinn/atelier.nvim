@@ -40,48 +40,36 @@ local create_window = function()
     col = col,
   }
 
-  -- create buffer
-  local buf = nil
   if vim.api.nvim_buf_is_valid(window_data.buf) then
-    buf = window_data.buf
+    if window_data.content then
+      vim.api.nvim_buf_set_lines(
+        window_data.buf,
+        0,
+        -1,
+        false,
+        window_data.content
+      )
+    end
   else
-    buf = vim.api.nvim_create_buf(false, true)
+    window_data.buf = vim.api.nvim_create_buf(false, true)
   end
 
-  -- Create new window
-  local win = vim.api.nvim_open_win(buf, true, config)
-
-  return { buf = buf, win = win }
+  window_data.win = vim.api.nvim_open_win(window_data.buf, true, config)
 end
 
 local save_buffer_content = function()
   if vim.api.nvim_buf_is_valid(window_data.buf) then
     local content = vim.api.nvim_buf_get_lines(window_data.buf, 0, -1, false)
-    print('this is the contentn:', content)
     window_data.content = content
   end
 end
 
-local restore_buffer_content = function()
-  if window_data.content and vim.api.nvim_buf_is_valid(window_data.buf) then
-    vim.api.nvim_buf_set_lines(
-      window_data.buf,
-      0,
-      -1,
-      false,
-      window_data.content
-    )
-  end
-end
-
 M.open_window = function()
-  if vim.api.nvim_win_is_valid(window_data.win) then
+  if not vim.api.nvim_win_is_valid(window_data.win) then
+    create_window()
+  else
     vim.api.nvim_set_current_win(window_data.win)
-    create_keymaps()
-    return
   end
-  window_data = create_window()
-  restore_buffer_content()
   create_keymaps()
 end
 
