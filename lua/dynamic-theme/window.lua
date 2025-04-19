@@ -20,8 +20,7 @@ local create_keymaps = function()
   end
 end
 
-local create_window = function(opts)
-  opts = opts or {}
+local create_window = function()
   local width = math.floor(vim.o.columns * 0.8)
   local height = math.floor(vim.o.lines * 0.8)
   local col = math.floor((vim.o.columns - width) / 2)
@@ -46,14 +45,13 @@ local create_window = function(opts)
   return { buf = buf, win = win }
 end
 
-M.open_window = function(opts)
+M.open_window = function()
   if window_data and vim.api.nvim_win_is_valid(window_data.win) then
     vim.api.nvim_set_current_win(window_data.win)
     create_keymaps()
     return
   end
-
-  window_data = create_window(opts)
+  window_data = create_window()
   create_keymaps()
 end
 
