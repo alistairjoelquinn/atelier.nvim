@@ -42,7 +42,6 @@ local create_window = function()
   -- we always try and reuse the buffer from the previous open window, though
   -- always create a new window as the old window can't be reused
   if not vim.api.nvim_buf_is_valid(window_data.buf) then
-    print 'Buffer is not valid'
     window_data.buf = vim.api.nvim_create_buf(false, true)
   end
 
@@ -52,8 +51,6 @@ end
 ---@return nil
 M.open_window = function()
   create_window()
-  print('window:', window_data.win)
-  print('buffer:', window_data.buf)
   create_keymaps()
 end
 
