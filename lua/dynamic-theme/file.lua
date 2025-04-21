@@ -27,12 +27,13 @@ M.read = function()
       end
     end
   end
-  return nil
+  local palette = require 'dynamic-theme.palette'
+  return palette
 end
 
 ---@param palette DynamicThemePalette
 M.write = function(palette)
-  local status, encoded = pcall(vim.json.encode, palette)
+  local status, encoded = pcall(vim.json.encode, palette, { indent = true })
   if status then
     local file = io.open(M.path, 'w')
     if file then
