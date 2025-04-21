@@ -1,8 +1,43 @@
+local vim = vim
 ---@type DynamicThemePalette
 local palette = require 'dynamic-theme.palette'
 local window = require 'dynamic-theme.window'
 ---@type fun(colors: DynamicThemePalette): table<string, table>
 local create_highlight_groups = require 'dynamic-theme.create-highlight-groups'
+
+---@param filepath string
+---@return boolean
+local function file_exists(filepath)
+  local f = io.open(filepath, 'r')
+  if f then
+    io.close(f)
+    return true
+  else
+    return false
+  end
+end
+
+local config_path = vim.fn.stdpath 'config'
+local json_path = config_path .. '/dynamic-theme.json'
+
+local initialise_theme = function() -- check whether dymanic theme has already been initialise through json file
+  if file_exists(json_path) then
+    local f = io.open(json_path, 'r')
+    if f then
+      local content = f:read '*all'
+      f:close()
+
+      -- Parse JSON if content exists
+      if content and content ~= '' then
+        local status, decoded = pcall(vim.json.decode, content)
+        if status and type(decoded) == 'table' then
+          return decoded
+        end
+      end
+    end
+  else
+  end
+end
 
 ---@class DynamicThemeModule
 local M = {}
@@ -22,9 +57,13 @@ M.setup = function(opts)
   -- create a new table to add palette as the base
   local custom_palette = {}
 
-  -- copy all values from the base palette
-  for k, v in pairs(palette) do
-    custom_palette[k] = v
+  local saved_theme = initialise_theme()
+
+  -- Apply saved theme values if they exist
+  if saved_theme then
+    for k, v in pairs(saved_theme) do
+      custom_palette[k] = v
+    end
   end
 
   -- override with values with options passed in by the user
@@ -46,6 +85,16 @@ M.setup = function(opts)
 
   vim.api.nvim_create_user_command('DynamicThemeClose', function()
     window.close_window()
+  end, {})
+
+  -- Add command to save theme
+  vim.api.nvim_create_user_command('DynamicThemeSave', function()
+    -- TODO: Get the current theme values and save to json file
+    local config_path = vim.fn.stdpath 'config'
+    local json_path = config_path .. '/dynamic-theme.json'
+
+    -- For now, just save a message that this feature is coming soon
+    vim.notify('Theme saving feature coming soon!', vim.log.levels.INFO)
   end, {})
 end
 
