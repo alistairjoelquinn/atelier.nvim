@@ -1,28 +1,12 @@
-local vim = vim
 ---@type DynamicThemePalette
 local palette = require 'dynamic-theme.palette'
 local window = require 'dynamic-theme.window'
----@type fun(colors: DynamicThemePalette): table<string, table>
-local create_highlight_groups = require 'dynamic-theme.create-highlight-groups'
-
----@param filepath string
----@return boolean
-local function file_exists(filepath)
-  local f = io.open(filepath, 'r')
-  if f then
-    io.close(f)
-    return true
-  else
-    return false
-  end
-end
-
-local config_path = vim.fn.stdpath 'config'
-local json_path = config_path .. '/dynamic-theme.json'
+local file = require 'dynamic-theme.file'
+local theme = require 'dynamic-theme.theme'
 
 ---@return table
 local initialise_theme = function()
-  if file_exists(json_path) then
+  if file.exists(json_path) then
     print 'file exists'
     local f = io.open(json_path, 'r')
     if f then
@@ -76,8 +60,9 @@ local M = {}
 M.setup = function(opts)
   opts = opts or {}
 
+  print 'initialising theme'
   -- Get the palette values from saved theme or create a new theme file
-  local custom_palette = initialise_theme()
+  local custom_palette = theme.initialise_theme()
 
   -- If the palette doesn't have all the expected structure, fill in from defaults
   for k, v in pairs(palette) do
@@ -92,7 +77,7 @@ M.setup = function(opts)
   end
 
   ---@type table<string, table>
-  local highlight_groups = create_highlight_groups(custom_palette)
+  local highlight_groups = theme.create_highlight_groups(custom_palette)
 
   for group, settings in pairs(highlight_groups) do
     vim.api.nvim_set_hl(0, group, settings)
