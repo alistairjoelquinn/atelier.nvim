@@ -24,7 +24,6 @@ end
 
 ---@return nil
 local create_window = function()
-  print 'RUNING'
   local width = math.floor(vim.o.columns * 0.8)
   local height = math.floor(vim.o.lines * 0.8)
   local col = math.floor((vim.o.columns - width) / 2)
@@ -40,7 +39,10 @@ local create_window = function()
     col = col,
   }
 
+  -- we always try and reuse the buffer from the previous open window, though
+  -- always create a new window as the old window can't be reused
   if not vim.api.nvim_buf_is_valid(window_data.buf) then
+    print 'Buffer is not valid'
     window_data.buf = vim.api.nvim_create_buf(false, true)
   end
 
@@ -49,13 +51,7 @@ end
 
 ---@return nil
 M.open_window = function()
-  if not vim.api.nvim_win_is_valid(window_data.win) then
-    print 'OPEN WINDOW: window is valid'
-    create_window()
-  else
-    print 'OPEN WINDOW: window is not valid'
-    vim.api.nvim_set_current_win(window_data.win)
-  end
+  create_window()
   print('window:', window_data.win)
   print('buffer:', window_data.buf)
   create_keymaps()
