@@ -10,6 +10,7 @@ local window_data = {
   buf = -1,
 }
 
+---@return nil
 -- Map 'q' to close the window
 local create_keymaps = function()
   vim.api.nvim_buf_set_keymap(
@@ -21,6 +22,7 @@ local create_keymaps = function()
   )
 end
 
+---@return nil
 local create_window = function()
   local width = math.floor(vim.o.columns * 0.8)
   local height = math.floor(vim.o.lines * 0.8)
@@ -44,6 +46,7 @@ local create_window = function()
   window_data.win = vim.api.nvim_open_win(window_data.buf, true, config)
 end
 
+---@return nil
 M.open_window = function()
   if not vim.api.nvim_win_is_valid(window_data.win) then
     create_window()
@@ -53,6 +56,7 @@ M.open_window = function()
   create_keymaps()
 end
 
+---@return nil
 M.close_window = function()
   if vim.api.nvim_win_is_valid(window_data.win) then
     vim.api.nvim_win_close(window_data.win, false)

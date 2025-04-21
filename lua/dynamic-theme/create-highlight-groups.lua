@@ -1,3 +1,5 @@
+---@param colors DynamicThemePalette
+---@return table<string, table> Highlight groups with their settings
 return function(colors)
   return {
     -- editor basics

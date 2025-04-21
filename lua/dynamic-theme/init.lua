@@ -1,17 +1,23 @@
+---@type DynamicThemePalette
 local palette = require 'dynamic-theme.palette'
 local window = require 'dynamic-theme.window'
+---@type fun(colors: DynamicThemePalette): table<string, table>
 local create_highlight_groups = require 'dynamic-theme.create-highlight-groups'
 
+---@class DynamicThemeModule
 local M = {}
 
 -- TODO:
 --   save command for user
 --   write saved values to json file in the root of the directory
 
+---@param opts? table Options to override the default palette colors
+---@return nil
 M.setup = function(opts)
   opts = opts or {}
 
   -- create a new table to add palette as the base
+  ---@type DynamicThemePalette
   local custom_palette = {}
 
   -- copy all values from the base palette
@@ -24,6 +30,7 @@ M.setup = function(opts)
     custom_palette[k] = v
   end
 
+  ---@type table<string, table>
   local highlight_groups = create_highlight_groups(custom_palette)
 
   for group, settings in pairs(highlight_groups) do

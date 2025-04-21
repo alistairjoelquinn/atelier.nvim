@@ -1,3 +1,17 @@
+---@class DynamicThemePalette
+---@field bg string Background color
+---@field bg_lighter string Lighter background color
+---@field fg string Foreground color
+---@field fg_darker string Darker foreground color
+---@field fg_lighter string Lighter foreground color
+---@field subtle_yellow string Yellow accent color
+---@field subtle_pink string Pink accent color
+---@field subtle_green string Green accent color
+---@field subtle_blue string Blue accent color
+---@field subtle_purple string Purple accent color
+---@field ui_grey string UI grey color
+---@field ui_grey_lighter string Lighter UI grey color
+---@field comment_grey string Comment grey color
 return {
   -- base colors
   bg = '#1b1b20',
