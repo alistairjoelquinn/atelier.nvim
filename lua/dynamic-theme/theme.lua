@@ -5,14 +5,19 @@ local file = require 'dynamic-theme.file'
 local M = {}
 
 M.initialise_palette = function()
-  if !file.exists() then
+  if not file.exists() then
     file.write(palette)
   end
-  return file.read()
+  local loaded_palette = file.read()
+  if loaded_palette then
+    return loaded_palette
+  else
+    vim.notify('Error initialising palette', vim.log.levels.ERROR)
+  end
 end
 
 M.reset = function()
- file.write(palette)
+  file.write(palette)
 end
 
 ---@return table<string, table> Highlight groups with their settings

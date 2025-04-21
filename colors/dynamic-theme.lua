@@ -1,4 +1,4 @@
-local dynamic_theme = require 'dynamic-theme'
+local dynamic_theme = require 'dynamic-theme.init'
 
 vim.api.nvim_command 'hi clear'
 

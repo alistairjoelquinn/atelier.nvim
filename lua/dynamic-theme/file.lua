@@ -27,6 +27,7 @@ M.read = function()
       end
     end
   end
+  return nil
 end
 
 ---@param palette DynamicThemePalette

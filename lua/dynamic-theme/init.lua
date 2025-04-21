@@ -1,6 +1,3 @@
-local command = require 'dynamic-theme.command'
-local theme = require 'dynamic-theme.theme'
-
 ---@class DynamicThemeModule
 local M = {}
 
@@ -15,6 +12,10 @@ local M = {}
 ---@return nil
 M.setup = function(opts)
   opts = opts or {}
+
+  -- import modules at call time to prevent circular dependencies
+  local theme = require 'dynamic-theme.theme'
+  local command = require 'dynamic-theme.command'
 
   -- get the palette values from saved theme or create a new theme file
   local palette = theme.initialise_palette()
