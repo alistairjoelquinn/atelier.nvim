@@ -4,7 +4,7 @@ local file = require 'dynamic-theme.file'
 
 local M = {}
 
-M.create_commands = function()
+M.create = function()
   vim.api.nvim_create_user_command('DynamicThemeOpen', function()
     window.open_window()
   end, {})
@@ -14,6 +14,7 @@ M.create_commands = function()
   end, {})
 
   vim.api.nvim_create_user_command('DynamicThemeSave', function()
+    -- TODO: this function doesnt do anything yet
     file.save()
   end, {})
 

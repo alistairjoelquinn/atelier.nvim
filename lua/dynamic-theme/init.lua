@@ -1,4 +1,4 @@
-local cmd = require 'dynamic-theme.cmd'
+local command = require 'dynamic-theme.command'
 local theme = require 'dynamic-theme.theme'
 
 ---@class DynamicThemeModule
@@ -31,7 +31,7 @@ M.setup = function(opts)
     vim.api.nvim_set_hl(0, group, settings)
   end
 
-  cmd.create_commands()
+  command.create()
 end
 
 return M
