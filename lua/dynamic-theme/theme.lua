@@ -11,6 +11,10 @@ M.initialise_palette = function()
   return file.read()
 end
 
+M.reset = function()
+ file.write(palette)
+end
+
 ---@return table<string, table> Highlight groups with their settings
 M.create_highlight_groups = function(colors)
   -- Flatten the nested structure for backward compatibility or simplicity
