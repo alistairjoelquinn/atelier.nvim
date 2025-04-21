@@ -1,45 +1,29 @@
+---@type DynamicThemePalette
+local palette = require 'dynamic-theme.palette'
 local file = require 'dynamic-theme.file'
 
 local M = {}
 
 M.initialise_theme = function()
-  if file.exists(json_path) then
-    print 'file exists'
-    local f = io.open(json_path, 'r')
-    if f then
-      local content = f:read '*all'
-      f:close()
-
-      -- Parse JSON if content exists
-      if content and content ~= '' then
-        local status, decoded = pcall(vim.json.decode, content)
-        if status and type(decoded) == 'table' then
-          return decoded
-        end
-      end
-    end
+  if file.exists() then
+    return file.read()
   else
     print 'file does not exist'
     -- Create the file with default palette if it doesn't exist
     local status, encoded = pcall(vim.json.encode, palette)
     if status then
-      local f = io.open(json_path, 'w')
+      local f = io.open(file.path, 'w')
       if f then
         f:write(encoded)
         f:close()
         vim.notify(
-          'Created default theme file at ' .. json_path,
+          'Created default theme file at ' .. file.path,
           vim.log.levels.INFO
         )
       end
     end
     return palette
   end
-
-  -- If we reach here, something went wrong with reading or creating the file
-  print 'There was an issue loading the palette'
-  -- Return the default palette
-  return palette
 end
 
 ---@return table<string, table> Highlight groups with their settings
