@@ -31,6 +31,20 @@ M.read = function()
   end
 end
 
-M.write = function() end
+---@param palette DynamicThemePalette
+M.write = function(palette)
+  local status, encoded = pcall(vim.json.encode, palette)
+  if status then
+    local f = io.open(M.path, 'w')
+    if f then
+      f:write(encoded)
+      f:close()
+      vim.notify(
+        'Created default theme file at ' .. M.path,
+        vim.log.levels.INFO
+      )
+    end
+  end
+end
 
 return M

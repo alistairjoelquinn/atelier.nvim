@@ -5,25 +5,10 @@ local file = require 'dynamic-theme.file'
 local M = {}
 
 M.initialise_theme = function()
-  if file.exists() then
-    return file.read()
-  else
-    print 'file does not exist'
-    -- Create the file with default palette if it doesn't exist
-    local status, encoded = pcall(vim.json.encode, palette)
-    if status then
-      local f = io.open(file.path, 'w')
-      if f then
-        f:write(encoded)
-        f:close()
-        vim.notify(
-          'Created default theme file at ' .. file.path,
-          vim.log.levels.INFO
-        )
-      end
-    end
-    return palette
+  if !file.exists() then
+    file.write(palette)
   end
+  return file.read()
 end
 
 ---@return table<string, table> Highlight groups with their settings
