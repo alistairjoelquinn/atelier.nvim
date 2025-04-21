@@ -24,6 +24,7 @@ end
 
 ---@return nil
 local create_window = function()
+  print 'RUNING'
   local width = math.floor(vim.o.columns * 0.8)
   local height = math.floor(vim.o.lines * 0.8)
   local col = math.floor((vim.o.columns - width) / 2)
@@ -49,10 +50,14 @@ end
 ---@return nil
 M.open_window = function()
   if not vim.api.nvim_win_is_valid(window_data.win) then
+    print 'OPEN WINDOW: window is valid'
     create_window()
   else
+    print 'OPEN WINDOW: window is not valid'
     vim.api.nvim_set_current_win(window_data.win)
   end
+  print('window:', window_data.win)
+  print('buffer:', window_data.buf)
   create_keymaps()
 end
 
