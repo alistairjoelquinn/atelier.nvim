@@ -20,8 +20,10 @@ end
 local config_path = vim.fn.stdpath 'config'
 local json_path = config_path .. '/dynamic-theme.json'
 
-local initialise_theme = function() -- check whether dymanic theme has already been initialise through json file
+---@return table
+local initialise_theme = function()
   if file_exists(json_path) then
+    print 'file exists'
     local f = io.open(json_path, 'r')
     if f then
       local content = f:read '*all'
@@ -36,7 +38,27 @@ local initialise_theme = function() -- check whether dymanic theme has already b
       end
     end
   else
+    print 'file does not exist'
+    -- Create the file with default palette if it doesn't exist
+    local status, encoded = pcall(vim.json.encode, palette)
+    if status then
+      local f = io.open(json_path, 'w')
+      if f then
+        f:write(encoded)
+        f:close()
+        vim.notify(
+          'Created default theme file at ' .. json_path,
+          vim.log.levels.INFO
+        )
+      end
+    end
+    return palette
   end
+
+  -- If we reach here, something went wrong with reading or creating the file
+  print 'There was an issue loading the palette'
+  -- Return the default palette
+  return palette
 end
 
 ---@class DynamicThemeModule
@@ -54,14 +76,12 @@ local M = {}
 M.setup = function(opts)
   opts = opts or {}
 
-  -- create a new table to add palette as the base
-  local custom_palette = {}
+  -- Get the palette values from saved theme or create a new theme file
+  local custom_palette = initialise_theme()
 
-  local saved_theme = initialise_theme()
-
-  -- Apply saved theme values if they exist
-  if saved_theme then
-    for k, v in pairs(saved_theme) do
+  -- If the palette doesn't have all the expected structure, fill in from defaults
+  for k, v in pairs(palette) do
+    if custom_palette[k] == nil then
       custom_palette[k] = v
     end
   end
