@@ -19,6 +19,7 @@
 ---@field syntax.types_classes string Types and classes color
 
 -- Color Palette Definition
+---@return DynamicThemePalette
 return {
   -- Base UI Colors
   ui = {

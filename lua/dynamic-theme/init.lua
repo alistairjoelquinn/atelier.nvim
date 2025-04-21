@@ -20,7 +20,6 @@ M.setup = function(opts)
   opts = opts or {}
 
   -- create a new table to add palette as the base
-  ---@type DynamicThemePalette
   local custom_palette = {}
 
   -- copy all values from the base palette
