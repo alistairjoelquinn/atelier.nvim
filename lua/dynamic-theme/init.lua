@@ -8,8 +8,11 @@ local create_highlight_groups = require 'dynamic-theme.create-highlight-groups'
 local M = {}
 
 -- TODO:
---   save command for user
+--   command to save changes by user
 --   write saved values to json file in the root of the directory
+--   OPTIONS
+--      allow persisting multiple themes which can be toggled
+--      allow to reset back to the default them from when first loading the plugin
 
 ---@param opts? table Options to override the default palette colors
 ---@return nil

@@ -1,122 +1,174 @@
----@param colors DynamicThemePalette
 ---@return table<string, table> Highlight groups with their settings
 return function(colors)
+  -- Flatten the nested structure for backward compatibility or simplicity
+  local flat_colors = {
+    -- Background colors
+    bg = colors.ui.bg.main_background,
+    bg_lighter = colors.ui.bg.lighter_elements,
+
+    -- Foreground colors
+    fg = colors.ui.fg.main_text,
+    fg_darker = colors.ui.fg.secondary_text,
+    fg_lighter = colors.ui.fg.emphasized_text,
+
+    -- Grey variations
+    comment_grey = colors.ui.grey.comments,
+    ui_grey = colors.ui.grey.borders_linenumbers,
+    ui_grey_lighter = colors.ui.grey.highlighted_elements,
+
+    -- Accent colors
+    subtle_yellow = colors.syntax.functions_warnings,
+    subtle_pink = colors.syntax.errors_special,
+    subtle_green = colors.syntax.strings_success,
+    subtle_blue = colors.syntax.variables_identifiers,
+    subtle_purple = colors.syntax.types_classes,
+  }
+
+  -----------------------------------------------------------
+  -- Highlight Group Definitions
+  -----------------------------------------------------------
+  -- More logically structured highlights based on functionality
   return {
-    -- editor basics
-    Normal = { fg = colors.fg, bg = colors.bg },
-    NormalFloat = { fg = colors.fg, bg = colors.bg },
-    Cursor = { fg = colors.bg, bg = colors.fg },
-    CursorLine = { bg = colors.bg_lighter },
-    LineNr = { fg = colors.ui_grey },
-    CursorLineNr = { fg = colors.subtle_yellow },
-    SignColumn = { bg = colors.bg },
+    -----------------------------------------------------------
+    -- 1. Editor UI Elements
+    -----------------------------------------------------------
+    -- 1.1 Core editor elements
+    Normal = { fg = flat_colors.fg, bg = flat_colors.bg },
+    NormalFloat = { fg = flat_colors.fg, bg = flat_colors.bg },
+    Cursor = { fg = flat_colors.bg, bg = flat_colors.fg },
+    CursorLine = { bg = flat_colors.bg_lighter },
+    LineNr = { fg = flat_colors.ui_grey },
+    CursorLineNr = { fg = flat_colors.subtle_yellow },
+    SignColumn = { bg = flat_colors.bg },
 
-    -- syntax highlighting
-    Comment = { fg = colors.comment_grey, italic = true },
-    String = { fg = colors.subtle_green },
-    Number = { fg = colors.fg_darker },
-    Function = { fg = colors.subtle_yellow, italic = true },
-    Keyword = { fg = colors.fg },
-    Constant = { fg = colors.fg_lighter },
-    Type = { fg = colors.fg },
-    Statement = { fg = colors.fg },
-    Special = { fg = colors.subtle_pink },
-    Identifier = { fg = colors.subtle_blue },
-    PreProc = { fg = colors.fg },
-    Delimiter = { fg = colors.subtle_green },
-    Operator = { fg = colors.fg_darker },
-    Variable = { fg = colors.subtle_blue },
+    -- 1.2 Window elements
+    WinSeparator = { fg = flat_colors.ui_grey },
+    FloatBorder = { fg = flat_colors.ui_grey },
 
-    -- ui elements
-    WinSeparator = { fg = colors.ui_grey },
-    FloatBorder = { fg = colors.ui_grey },
+    -- 1.3 Popup menus
+    Pmenu = { fg = flat_colors.fg, bg = flat_colors.bg_lighter },
+    PmenuSel = { fg = flat_colors.fg_lighter, bg = flat_colors.ui_grey },
+    PmenuSbar = { bg = flat_colors.bg_lighter },
+    PmenuThumb = { bg = flat_colors.ui_grey },
 
-    -- popup menus
-    Pmenu = { fg = colors.fg, bg = colors.bg_lighter },
-    PmenuSel = { fg = colors.fg_lighter, bg = colors.ui_grey },
-    PmenuSbar = { bg = colors.bg_lighter },
-    PmenuThumb = { bg = colors.ui_grey },
+    -- 1.4 Search highlighting
+    Search = { fg = flat_colors.fg_lighter, bg = flat_colors.ui_grey },
+    IncSearch = {
+      fg = flat_colors.fg_lighter,
+      bg = flat_colors.ui_grey_lighter,
+    },
+    CurSearch = {
+      fg = flat_colors.fg_lighter,
+      bg = flat_colors.ui_grey_lighter,
+    },
 
-    -- search
-    Search = { fg = colors.fg_lighter, bg = colors.ui_grey },
-    IncSearch = { fg = colors.fg_lighter, bg = colors.ui_grey_lighter },
-    CurSearch = { fg = colors.fg_lighter, bg = colors.ui_grey_lighter },
+    -- 1.5 Folds
+    Folded = { fg = flat_colors.comment_grey, bg = flat_colors.bg_lighter },
+    FoldColumn = { fg = flat_colors.ui_grey },
 
-    -- folds
-    Folded = { fg = colors.comment_grey, bg = colors.bg_lighter },
-    FoldColumn = { fg = colors.ui_grey },
+    -- 1.6 Messages and notifications
+    ErrorMsg = { fg = flat_colors.subtle_pink },
+    WarningMsg = { fg = flat_colors.subtle_yellow },
+    MoreMsg = { fg = flat_colors.subtle_green },
+    Question = { fg = flat_colors.subtle_blue },
 
-    -- messages
-    ErrorMsg = { fg = colors.subtle_pink },
-    WarningMsg = { fg = colors.subtle_yellow },
-    MoreMsg = { fg = colors.subtle_green },
-    Question = { fg = colors.subtle_blue },
+    -----------------------------------------------------------
+    -- 2. Syntax Highlighting Groups
+    -----------------------------------------------------------
+    -- 2.1 Basic syntax elements
+    Comment = { fg = flat_colors.comment_grey, italic = true },
+    String = { fg = flat_colors.subtle_green },
+    Number = { fg = flat_colors.fg_darker },
+    Function = { fg = flat_colors.subtle_yellow, italic = true },
+    Keyword = { fg = flat_colors.fg },
+    Constant = { fg = flat_colors.fg_lighter },
+    Type = { fg = flat_colors.subtle_purple },
+    Statement = { fg = flat_colors.fg },
+    Special = { fg = flat_colors.subtle_pink },
+    Identifier = { fg = flat_colors.subtle_blue },
+    PreProc = { fg = flat_colors.fg },
+    Delimiter = { fg = flat_colors.subtle_green },
+    Operator = { fg = flat_colors.fg_darker },
+    Variable = { fg = flat_colors.subtle_blue },
 
-    -- treesitter groups
-    ['@function'] = { fg = colors.subtle_yellow, italic = true },
-    ['@function.call'] = { fg = colors.subtle_yellow, italic = true },
-    ['@function.builtin'] = { fg = colors.subtle_yellow, italic = true },
-    ['@function.import'] = { fg = colors.subtle_yellow, italic = true },
-    ['@function.imported'] = { fg = colors.subtle_yellow, italic = true },
-    ['@function.macro'] = { fg = colors.subtle_yellow, italic = true },
-    ['@method'] = { fg = colors.subtle_yellow, italic = true },
-    ['@method.call'] = { fg = colors.subtle_yellow, italic = true },
+    -----------------------------------------------------------
+    -- 3. TreeSitter Syntax Groups
+    -----------------------------------------------------------
+    -- 3.1 Functions
+    ['@function'] = { fg = flat_colors.subtle_yellow, italic = true },
+    ['@function.call'] = { fg = flat_colors.subtle_yellow, italic = true },
+    ['@function.builtin'] = { fg = flat_colors.subtle_yellow, italic = true },
+    ['@function.import'] = { fg = flat_colors.subtle_yellow, italic = true },
+    ['@function.imported'] = { fg = flat_colors.subtle_yellow, italic = true },
+    ['@function.macro'] = { fg = flat_colors.subtle_yellow, italic = true },
+    ['@method'] = { fg = flat_colors.subtle_yellow, italic = true },
+    ['@method.call'] = { fg = flat_colors.subtle_yellow, italic = true },
 
-    ['@variable'] = { fg = colors.subtle_blue },
-    ['@variable.member'] = { fg = colors.subtle_blue },
-    ['@variable.builtin'] = { fg = colors.subtle_blue },
-    ['@variable.parameter'] = { fg = colors.subtle_blue },
-    ['@variable.other'] = { fg = colors.subtle_blue },
-    ['@variable.other.constant'] = { fg = colors.subtle_blue },
-    ['@constant'] = { fg = colors.subtle_blue },
-    ['@field'] = { fg = colors.subtle_blue },
-    ['@property'] = { fg = colors.subtle_blue },
-    ['@parameter'] = { fg = colors.subtle_blue },
+    -- 3.2 Variables
+    ['@variable'] = { fg = flat_colors.subtle_blue },
+    ['@variable.member'] = { fg = flat_colors.subtle_blue },
+    ['@variable.builtin'] = { fg = flat_colors.subtle_blue },
+    ['@variable.parameter'] = { fg = flat_colors.subtle_blue },
+    ['@variable.other'] = { fg = flat_colors.subtle_blue },
+    ['@variable.other.constant'] = { fg = flat_colors.subtle_blue },
+    ['@constant'] = { fg = flat_colors.subtle_blue },
+    ['@field'] = { fg = flat_colors.subtle_blue },
+    ['@property'] = { fg = flat_colors.subtle_blue },
+    ['@parameter'] = { fg = flat_colors.subtle_blue },
 
-    ['@type'] = { fg = colors.subtle_purple },
-    ['@type.builtin'] = { fg = colors.subtle_purple },
+    -- 3.3 Types
+    ['@type'] = { fg = flat_colors.subtle_purple },
+    ['@type.builtin'] = { fg = flat_colors.subtle_purple },
 
-    ['@module'] = { fg = colors.subtle_yellow, italic = true },
-    ['@module.name'] = { fg = colors.subtle_yellow, italic = true },
-    ['@module.import'] = { fg = colors.subtle_yellow, italic = true },
-    ['@definition.import'] = { fg = colors.subtle_yellow, italic = true },
+    -- 3.4 Modules
+    ['@module'] = { fg = flat_colors.subtle_yellow, italic = true },
+    ['@module.name'] = { fg = flat_colors.subtle_yellow, italic = true },
+    ['@module.import'] = { fg = flat_colors.subtle_yellow, italic = true },
+    ['@definition.import'] = { fg = flat_colors.subtle_yellow, italic = true },
 
-    -- misc
-    ['@keyword'] = { fg = colors.fg },
-    ['@string'] = { fg = colors.subtle_green },
-    ['@constructor'] = { fg = colors.fg },
-    ['@tag'] = { fg = colors.fg },
-    ['@tag.attribute'] = { fg = colors.subtle_yellow },
-    ['@tag.delimiter'] = { fg = colors.subtle_green },
-    ['@punctuation.delimiter'] = { fg = colors.subtle_green },
-    ['@punctuation.bracket'] = { fg = colors.subtle_green },
-    ['@punctuation.special'] = { fg = colors.subtle_pink },
-    ['@comment'] = { fg = colors.comment_grey, italic = true },
-    ['@operator'] = { fg = colors.fg_darker },
-    ['@definition'] = { fg = colors.subtle_yellow, italic = true },
+    -- 3.5 Other syntax elements
+    ['@keyword'] = { fg = flat_colors.fg },
+    ['@string'] = { fg = flat_colors.subtle_green },
+    ['@constructor'] = { fg = flat_colors.fg },
+    ['@tag'] = { fg = flat_colors.fg },
+    ['@tag.attribute'] = { fg = flat_colors.subtle_yellow },
+    ['@tag.delimiter'] = { fg = flat_colors.subtle_green },
+    ['@punctuation.delimiter'] = { fg = flat_colors.subtle_green },
+    ['@punctuation.bracket'] = { fg = flat_colors.subtle_green },
+    ['@punctuation.special'] = { fg = flat_colors.subtle_pink },
+    ['@comment'] = { fg = flat_colors.comment_grey, italic = true },
+    ['@operator'] = { fg = flat_colors.fg_darker },
+    ['@definition'] = { fg = flat_colors.subtle_yellow, italic = true },
 
-    -- lsp semantic token groups
-    ['@lsp.type.class'] = { fg = colors.fg },
-    ['@lsp.type.decorator'] = { fg = colors.subtle_pink },
-    ['@lsp.type.enum'] = { fg = colors.fg },
-    ['@lsp.type.function'] = { fg = colors.subtle_yellow, italic = true },
-    ['@lsp.type.interface'] = { fg = colors.fg },
-    ['@lsp.type.namespace'] = { fg = colors.fg },
-    ['@lsp.type.parameter'] = { fg = colors.fg_darker },
-    ['@lsp.type.property'] = { fg = colors.subtle_blue },
-    ['@lsp.type.variable'] = { fg = colors.subtle_blue },
-    ['@lsp.mod.callable'] = { fg = colors.subtle_yellow, italic = true },
+    -----------------------------------------------------------
+    -- 4. LSP Semantic Tokens
+    -----------------------------------------------------------
+    ['@lsp.type.class'] = { fg = flat_colors.fg },
+    ['@lsp.type.decorator'] = { fg = flat_colors.subtle_pink },
+    ['@lsp.type.enum'] = { fg = flat_colors.fg },
+    ['@lsp.type.function'] = { fg = flat_colors.subtle_yellow, italic = true },
+    ['@lsp.type.interface'] = { fg = flat_colors.fg },
+    ['@lsp.type.namespace'] = { fg = flat_colors.fg },
+    ['@lsp.type.parameter'] = { fg = flat_colors.fg_darker },
+    ['@lsp.type.property'] = { fg = flat_colors.subtle_blue },
+    ['@lsp.type.variable'] = { fg = flat_colors.subtle_blue },
+    ['@lsp.mod.callable'] = { fg = flat_colors.subtle_yellow, italic = true },
 
-    -- diagnostics
-    DiagnosticError = { fg = colors.subtle_pink },
-    DiagnosticWarn = { fg = colors.subtle_yellow },
-    DiagnosticInfo = { fg = colors.subtle_blue },
-    DiagnosticHint = { fg = colors.subtle_green },
+    -----------------------------------------------------------
+    -- 5. Diagnostics
+    -----------------------------------------------------------
+    DiagnosticError = { fg = flat_colors.subtle_pink },
+    DiagnosticWarn = { fg = flat_colors.subtle_yellow },
+    DiagnosticInfo = { fg = flat_colors.subtle_blue },
+    DiagnosticHint = { fg = flat_colors.subtle_green },
 
-    -- nvim-tree highlights
-    NvimTreeFolderName = { fg = colors.fg_darker },
-    NvimTreeOpenedFolderName = { fg = colors.fg_darker },
-    NvimTreeEmptyFolderName = { fg = colors.fg_darker },
-    NvimTreeFolderIcon = { fg = colors.fg_darker },
+    -----------------------------------------------------------
+    -- 6. Plugin-specific highlights
+    -----------------------------------------------------------
+    -- 6.1 NvimTree
+    NvimTreeFolderName = { fg = flat_colors.fg_darker },
+    NvimTreeOpenedFolderName = { fg = flat_colors.fg_darker },
+    NvimTreeEmptyFolderName = { fg = flat_colors.fg_darker },
+    NvimTreeFolderIcon = { fg = flat_colors.fg_darker },
   }
 end
