@@ -4,8 +4,6 @@ local M = {}
 
 M.path = config_path .. '/dynamic-theme.json'
 
---- indicates whether the json file required for this plugin to work, has
---- been written to the file system already or not
 ---@return boolean
 M.exists = function()
   local f = io.open(M.path, 'r')
@@ -35,16 +33,15 @@ end
 M.write = function(palette)
   local status, encoded = pcall(vim.json.encode, palette)
   if status then
-    local f = io.open(M.path, 'w')
-    if f then
-      f:write(encoded)
-      f:close()
-      vim.notify(
-        'Created default theme file at ' .. M.path,
-        vim.log.levels.INFO
-      )
+    local file = io.open(M.path, 'w')
+    if file then
+      file:write(encoded)
+      file:close()
+      vim.notify('Saved dynamic theme at ' .. M.path, vim.log.levels.INFO)
     end
   end
 end
+
+M.save = function() end
 
 return M

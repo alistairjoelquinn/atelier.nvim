@@ -4,7 +4,7 @@ local file = require 'dynamic-theme.file'
 
 local M = {}
 
-M.initialise_theme = function()
+M.initialise_palette = function()
   if !file.exists() then
     file.write(palette)
   end
