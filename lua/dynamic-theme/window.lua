@@ -1,5 +1,4 @@
 local file = require 'dynamic-theme.file'
-local theme = require 'dynamic-theme.theme'
 
 local M = {}
 
@@ -13,67 +12,6 @@ local window_data = {
   buf = -1,
 }
 
-local input_fields = {}
-
-local function extract_colors()
-  local current_palette = file.read()
-  local result = {}
-
-  -- Group colors by category
-  local categories = {
-    ['Background Colors'] = { 'main_background', 'lighter_elements' },
-    ['Foreground Colors'] = { 'main_text', 'secondary_text', 'emphasized_text' },
-    ['Grey Colors'] = {
-      'comments',
-      'borders_linenumbers',
-      'highlighted_elements',
-    },
-    ['Syntax/Semantic Colors'] = {
-      'functions_warnings',
-      'errors_special',
-      'strings_success',
-      'variables_identifiers',
-      'types_classes',
-    },
-  }
-
-  -- Create ordered list of colors with display names
-  for category, color_keys in pairs(categories) do
-    for _, key in ipairs(color_keys) do
-      local hex = current_palette[key]
-      if hex then
-        table.insert(result, {
-          category = category,
-          name = key,
-          hex = hex,
-          path = key,
-        })
-      end
-    end
-  end
-
-  return result
-end
-
--- Apply updated colors to palette
-local function update_palette()
-  local current_palette = file.read()
-
-  for _, field in ipairs(input_fields) do
-    current_palette[field.path] = field.hex
-  end
-
-  file.write(current_palette)
-
-  -- Apply theme updates by using the update function
-  theme.update()
-end
-
--- Validate hex color
-local function validate_hex(hex)
-  return hex:match '^#%x%x%x%x%x%x$' ~= nil
-end
-
 -- Create keymap for navigation and saving
 local create_keymaps = function()
   vim.api.nvim_buf_set_keymap(
@@ -83,47 +21,6 @@ local create_keymaps = function()
     ':DynamicThemeClose<CR>',
     { noremap = true, silent = true }
   )
-
-  vim.api.nvim_buf_set_keymap(
-    window_data.buf,
-    'n',
-    's',
-    '<cmd>lua require("dynamic-theme.window").save_changes()<CR>',
-    { noremap = true, silent = true, desc = 'Save changes' }
-  )
-
-  -- Add field navigation keymaps
-  vim.api.nvim_buf_set_keymap(
-    window_data.buf,
-    'n',
-    '<CR>',
-    '<cmd>lua require("dynamic-theme.window").edit_field()<CR>',
-    { noremap = true, silent = true }
-  )
-
-  -- Set buffer local options
-  vim.api.nvim_buf_set_option(window_data.buf, 'modifiable', true)
-  vim.api.nvim_buf_set_option(window_data.buf, 'buftype', 'nofile')
-end
-
--- Edit the field at cursor
-M.edit_field = function()
-  local line = vim.api.nvim_win_get_cursor(window_data.win)[1]
-
-  -- Find the field at this line
-  local field = nil
-  for _, f in ipairs(input_fields) do
-    if f.line == line then
-      field = f
-      break
-    end
-  end
-
-  if field then
-    -- Enter insert mode at the hex value position
-    vim.api.nvim_win_set_cursor(window_data.win, { line, field.value_start })
-    vim.cmd 'startinsert'
-  end
 end
 
 -- Populate buffer with color inputs
@@ -136,54 +33,16 @@ local function populate_buffer()
     '',
   }
 
-  local colors = extract_colors()
-  input_fields = {}
+  local current_palette = file.read()
 
-  local current_category = ''
-
-  for i, color in ipairs(colors) do
-    -- Add category header if new
-    if color.category ~= current_category then
-      if current_category ~= '' then
-        table.insert(lines, '')
-      end
-      table.insert(lines, color.category:upper())
-      table.insert(lines, string.rep('-', #color.category))
-      current_category = color.category
-    end
-
-    -- Format display name
-    local display_name = color.name:gsub('_', ' ')
-
-    -- Add input line
-    local input_line = string.format('  %s: %s', display_name, color.hex)
+  for hex, name in ipairs(current_palette) do
+    table.insert(lines, name:upper())
+    local display_name = name:gsub('_', ' ')
+    local input_line = string.format('  %s: %s', display_name, hex)
     table.insert(lines, input_line)
-
-    -- Save field data
-    table.insert(input_fields, {
-      line = #lines,
-      value_start = 4 + #display_name + 2,
-      hex = color.hex,
-      path = color.path,
-    })
   end
-
-  table.insert(lines, '')
-  table.insert(lines, "Press 's' to save changes, 'q' to quit without saving")
 
   vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
-
-  -- Highlight hex colors
-  for _, field in ipairs(input_fields) do
-    vim.api.nvim_buf_add_highlight(
-      window_data.buf,
-      -1,
-      'Special',
-      field.line - 1,
-      field.value_start - 1,
-      field.value_start + 6
-    )
-  end
 end
 
 local create_window = function()
@@ -209,34 +68,12 @@ local create_window = function()
   end
 
   window_data.win = vim.api.nvim_open_win(window_data.buf, true, config)
-
-  -- Set window-local options
-  vim.api.nvim_win_set_option(window_data.win, 'wrap', false)
-  vim.api.nvim_win_set_option(window_data.win, 'cursorline', true)
-end
-
--- Read current values from buffer
-local function read_current_values()
-  for _, field in ipairs(input_fields) do
-    local line = vim.api.nvim_buf_get_lines(
-      window_data.buf,
-      field.line - 1,
-      field.line,
-      false
-    )[1]
-    local value_part = line:sub(field.value_start)
-    local hex_value = value_part:match '#%x%x%x%x%x%x'
-
-    if hex_value and validate_hex(hex_value) then
-      field.hex = hex_value
-    end
-  end
 end
 
 -- Save changes from input fields
 M.save_changes = function()
-  read_current_values()
-  update_palette()
+  -- TODO: read out the updated values in the buffer before saving and then calling update palette
+  -- which will re apply the updated values as a new theme
   vim.notify('Theme colors saved successfully!', vim.log.levels.INFO)
 end
 

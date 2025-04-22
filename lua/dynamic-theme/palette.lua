@@ -27,13 +27,13 @@ return {
 
   -- Grey colors
   comments = '#5a5a5a',
-  borders_linenumbers = '#464646',
+  borders_and_linenumbers = '#464646',
   highlighted_elements = '#565656',
 
   -- Semantic/Syntax Colors
-  functions_warnings = '#afa35b',
-  errors_special = '#b77e89',
-  strings_success = '#7a8574',
-  variables_identifiers = '#7B8FA6',
-  types_classes = '#8b7b8f',
+  functions_and_warnings = '#afa35b',
+  errors_and_special_characters = '#b77e89',
+  strings_and_success = '#7a8574',
+  variables_and_identifiers = '#7B8FA6',
+  types_and_classes = '#8b7b8f',
 }

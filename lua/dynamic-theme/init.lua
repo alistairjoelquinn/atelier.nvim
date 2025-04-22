@@ -25,7 +25,6 @@ M.setup = function(opts)
     palette[k] = v
   end
 
-  ---@type table<string, table>
   local highlight_groups = theme.create_highlight_groups(palette)
 
   for group, settings in pairs(highlight_groups) do
