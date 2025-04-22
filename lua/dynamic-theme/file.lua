@@ -33,6 +33,7 @@ end
 
 ---@param palette DynamicThemePalette
 M.write = function(palette)
+  -- TODO: indent doesn't seem to be working
   local status, encoded = pcall(vim.json.encode, palette, { indent = true })
   if status then
     local file = io.open(M.path, 'w')

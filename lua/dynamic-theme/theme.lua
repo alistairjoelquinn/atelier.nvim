@@ -22,28 +22,28 @@ end
 
 ---@return table<string, table> Highlight groups with their settings
 M.create_highlight_groups = function(colors)
-  -- Flatten the nested structure for backward compatibility or simplicity
+  -- Use top-level flat structure directly
   local flat_colors = {
     -- Background colors
-    bg = colors.ui.bg.main_background,
-    bg_lighter = colors.ui.bg.lighter_elements,
+    bg = colors.main_background,
+    bg_lighter = colors.lighter_elements,
 
     -- Foreground colors
-    fg = colors.ui.fg.main_text,
-    fg_darker = colors.ui.fg.secondary_text,
-    fg_lighter = colors.ui.fg.emphasized_text,
+    fg = colors.main_text,
+    fg_darker = colors.secondary_text,
+    fg_lighter = colors.emphasized_text,
 
     -- Grey variations
-    comment_grey = colors.ui.grey.comments,
-    ui_grey = colors.ui.grey.borders_linenumbers,
-    ui_grey_lighter = colors.ui.grey.highlighted_elements,
+    comment_grey = colors.comments,
+    ui_grey = colors.borders_linenumbers,
+    ui_grey_lighter = colors.highlighted_elements,
 
     -- Accent colors
-    subtle_yellow = colors.syntax.functions_warnings,
-    subtle_pink = colors.syntax.errors_special,
-    subtle_green = colors.syntax.strings_success,
-    subtle_blue = colors.syntax.variables_identifiers,
-    subtle_purple = colors.syntax.types_classes,
+    subtle_yellow = colors.functions_warnings,
+    subtle_pink = colors.errors_special,
+    subtle_green = colors.strings_success,
+    subtle_blue = colors.variables_identifiers,
+    subtle_purple = colors.types_classes,
   }
 
   -----------------------------------------------------------

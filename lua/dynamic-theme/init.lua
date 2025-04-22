@@ -35,4 +35,17 @@ M.setup = function(opts)
   command.create()
 end
 
+-- Update the theme with current palette values
+M.update = function()
+  local theme = require 'dynamic-theme.theme'
+  local file = require 'dynamic-theme.file'
+
+  local palette = file.read()
+  local highlight_groups = theme.create_highlight_groups(palette)
+
+  for group, settings in pairs(highlight_groups) do
+    vim.api.nvim_set_hl(0, group, settings)
+  end
+end
+
 return M
