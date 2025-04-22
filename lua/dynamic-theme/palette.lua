@@ -1,17 +1,17 @@
 ---@class DynamicThemePalette
 ---@field main_background string Main background color
----@field lighter_elements string Lighter background elements color
+---@field lighter_background string Lighter background elements color
 ---@field main_text string Main text color
 ---@field secondary_text string Secondary text color
 ---@field emphasized_text string Emphasized text color
 ---@field comments string Comments color
----@field borders_linenumbers string Borders and line numbers color
+---@field borders_and_linenumbers string Borders and line numbers color
 ---@field highlighted_elements string Highlighted elements color
----@field functions_warnings string Functions and warnings color
----@field errors_special string Errors and special elements color
----@field strings_success string Strings and success indicators color
----@field variables_identifiers string Variables and identifiers color
----@field types_classes string Types and classes color
+---@field functions_and_warnings string Functions and warnings color
+---@field errors_and_special_characters string Errors and special elements color
+---@field strings_and_success string Strings and success indicators color
+---@field variables_and_identifiers string Variables and identifiers color
+---@field types_and_classes string Types and classes color
 
 -- Color Palette Definition
 ---@return DynamicThemePalette
