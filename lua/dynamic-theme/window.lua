@@ -12,6 +12,15 @@ local window_data = {
   buf = -1,
 }
 
+local print_table = function(tbl, indent)
+  indent = indent or 0
+  local indentStr = string.rep('  ', indent)
+  for k, v in pairs(tbl) do
+    local keyString = tostring(k)
+    print(indentStr .. keyString .. ' = ' .. tostring(v))
+  end
+end
+
 -- Create keymap for navigation and saving
 local create_keymaps = function()
   vim.api.nvim_buf_set_keymap(
@@ -23,22 +32,22 @@ local create_keymaps = function()
   )
 end
 
--- Populate buffer with color inputs
 local function populate_buffer()
   local lines = {
     'Dynamic Theme Color Editor',
-    '========================',
+    '--------------------------',
     '',
     "Edit hex color values below. Press 's' to save changes, 'q' to quit.",
     '',
   }
 
   local current_palette = file.read()
+  print_table(current_palette)
 
   for hex, name in ipairs(current_palette) do
-    table.insert(lines, name:upper())
     local display_name = name:gsub('_', ' ')
     local input_line = string.format('  %s: %s', display_name, hex)
+    print(input_line)
     table.insert(lines, input_line)
   end
 
@@ -67,6 +76,8 @@ local create_window = function()
     window_data.buf = vim.api.nvim_create_buf(false, true)
   end
 
+  populate_buffer()
+
   window_data.win = vim.api.nvim_open_win(window_data.buf, true, config)
 end
 
@@ -81,7 +92,6 @@ M.open_window = function()
   if not vim.api.nvim_win_is_valid(window_data.win) then
     create_window()
     create_keymaps()
-    populate_buffer()
   end
 end
 
