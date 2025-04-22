@@ -12,15 +12,6 @@ local window_data = {
   buf = -1,
 }
 
-local print_table = function(tbl, indent)
-  indent = indent or 0
-  local indentStr = string.rep('  ', indent)
-  for k, v in pairs(tbl) do
-    local keyString = tostring(k)
-    print(indentStr .. keyString .. ' = ' .. tostring(v))
-  end
-end
-
 -- Create keymap for navigation and saving
 local create_keymaps = function()
   vim.api.nvim_buf_set_keymap(
@@ -42,12 +33,10 @@ local function populate_buffer()
   }
 
   local current_palette = file.read()
-  print_table(current_palette)
 
-  for hex, name in ipairs(current_palette) do
+  for name, hex in pairs(current_palette) do
     local display_name = name:gsub('_', ' ')
     local input_line = string.format('  %s: %s', display_name, hex)
-    print(input_line)
     table.insert(lines, input_line)
   end
 
