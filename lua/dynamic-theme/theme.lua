@@ -20,9 +20,18 @@ M.reset = function()
   file.write(palette)
 end
 
+-- Update the theme with updated current palette values
+M.update = function()
+  local loaded_palette = M.initialise_palette()
+  local highlight_groups = M.create_highlight_groups(loaded_palette)
+
+  for group, settings in pairs(highlight_groups) do
+    vim.api.nvim_set_hl(0, group, settings)
+  end
+end
+
 ---@return table<string, table> Highlight groups with their settings
 M.create_highlight_groups = function(colors)
-  -- Use top-level flat structure directly
   local flat_colors = {
     -- Background colors
     bg = colors.main_background,
@@ -46,15 +55,8 @@ M.create_highlight_groups = function(colors)
     subtle_purple = colors.types_classes,
   }
 
-  -----------------------------------------------------------
-  -- Highlight Group Definitions
-  -----------------------------------------------------------
-  -- More logically structured highlights based on functionality
   return {
-    -----------------------------------------------------------
-    -- 1. Editor UI Elements
-    -----------------------------------------------------------
-    -- 1.1 Core editor elements
+    -- Core editor elements
     Normal = { fg = flat_colors.fg, bg = flat_colors.bg },
     NormalFloat = { fg = flat_colors.fg, bg = flat_colors.bg },
     Cursor = { fg = flat_colors.bg, bg = flat_colors.fg },
@@ -63,17 +65,17 @@ M.create_highlight_groups = function(colors)
     CursorLineNr = { fg = flat_colors.subtle_yellow },
     SignColumn = { bg = flat_colors.bg },
 
-    -- 1.2 Window elements
+    -- Window elements
     WinSeparator = { fg = flat_colors.ui_grey },
     FloatBorder = { fg = flat_colors.ui_grey },
 
-    -- 1.3 Popup menus
+    -- Popup menus
     Pmenu = { fg = flat_colors.fg, bg = flat_colors.bg_lighter },
     PmenuSel = { fg = flat_colors.fg_lighter, bg = flat_colors.ui_grey },
     PmenuSbar = { bg = flat_colors.bg_lighter },
     PmenuThumb = { bg = flat_colors.ui_grey },
 
-    -- 1.4 Search highlighting
+    -- Search highlighting
     Search = { fg = flat_colors.fg_lighter, bg = flat_colors.ui_grey },
     IncSearch = {
       fg = flat_colors.fg_lighter,
@@ -84,20 +86,17 @@ M.create_highlight_groups = function(colors)
       bg = flat_colors.ui_grey_lighter,
     },
 
-    -- 1.5 Folds
+    -- Folds
     Folded = { fg = flat_colors.comment_grey, bg = flat_colors.bg_lighter },
     FoldColumn = { fg = flat_colors.ui_grey },
 
-    -- 1.6 Messages and notifications
+    -- Messages and notifications
     ErrorMsg = { fg = flat_colors.subtle_pink },
     WarningMsg = { fg = flat_colors.subtle_yellow },
     MoreMsg = { fg = flat_colors.subtle_green },
     Question = { fg = flat_colors.subtle_blue },
 
-    -----------------------------------------------------------
-    -- 2. Syntax Highlighting Groups
-    -----------------------------------------------------------
-    -- 2.1 Basic syntax elements
+    -- Basic syntax elements
     Comment = { fg = flat_colors.comment_grey, italic = true },
     String = { fg = flat_colors.subtle_green },
     Number = { fg = flat_colors.fg_darker },
@@ -113,10 +112,8 @@ M.create_highlight_groups = function(colors)
     Operator = { fg = flat_colors.fg_darker },
     Variable = { fg = flat_colors.subtle_blue },
 
-    -----------------------------------------------------------
-    -- 3. TreeSitter Syntax Groups
-    -----------------------------------------------------------
-    -- 3.1 Functions
+    -- TreeSitter Syntax Groups:
+    -- Functions
     ['@function'] = { fg = flat_colors.subtle_yellow, italic = true },
     ['@function.call'] = { fg = flat_colors.subtle_yellow, italic = true },
     ['@function.builtin'] = { fg = flat_colors.subtle_yellow, italic = true },
@@ -126,7 +123,7 @@ M.create_highlight_groups = function(colors)
     ['@method'] = { fg = flat_colors.subtle_yellow, italic = true },
     ['@method.call'] = { fg = flat_colors.subtle_yellow, italic = true },
 
-    -- 3.2 Variables
+    -- Variables
     ['@variable'] = { fg = flat_colors.subtle_blue },
     ['@variable.member'] = { fg = flat_colors.subtle_blue },
     ['@variable.builtin'] = { fg = flat_colors.subtle_blue },
@@ -138,17 +135,17 @@ M.create_highlight_groups = function(colors)
     ['@property'] = { fg = flat_colors.subtle_blue },
     ['@parameter'] = { fg = flat_colors.subtle_blue },
 
-    -- 3.3 Types
+    -- Types
     ['@type'] = { fg = flat_colors.subtle_purple },
     ['@type.builtin'] = { fg = flat_colors.subtle_purple },
 
-    -- 3.4 Modules
+    -- Modules
     ['@module'] = { fg = flat_colors.subtle_yellow, italic = true },
     ['@module.name'] = { fg = flat_colors.subtle_yellow, italic = true },
     ['@module.import'] = { fg = flat_colors.subtle_yellow, italic = true },
     ['@definition.import'] = { fg = flat_colors.subtle_yellow, italic = true },
 
-    -- 3.5 Other syntax elements
+    -- Other syntax elements
     ['@keyword'] = { fg = flat_colors.fg },
     ['@string'] = { fg = flat_colors.subtle_green },
     ['@constructor'] = { fg = flat_colors.fg },
@@ -162,9 +159,7 @@ M.create_highlight_groups = function(colors)
     ['@operator'] = { fg = flat_colors.fg_darker },
     ['@definition'] = { fg = flat_colors.subtle_yellow, italic = true },
 
-    -----------------------------------------------------------
-    -- 4. LSP Semantic Tokens
-    -----------------------------------------------------------
+    -- LSP Semantic Tokens
     ['@lsp.type.class'] = { fg = flat_colors.fg },
     ['@lsp.type.decorator'] = { fg = flat_colors.subtle_pink },
     ['@lsp.type.enum'] = { fg = flat_colors.fg },
@@ -176,18 +171,13 @@ M.create_highlight_groups = function(colors)
     ['@lsp.type.variable'] = { fg = flat_colors.subtle_blue },
     ['@lsp.mod.callable'] = { fg = flat_colors.subtle_yellow, italic = true },
 
-    -----------------------------------------------------------
-    -- 5. Diagnostics
-    -----------------------------------------------------------
+    -- Diagnostics
     DiagnosticError = { fg = flat_colors.subtle_pink },
     DiagnosticWarn = { fg = flat_colors.subtle_yellow },
     DiagnosticInfo = { fg = flat_colors.subtle_blue },
     DiagnosticHint = { fg = flat_colors.subtle_green },
 
-    -----------------------------------------------------------
-    -- 6. Plugin-specific highlights
-    -----------------------------------------------------------
-    -- 6.1 NvimTree
+    -- NvimTree
     NvimTreeFolderName = { fg = flat_colors.fg_darker },
     NvimTreeOpenedFolderName = { fg = flat_colors.fg_darker },
     NvimTreeEmptyFolderName = { fg = flat_colors.fg_darker },

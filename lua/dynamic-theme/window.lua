@@ -1,5 +1,7 @@
-local M = {}
 local file = require 'dynamic-theme.file'
+local theme = require 'dynamic-theme.theme'
+
+local M = {}
 
 ---@class WindowData
 ---@field win number
@@ -58,14 +60,13 @@ local function update_palette()
   local current_palette = file.read()
 
   for _, field in ipairs(input_fields) do
-    -- With flat structure, we can directly set values
     current_palette[field.path] = field.hex
   end
 
   file.write(current_palette)
 
   -- Apply theme updates by using the update function
-  require('dynamic-theme').update()
+  theme.update()
 end
 
 -- Validate hex color
