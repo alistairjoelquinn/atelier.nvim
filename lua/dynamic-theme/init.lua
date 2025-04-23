@@ -13,7 +13,6 @@ local M = {}
 M.setup = function(opts)
   opts = opts or {}
 
-  -- import modules at call time to prevent circular dependencies
   local theme = require 'dynamic-theme.theme'
   local command = require 'dynamic-theme.command'
 
