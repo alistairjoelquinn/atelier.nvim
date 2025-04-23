@@ -44,6 +44,9 @@ M.write = function(palette)
   end
 end
 
-M.save = function() end
+M.save = function()
+  local window = require 'dynamic-theme.window'
+  window.save_changes()
+end
 
 return M

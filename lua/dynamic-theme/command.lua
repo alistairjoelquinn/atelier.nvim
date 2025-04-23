@@ -14,7 +14,6 @@ M.create = function()
   end, {})
 
   vim.api.nvim_create_user_command('DynamicThemeSave', function()
-    -- TODO: this function doesnt do anything yet
     file.save()
   end, {})
 
