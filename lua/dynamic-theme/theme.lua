@@ -18,6 +18,7 @@ end
 
 M.reset = function()
   file.write(palette)
+  M.update()
 end
 
 -- Update the theme with updated current palette values
