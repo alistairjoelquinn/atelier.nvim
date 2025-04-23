@@ -98,9 +98,28 @@ end
 
 -- Save changes from input fields
 M.save_changes = function()
-  -- TODO: read out the updated values in the buffer before saving and then calling update palette
-  -- which will re apply the updated values as a new theme
-  vim.notify('Theme colors saved successfully!', vim.log.levels.INFO)
+  local lines = vim.api.nvim_buf_get_lines(window_data.buf, 0, -1, false)
+  local updated_palette = {}
+
+  for _, line in ipairs(lines) do
+    -- Look for lines that have a color hex code
+    local name, hex = line:match '  ([%w%s]+):%s+(%#%x+)'
+    if name and hex then
+      -- Convert display name back to palette key
+      local key = name:gsub(' ', '_')
+      updated_palette[key] = hex
+    end
+  end
+
+  -- Only proceed if we have values to save
+  if next(updated_palette) then
+    local theme = require 'dynamic-theme.theme'
+    file.write(updated_palette)
+    theme.update()
+    vim.notify('Theme colors saved successfully!', vim.log.levels.INFO)
+  else
+    vim.notify('No theme colors found to save', vim.log.levels.WARN)
+  end
 end
 
 M.open_window = function()
