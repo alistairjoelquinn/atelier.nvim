@@ -23,6 +23,8 @@ local create_keymaps = function()
   )
 end
 
+local max_string_length = 35
+
 local function populate_buffer()
   local lines = {
     'Dynamic Theme Color Editor',
@@ -36,7 +38,9 @@ local function populate_buffer()
 
   for name, hex in pairs(current_palette) do
     local display_name = name:gsub('_', ' ')
-    local input_line = string.format('  %s: %s', display_name, hex)
+    local padding_spaces = string.rep(' ', max_string_length - #display_name)
+    local input_line =
+      string.format('  %s:%s%s', display_name, padding_spaces, hex)
     table.insert(lines, input_line)
   end
 
