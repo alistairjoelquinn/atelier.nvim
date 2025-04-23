@@ -116,9 +116,6 @@ M.save_changes = function()
     local theme = require 'dynamic-theme.theme'
     file.write(updated_palette)
     theme.update()
-    vim.notify('Theme colors saved successfully!', vim.log.levels.INFO)
-  else
-    vim.notify('No theme colors found to save', vim.log.levels.WARN)
   end
 end
 

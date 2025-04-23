@@ -39,7 +39,6 @@ M.write = function(palette)
     if file then
       file:write(encoded)
       file:close()
-      vim.notify('Saved dynamic theme at ' .. M.path, vim.log.levels.INFO)
     end
   end
 end
