@@ -5,11 +5,13 @@ local M = {}
 ---@class WindowData
 ---@field win number
 ---@field buf number
+---@field color_positions table<number, {start: number, end_: number, name: string}>
 
 ---@type WindowData
 local window_data = {
   win = -1,
   buf = -1,
+  color_positions = {},
 }
 
 -- Create keymap for navigation and saving
@@ -19,6 +21,14 @@ local create_keymaps = function()
     'n',
     'q',
     ':DynamicThemeClose<CR>',
+    { noremap = true, silent = true }
+  )
+
+  vim.api.nvim_buf_set_keymap(
+    window_data.buf,
+    'n',
+    's',
+    ':DynamicThemeSave<CR>',
     { noremap = true, silent = true }
   )
 end
@@ -35,6 +45,7 @@ local function populate_buffer()
   }
 
   local current_palette = file.read()
+  window_data.color_positions = {}
 
   for name, hex in pairs(current_palette) do
     local display_name = name:gsub('_', ' ')
@@ -43,6 +54,15 @@ local function populate_buffer()
     local input_line =
       string.format('  %s:%s%s', display_name, padding_spaces, hex)
     table.insert(lines, input_line)
+
+    -- track position of hex code for this line
+    local start_pos = 2 + #display_name + 1 + #padding_spaces
+    local end_pos = start_pos + #hex - 1
+    window_data.color_positions[#lines] = {
+      start = start_pos,
+      end_ = end_pos,
+      name = name,
+    }
 
     -- we add an empty line after each item to create space
     table.insert(lines, '')
