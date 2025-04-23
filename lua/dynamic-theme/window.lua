@@ -38,10 +38,14 @@ local function populate_buffer()
 
   for name, hex in pairs(current_palette) do
     local display_name = name:gsub('_', ' ')
+    -- adding variable space between each key and value creates a visual table
     local padding_spaces = string.rep(' ', max_string_length - #display_name)
     local input_line =
       string.format('  %s:%s%s', display_name, padding_spaces, hex)
     table.insert(lines, input_line)
+
+    -- we add an empty line after each item to create space
+    table.insert(lines, '')
   end
 
   vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
@@ -67,6 +71,7 @@ local create_window = function()
   -- always create a new window as the old window can't be reused
   if not vim.api.nvim_buf_is_valid(window_data.buf) then
     window_data.buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_buf_set_option(window_data.buf, 'filetype', 'lua')
   end
 
   populate_buffer()
