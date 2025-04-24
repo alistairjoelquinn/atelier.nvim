@@ -129,7 +129,7 @@ M.open_window = function()
     for i, line in ipairs(lines) do
       local hex_start = line:find '%#%x+'
       if hex_start then
-        vim.api.nvim_win_set_cursor(window_data.win, { i, hex_start - 1 })
+        vim.api.nvim_win_set_cursor(window_data.win, { i, hex_start })
         break
       end
     end

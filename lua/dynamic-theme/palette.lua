@@ -1,7 +1,7 @@
 ---@class DynamicThemePalette
 ---@field main_background string Main background color
----@field lighter_background string Lighter background elements color
----@field main_text string Main text color
+---@field current_line_highlight string Current line highlight color
+---@field keywords string Keyword color
 ---@field secondary_text string Secondary text color
 ---@field emphasized_text string Emphasized text color
 ---@field comments string Comments color
@@ -18,10 +18,10 @@
 return {
   -- Background colors
   main_background = '#1b1b20',
-  lighter_background = '#252830',
+  current_line_highlight = '#252830',
 
   -- Foreground colors
-  main_text = '#999999',
+  keywords = '#999999',
   secondary_text = '#777777',
   emphasized_text = '#aaaaaa',
 

@@ -35,10 +35,10 @@ end
 M.create_highlight_groups = function(colors)
   return {
     -- Core editor elements
-    Normal = { fg = colors.main_text, bg = colors.main_background },
-    NormalFloat = { fg = colors.main_text, bg = colors.main_background },
-    Cursor = { fg = colors.main_background, bg = colors.main_text },
-    CursorLine = { bg = colors.lighter_background },
+    Normal = { fg = colors.keywords, bg = colors.main_background },
+    NormalFloat = { fg = colors.keywords, bg = colors.main_background },
+    Cursor = { fg = colors.main_background, bg = colors.keywords },
+    CursorLine = { bg = colors.current_line_highlight },
     LineNr = { fg = colors.borders_and_linenumbers },
     CursorLineNr = { fg = colors.functions_and_warnings },
     SignColumn = { bg = colors.main_background },
@@ -48,12 +48,12 @@ M.create_highlight_groups = function(colors)
     FloatBorder = { fg = colors.borders_and_linenumbers },
 
     -- Popup menus
-    Pmenu = { fg = colors.main_text, bg = colors.lighter_background },
+    Pmenu = { fg = colors.keywords, bg = colors.current_line_highlight },
     PmenuSel = {
       fg = colors.emphasized_text,
       bg = colors.borders_and_linenumbers,
     },
-    PmenuSbar = { bg = colors.lighter_background },
+    PmenuSbar = { bg = colors.current_line_highlight },
     PmenuThumb = { bg = colors.borders_and_linenumbers },
 
     -- Search highlighting
@@ -71,7 +71,7 @@ M.create_highlight_groups = function(colors)
     },
 
     -- Folds
-    Folded = { fg = colors.comments, bg = colors.lighter_background },
+    Folded = { fg = colors.comments, bg = colors.current_line_highlight },
     FoldColumn = { fg = colors.borders_and_linenumbers },
 
     -- Messages and notifications
@@ -85,13 +85,13 @@ M.create_highlight_groups = function(colors)
     String = { fg = colors.strings_and_success },
     Number = { fg = colors.secondary_text },
     Function = { fg = colors.functions_and_warnings, italic = true },
-    Keyword = { fg = colors.main_text },
+    Keyword = { fg = colors.keywords },
     Constant = { fg = colors.emphasized_text },
     Type = { fg = colors.types_and_classes },
-    Statement = { fg = colors.main_text },
+    Statement = { fg = colors.keywords },
     Special = { fg = colors.errors_and_special_characters },
     Identifier = { fg = colors.variables_and_identifiers },
-    PreProc = { fg = colors.main_text },
+    PreProc = { fg = colors.keywords },
     Delimiter = { fg = colors.strings_and_success },
     Operator = { fg = colors.secondary_text },
     Variable = { fg = colors.variables_and_identifiers },
@@ -139,10 +139,10 @@ M.create_highlight_groups = function(colors)
     },
 
     -- Other syntax elements
-    ['@keyword'] = { fg = colors.main_text },
+    ['@keyword'] = { fg = colors.keywords },
     ['@string'] = { fg = colors.strings_and_success },
-    ['@constructor'] = { fg = colors.main_text },
-    ['@tag'] = { fg = colors.main_text },
+    ['@constructor'] = { fg = colors.keywords },
+    ['@tag'] = { fg = colors.keywords },
     ['@tag.attribute'] = { fg = colors.functions_and_warnings },
     ['@tag.delimiter'] = { fg = colors.strings_and_success },
     ['@punctuation.delimiter'] = { fg = colors.strings_and_success },
@@ -153,15 +153,15 @@ M.create_highlight_groups = function(colors)
     ['@definition'] = { fg = colors.functions_and_warnings, italic = true },
 
     -- LSP Semantic Tokens
-    ['@lsp.type.class'] = { fg = colors.main_text },
+    ['@lsp.type.class'] = { fg = colors.keywords },
     ['@lsp.type.decorator'] = { fg = colors.errors_and_special_characters },
-    ['@lsp.type.enum'] = { fg = colors.main_text },
+    ['@lsp.type.enum'] = { fg = colors.keywords },
     ['@lsp.type.function'] = {
       fg = colors.functions_and_warnings,
       italic = true,
     },
-    ['@lsp.type.interface'] = { fg = colors.main_text },
-    ['@lsp.type.namespace'] = { fg = colors.main_text },
+    ['@lsp.type.interface'] = { fg = colors.keywords },
+    ['@lsp.type.namespace'] = { fg = colors.keywords },
     ['@lsp.type.parameter'] = { fg = colors.secondary_text },
     ['@lsp.type.property'] = { fg = colors.variables_and_identifiers },
     ['@lsp.type.variable'] = { fg = colors.variables_and_identifiers },
