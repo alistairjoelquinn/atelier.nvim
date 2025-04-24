@@ -59,15 +59,23 @@ M.create_highlight_groups = function(colors)
     -- Search highlighting
     Search = {
       fg = colors.emphasised_text,
-      bg = colors.borders_and_line_numbers,
+      bg = colors.search_highlight_background,
     },
     IncSearch = {
       fg = colors.emphasised_text,
-      bg = colors.search_highlight_background_background,
+      bg = colors.search_highlight_background,
     },
     CurSearch = {
       fg = colors.emphasised_text,
-      bg = colors.search_highlight_background_background,
+      bg = colors.search_highlight_background,
+    },
+
+    -- Visual mode highlighting
+    Visual = {
+      bg = colors.visual_highlight_background,
+    },
+    VisualNOS = {
+      bg = colors.visual_highlight_background,
     },
 
     -- Folds

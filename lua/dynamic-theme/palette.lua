@@ -7,6 +7,7 @@
 ---@field comments string Comments color
 ---@field borders_and_line_numbers string Borders and line numbers color
 ---@field search_highlight_background string Search highlight background color
+---@field visual_highlight_background string Visual mode highlight background color
 ---@field functions_and_warnings string Functions and warnings color
 ---@field errors_scope_and_special_characters string Errors, scope and special elements color
 ---@field strings_and_success string Strings and success indicators color
@@ -29,6 +30,7 @@ return {
   comments = '#5a5a5a',
   borders_and_line_numbers = '#464646',
   search_highlight_background = '#565656',
+  visual_highlight_background = '#3a3a4a',
 
   -- Semantic/Syntax Colors
   functions_and_warnings = '#afa35b',

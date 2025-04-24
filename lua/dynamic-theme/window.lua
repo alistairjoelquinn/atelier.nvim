@@ -60,9 +60,6 @@ local function populate_buffer()
     local input_line =
       string.format('  %s:%s%s', display_name, padding_spaces, hex)
     table.insert(lines, input_line)
-
-    -- we add an empty line after each item to create space
-    table.insert(lines, '')
   end
 
   vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
