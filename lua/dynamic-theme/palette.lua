@@ -2,7 +2,7 @@
 ---@field main_background string Main background color
 ---@field current_line_highlight string Current line highlight color
 ---@field keywords string Keyword color
----@field secondary_text string Secondary text color
+---@field numbers_and_maths_symbols string Numbers and maths symbols color
 ---@field emphasized_text string Emphasized text color
 ---@field comments string Comments color
 ---@field borders_and_linenumbers string Borders and line numbers color
@@ -22,7 +22,7 @@ return {
 
   -- Foreground colors
   keywords = '#999999',
-  secondary_text = '#777777',
+  numbers_and_maths_symbols = '#777777',
   emphasized_text = '#aaaaaa',
 
   -- Grey colors

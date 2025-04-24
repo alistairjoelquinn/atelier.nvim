@@ -83,7 +83,7 @@ M.create_highlight_groups = function(colors)
     -- Basic syntax elements
     Comment = { fg = colors.comments, italic = true },
     String = { fg = colors.strings_and_success },
-    Number = { fg = colors.secondary_text },
+    Number = { fg = colors.numbers_and_maths_symbols },
     Function = { fg = colors.functions_and_warnings, italic = true },
     Keyword = { fg = colors.keywords },
     Constant = { fg = colors.emphasized_text },
@@ -93,7 +93,7 @@ M.create_highlight_groups = function(colors)
     Identifier = { fg = colors.variables_and_identifiers },
     PreProc = { fg = colors.keywords },
     Delimiter = { fg = colors.strings_and_success },
-    Operator = { fg = colors.secondary_text },
+    Operator = { fg = colors.numbers_and_maths_symbols },
     Variable = { fg = colors.variables_and_identifiers },
 
     -- TreeSitter Syntax Groups:
@@ -149,7 +149,7 @@ M.create_highlight_groups = function(colors)
     ['@punctuation.bracket'] = { fg = colors.strings_and_success },
     ['@punctuation.special'] = { fg = colors.errors_and_special_characters },
     ['@comment'] = { fg = colors.comments, italic = true },
-    ['@operator'] = { fg = colors.secondary_text },
+    ['@operator'] = { fg = colors.numbers_and_maths_symbols },
     ['@definition'] = { fg = colors.functions_and_warnings, italic = true },
 
     -- LSP Semantic Tokens
@@ -162,7 +162,7 @@ M.create_highlight_groups = function(colors)
     },
     ['@lsp.type.interface'] = { fg = colors.keywords },
     ['@lsp.type.namespace'] = { fg = colors.keywords },
-    ['@lsp.type.parameter'] = { fg = colors.secondary_text },
+    ['@lsp.type.parameter'] = { fg = colors.numbers_and_maths_symbols },
     ['@lsp.type.property'] = { fg = colors.variables_and_identifiers },
     ['@lsp.type.variable'] = { fg = colors.variables_and_identifiers },
     ['@lsp.mod.callable'] = {
@@ -177,10 +177,10 @@ M.create_highlight_groups = function(colors)
     DiagnosticHint = { fg = colors.strings_and_success },
 
     -- NvimTree
-    NvimTreeFolderName = { fg = colors.secondary_text },
-    NvimTreeOpenedFolderName = { fg = colors.secondary_text },
-    NvimTreeEmptyFolderName = { fg = colors.secondary_text },
-    NvimTreeFolderIcon = { fg = colors.secondary_text },
+    NvimTreeFolderName = { fg = colors.numbers_and_maths_symbols },
+    NvimTreeOpenedFolderName = { fg = colors.numbers_and_maths_symbols },
+    NvimTreeEmptyFolderName = { fg = colors.numbers_and_maths_symbols },
+    NvimTreeFolderIcon = { fg = colors.numbers_and_maths_symbols },
   }
 end
 
