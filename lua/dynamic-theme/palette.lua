@@ -6,7 +6,7 @@
 ---@field emphasized_text string Emphasized text color
 ---@field comments string Comments color
 ---@field borders_and_line_numbers string Borders and line numbers color
----@field highlighted_elements string Highlighted elements color
+---@field search_highlight string Highlighted elements color
 ---@field functions_and_warnings string Functions and warnings color
 ---@field errors_and_special_characters string Errors and special elements color
 ---@field strings_and_success string Strings and success indicators color
@@ -28,7 +28,7 @@ return {
   -- Grey colors
   comments = '#5a5a5a',
   borders_and_line_numbers = '#464646',
-  highlighted_elements = '#565656',
+  search_highlight = '#565656',
 
   -- Semantic/Syntax Colors
   functions_and_warnings = '#afa35b',

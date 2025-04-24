@@ -63,11 +63,11 @@ M.create_highlight_groups = function(colors)
     },
     IncSearch = {
       fg = colors.emphasized_text,
-      bg = colors.highlighted_elements,
+      bg = colors.search_highlight,
     },
     CurSearch = {
       fg = colors.emphasized_text,
-      bg = colors.highlighted_elements,
+      bg = colors.search_highlight,
     },
 
     -- Folds
