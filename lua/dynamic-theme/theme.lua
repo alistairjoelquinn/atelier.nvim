@@ -39,27 +39,27 @@ M.create_highlight_groups = function(colors)
     NormalFloat = { fg = colors.keywords, bg = colors.main_background },
     Cursor = { fg = colors.main_background, bg = colors.keywords },
     CursorLine = { bg = colors.current_line_highlight },
-    LineNr = { fg = colors.borders_and_linenumbers },
+    LineNr = { fg = colors.borders_and_line_numbers },
     CursorLineNr = { fg = colors.functions_and_warnings },
     SignColumn = { bg = colors.main_background },
 
     -- Window elements
-    WinSeparator = { fg = colors.borders_and_linenumbers },
-    FloatBorder = { fg = colors.borders_and_linenumbers },
+    WinSeparator = { fg = colors.borders_and_line_numbers },
+    FloatBorder = { fg = colors.borders_and_line_numbers },
 
     -- Popup menus
     Pmenu = { fg = colors.keywords, bg = colors.current_line_highlight },
     PmenuSel = {
       fg = colors.emphasized_text,
-      bg = colors.borders_and_linenumbers,
+      bg = colors.borders_and_line_numbers,
     },
     PmenuSbar = { bg = colors.current_line_highlight },
-    PmenuThumb = { bg = colors.borders_and_linenumbers },
+    PmenuThumb = { bg = colors.borders_and_line_numbers },
 
     -- Search highlighting
     Search = {
       fg = colors.emphasized_text,
-      bg = colors.borders_and_linenumbers,
+      bg = colors.borders_and_line_numbers,
     },
     IncSearch = {
       fg = colors.emphasized_text,
@@ -72,7 +72,7 @@ M.create_highlight_groups = function(colors)
 
     -- Folds
     Folded = { fg = colors.comments, bg = colors.current_line_highlight },
-    FoldColumn = { fg = colors.borders_and_linenumbers },
+    FoldColumn = { fg = colors.borders_and_line_numbers },
 
     -- Messages and notifications
     ErrorMsg = { fg = colors.errors_and_special_characters },

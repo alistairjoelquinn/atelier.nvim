@@ -5,7 +5,7 @@
 ---@field numbers_and_maths_symbols string Numbers and maths symbols color
 ---@field emphasized_text string Emphasized text color
 ---@field comments string Comments color
----@field borders_and_linenumbers string Borders and line numbers color
+---@field borders_and_line_numbers string Borders and line numbers color
 ---@field highlighted_elements string Highlighted elements color
 ---@field functions_and_warnings string Functions and warnings color
 ---@field errors_and_special_characters string Errors and special elements color
@@ -27,7 +27,7 @@ return {
 
   -- Grey colors
   comments = '#5a5a5a',
-  borders_and_linenumbers = '#464646',
+  borders_and_line_numbers = '#464646',
   highlighted_elements = '#565656',
 
   -- Semantic/Syntax Colors
