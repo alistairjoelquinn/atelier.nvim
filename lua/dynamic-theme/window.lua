@@ -123,6 +123,16 @@ M.open_window = function()
   if not vim.api.nvim_win_is_valid(window_data.win) then
     create_window()
     create_keymaps()
+
+    -- Find first color line and position cursor at the hex code
+    local lines = vim.api.nvim_buf_get_lines(window_data.buf, 0, -1, false)
+    for i, line in ipairs(lines) do
+      local hex_start = line:find '%#%x+'
+      if hex_start then
+        vim.api.nvim_win_set_cursor(window_data.win, { i, hex_start - 1 })
+        break
+      end
+    end
   end
 end
 
