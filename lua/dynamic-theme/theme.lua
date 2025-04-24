@@ -50,7 +50,7 @@ M.create_highlight_groups = function(colors)
     -- Popup menus
     Pmenu = { fg = colors.keywords, bg = colors.current_line_highlight },
     PmenuSel = {
-      fg = colors.emphasized_text,
+      fg = colors.emphasised_text,
       bg = colors.borders_and_line_numbers,
     },
     PmenuSbar = { bg = colors.current_line_highlight },
@@ -58,16 +58,16 @@ M.create_highlight_groups = function(colors)
 
     -- Search highlighting
     Search = {
-      fg = colors.emphasized_text,
+      fg = colors.emphasised_text,
       bg = colors.borders_and_line_numbers,
     },
     IncSearch = {
-      fg = colors.emphasized_text,
-      bg = colors.search_highlight,
+      fg = colors.emphasised_text,
+      bg = colors.search_highlight_background_background,
     },
     CurSearch = {
-      fg = colors.emphasized_text,
-      bg = colors.search_highlight,
+      fg = colors.emphasised_text,
+      bg = colors.search_highlight_background_background,
     },
 
     -- Folds
@@ -75,7 +75,7 @@ M.create_highlight_groups = function(colors)
     FoldColumn = { fg = colors.borders_and_line_numbers },
 
     -- Messages and notifications
-    ErrorMsg = { fg = colors.errors_and_special_characters },
+    ErrorMsg = { fg = colors.errors_scope_and_special_characters },
     WarningMsg = { fg = colors.functions_and_warnings },
     MoreMsg = { fg = colors.strings_and_success },
     Question = { fg = colors.variables_and_identifiers },
@@ -86,10 +86,10 @@ M.create_highlight_groups = function(colors)
     Number = { fg = colors.numbers_and_maths_symbols },
     Function = { fg = colors.functions_and_warnings, italic = true },
     Keyword = { fg = colors.keywords },
-    Constant = { fg = colors.emphasized_text },
+    Constant = { fg = colors.errors_scope_and_special_characters },
     Type = { fg = colors.types_and_classes },
     Statement = { fg = colors.keywords },
-    Special = { fg = colors.errors_and_special_characters },
+    Special = { fg = colors.errors_scope_and_special_characters },
     Identifier = { fg = colors.variables_and_identifiers },
     PreProc = { fg = colors.keywords },
     Delimiter = { fg = colors.strings_and_success },
@@ -147,14 +147,18 @@ M.create_highlight_groups = function(colors)
     ['@tag.delimiter'] = { fg = colors.strings_and_success },
     ['@punctuation.delimiter'] = { fg = colors.strings_and_success },
     ['@punctuation.bracket'] = { fg = colors.strings_and_success },
-    ['@punctuation.special'] = { fg = colors.errors_and_special_characters },
+    ['@punctuation.special'] = {
+      fg = colors.errors_scope_and_special_characters,
+    },
     ['@comment'] = { fg = colors.comments, italic = true },
     ['@operator'] = { fg = colors.numbers_and_maths_symbols },
     ['@definition'] = { fg = colors.functions_and_warnings, italic = true },
 
     -- LSP Semantic Tokens
     ['@lsp.type.class'] = { fg = colors.keywords },
-    ['@lsp.type.decorator'] = { fg = colors.errors_and_special_characters },
+    ['@lsp.type.decorator'] = {
+      fg = colors.errors_scope_and_special_characters,
+    },
     ['@lsp.type.enum'] = { fg = colors.keywords },
     ['@lsp.type.function'] = {
       fg = colors.functions_and_warnings,
@@ -171,7 +175,7 @@ M.create_highlight_groups = function(colors)
     },
 
     -- Diagnostics
-    DiagnosticError = { fg = colors.errors_and_special_characters },
+    DiagnosticError = { fg = colors.errors_scope_and_special_characters },
     DiagnosticWarn = { fg = colors.functions_and_warnings },
     DiagnosticInfo = { fg = colors.variables_and_identifiers },
     DiagnosticHint = { fg = colors.strings_and_success },

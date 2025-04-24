@@ -39,7 +39,7 @@ local create_keymaps = function()
   )
 end
 
-local max_string_length = 35
+local max_string_length = 40
 
 local function populate_buffer()
   local lines = {
