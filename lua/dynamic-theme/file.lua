@@ -18,7 +18,7 @@ end
 M.read = function()
   local file = io.open(M.path, 'r')
   if file then
-    local content = file:read '*all'
+    local content = file:read '*a'
     file:close()
     if content then
       local status, decoded = pcall(vim.json.decode, content)

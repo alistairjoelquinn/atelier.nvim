@@ -1,7 +1,7 @@
 ---@class DynamicThemePalette
 ---@field main_background string Main background color
 ---@field current_line_highlight string Current line highlight color
----@field keywords string Keyword color
+---@field keywords_and_delimiters string Keyword color
 ---@field numbers_and_maths_symbols string Numbers and maths symbols color
 ---@field emphasised_text string Emphasised text color (search results / focused list items)
 ---@field comments string Comments color
@@ -22,7 +22,7 @@ return {
   current_line_highlight = '#252830',
 
   -- Foreground colors
-  keywords = '#999999',
+  keywords_and_delimiters = '#999999',
   numbers_and_maths_symbols = '#777777',
   emphasised_text = '#aaaaaa',
 

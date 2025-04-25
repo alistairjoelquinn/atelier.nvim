@@ -35,9 +35,9 @@ end
 M.create_highlight_groups = function(colors)
   return {
     -- Core editor elements
-    Normal = { fg = colors.keywords, bg = colors.main_background },
-    NormalFloat = { fg = colors.keywords, bg = colors.main_background },
-    Cursor = { fg = colors.main_background, bg = colors.keywords },
+    Normal = { fg = colors.keywords_and_delimiters, bg = colors.main_background },
+    NormalFloat = { fg = colors.keywords_and_delimiters, bg = colors.main_background },
+    Cursor = { fg = colors.main_background, bg = colors.keywords_and_delimiters },
     CursorLine = { bg = colors.current_line_highlight },
     LineNr = { fg = colors.borders_and_line_numbers },
     CursorLineNr = { fg = colors.functions_and_warnings },
@@ -48,7 +48,7 @@ M.create_highlight_groups = function(colors)
     FloatBorder = { fg = colors.borders_and_line_numbers },
 
     -- Popup menus
-    Pmenu = { fg = colors.keywords, bg = colors.current_line_highlight },
+    Pmenu = { fg = colors.keywords_and_delimiters, bg = colors.current_line_highlight },
     PmenuSel = {
       fg = colors.emphasised_text,
       bg = colors.borders_and_line_numbers,
@@ -93,13 +93,13 @@ M.create_highlight_groups = function(colors)
     String = { fg = colors.strings_and_success },
     Number = { fg = colors.numbers_and_maths_symbols },
     Function = { fg = colors.functions_and_warnings, italic = true },
-    Keyword = { fg = colors.keywords },
+    Keyword = { fg = colors.keywords_and_delimiters },
     Constant = { fg = colors.errors_scope_and_special_characters },
     Type = { fg = colors.types_and_classes },
-    Statement = { fg = colors.keywords },
+    Statement = { fg = colors.keywords_and_delimiters },
     Special = { fg = colors.errors_scope_and_special_characters },
     Identifier = { fg = colors.variables_and_identifiers },
-    PreProc = { fg = colors.keywords },
+    PreProc = { fg = colors.keywords_and_delimiters },
     Delimiter = { fg = colors.strings_and_success },
     Operator = { fg = colors.numbers_and_maths_symbols },
     Variable = { fg = colors.variables_and_identifiers },
@@ -147,10 +147,10 @@ M.create_highlight_groups = function(colors)
     },
 
     -- Other syntax elements
-    ['@keyword'] = { fg = colors.keywords },
+    ['@keyword'] = { fg = colors.keywords_and_delimiters },
     ['@string'] = { fg = colors.strings_and_success },
-    ['@constructor'] = { fg = colors.keywords },
-    ['@tag'] = { fg = colors.keywords },
+    ['@constructor'] = { fg = colors.keywords_and_delimiters },
+    ['@tag'] = { fg = colors.keywords_and_delimiters },
     ['@tag.attribute'] = { fg = colors.functions_and_warnings },
     ['@tag.delimiter'] = { fg = colors.strings_and_success },
     ['@punctuation.delimiter'] = { fg = colors.strings_and_success },
@@ -163,17 +163,17 @@ M.create_highlight_groups = function(colors)
     ['@definition'] = { fg = colors.functions_and_warnings, italic = true },
 
     -- LSP Semantic Tokens
-    ['@lsp.type.class'] = { fg = colors.keywords },
+    ['@lsp.type.class'] = { fg = colors.keywords_and_delimiters },
     ['@lsp.type.decorator'] = {
       fg = colors.errors_scope_and_special_characters,
     },
-    ['@lsp.type.enum'] = { fg = colors.keywords },
+    ['@lsp.type.enum'] = { fg = colors.keywords_and_delimiters },
     ['@lsp.type.function'] = {
       fg = colors.functions_and_warnings,
       italic = true,
     },
-    ['@lsp.type.interface'] = { fg = colors.keywords },
-    ['@lsp.type.namespace'] = { fg = colors.keywords },
+    ['@lsp.type.interface'] = { fg = colors.keywords_and_delimiters },
+    ['@lsp.type.namespace'] = { fg = colors.keywords_and_delimiters },
     ['@lsp.type.parameter'] = { fg = colors.numbers_and_maths_symbols },
     ['@lsp.type.property'] = { fg = colors.variables_and_identifiers },
     ['@lsp.type.variable'] = { fg = colors.variables_and_identifiers },
