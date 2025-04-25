@@ -35,9 +35,18 @@ end
 M.create_highlight_groups = function(colors)
   return {
     -- Core editor elements
-    Normal = { fg = colors.keywords_and_delimiters, bg = colors.main_background },
-    NormalFloat = { fg = colors.keywords_and_delimiters, bg = colors.main_background },
-    Cursor = { fg = colors.main_background, bg = colors.keywords_and_delimiters },
+    Normal = {
+      fg = colors.keywords_and_delimiters,
+      bg = colors.main_background,
+    },
+    NormalFloat = {
+      fg = colors.keywords_and_delimiters,
+      bg = colors.main_background,
+    },
+    Cursor = {
+      fg = colors.main_background,
+      bg = colors.keywords_and_delimiters,
+    },
     CursorLine = { bg = colors.current_line_highlight },
     LineNr = { fg = colors.borders_and_line_numbers },
     CursorLineNr = { fg = colors.functions_and_warnings },
@@ -48,7 +57,10 @@ M.create_highlight_groups = function(colors)
     FloatBorder = { fg = colors.borders_and_line_numbers },
 
     -- Popup menus
-    Pmenu = { fg = colors.keywords_and_delimiters, bg = colors.current_line_highlight },
+    Pmenu = {
+      fg = colors.keywords_and_delimiters,
+      bg = colors.current_line_highlight,
+    },
     PmenuSel = {
       fg = colors.emphasised_text,
       bg = colors.borders_and_line_numbers,
@@ -100,7 +112,7 @@ M.create_highlight_groups = function(colors)
     Special = { fg = colors.errors_scope_and_special_characters },
     Identifier = { fg = colors.variables_and_identifiers },
     PreProc = { fg = colors.keywords_and_delimiters },
-    Delimiter = { fg = colors.strings_and_success },
+    Delimiter = { fg = colors.keywords_and_delimiters },
     Operator = { fg = colors.numbers_and_maths_symbols },
     Variable = { fg = colors.variables_and_identifiers },
 
@@ -152,9 +164,9 @@ M.create_highlight_groups = function(colors)
     ['@constructor'] = { fg = colors.keywords_and_delimiters },
     ['@tag'] = { fg = colors.keywords_and_delimiters },
     ['@tag.attribute'] = { fg = colors.functions_and_warnings },
-    ['@tag.delimiter'] = { fg = colors.strings_and_success },
-    ['@punctuation.delimiter'] = { fg = colors.strings_and_success },
-    ['@punctuation.bracket'] = { fg = colors.strings_and_success },
+    ['@tag.delimiter'] = { fg = colors.keywords_and_delimiters },
+    ['@punctuation.delimiter'] = { fg = colors.keywords_and_delimiters },
+    ['@punctuation.bracket'] = { fg = colors.keywords_and_delimiters },
     ['@punctuation.special'] = {
       fg = colors.errors_scope_and_special_characters,
     },
