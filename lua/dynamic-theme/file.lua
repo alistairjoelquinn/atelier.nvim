@@ -57,8 +57,8 @@ M.read = function()
   return palette
 end
 
-M.write = function(palette)
-  local status, encoded = pcall(vim.json.encode, palette, { indent = true })
+M.write = function(themeList)
+  local status, encoded = pcall(vim.json.encode, themeList, { indent = true })
   if status then
     local file = io.open(M.path, 'w')
     if file then
