@@ -20,6 +20,10 @@ M.create = function()
   vim.api.nvim_create_user_command('DynamicThemeReset', function()
     theme.reset()
   end, {})
+
+  vim.api.nvim_create_user_command('DynamicThemeHelp', function() end, {})
+
+  vim.api.nvim_create_user_command('DynamicThemeSaved', function() end, {})
 end
 
 return M

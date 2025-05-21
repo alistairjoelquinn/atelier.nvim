@@ -10,6 +10,3 @@ vim.o.termguicolors = true
 vim.g.colors_name = 'dynamic-theme'
 
 dynamic_theme.setup()
-
----@return DynamicThemeModule
-return dynamic_theme
