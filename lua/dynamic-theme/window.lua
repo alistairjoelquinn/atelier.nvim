@@ -165,12 +165,14 @@ end
 
 M.show_help = function()
   local lines = {
-    'Dynamic Theme Color Editor',
+    'Help',
     '--------------------------',
     '',
-    "Edit hex color values below. Press 's' to save changes,",
-    "'q' to quit or 'r' to reset to the default theme.",
-    '',
+    "After editing hex color values, press 's' to save changes,",
+    "'q' to quit",
+    "'r' to reset to the default theme.",
+    "'l' to load a theme",
+    "'n' to name / rename a theme",
   }
 
   vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
