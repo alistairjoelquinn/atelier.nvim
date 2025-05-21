@@ -61,11 +61,19 @@ local create_keymaps = function()
     ':DynamicThemeRename<CR>',
     { noremap = true, silent = true }
   )
+
+  vim.api.nvim_buf_set_keymap(
+    window_data.buf,
+    'n',
+    'b',
+    ':DynamicThemeBack<CR>',
+    { noremap = true, silent = true }
+  )
 end
 
 local max_string_length = 40
 
-local function populate_buffer()
+local function show_main_window()
   local lines = {
     'Dynamic Theme Color Editor',
     '--------------------------',
@@ -111,7 +119,7 @@ local create_window = function()
     vim.api.nvim_buf_set_option(window_data.buf, 'filetype', 'lua')
   end
 
-  populate_buffer()
+  show_main_window()
 
   window_data.win = vim.api.nvim_open_win(window_data.buf, true, config)
 end
@@ -162,6 +170,10 @@ M.close_window = function()
   end
 end
 
+M.back = function()
+  show_main_window()
+end
+
 M.show_help = function()
   local lines = {
     'Help',
@@ -172,6 +184,7 @@ M.show_help = function()
     "'r' to reset to the default theme.",
     "'l' to load a theme",
     "'n' to name / rename a theme",
+    "'b' to go back to the previous window",
   }
 
   vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)

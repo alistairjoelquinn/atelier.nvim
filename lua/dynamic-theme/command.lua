@@ -28,6 +28,10 @@ M.create = function()
   vim.api.nvim_create_user_command('DynamicThemeLoad', function() end, {})
 
   vim.api.nvim_create_user_command('DynamicThemeRename', function() end, {})
+
+  vim.api.nvim_create_user_command('DynamicThemeBack', function()
+    window.back()
+  end, {})
 end
 
 return M
