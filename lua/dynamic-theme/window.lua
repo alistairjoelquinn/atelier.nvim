@@ -37,6 +37,30 @@ local create_keymaps = function()
     ':DynamicThemeReset<CR>',
     { noremap = true, silent = true }
   )
+
+  vim.api.nvim_buf_set_keymap(
+    window_data.buf,
+    'n',
+    '?',
+    ':DynamicThemeHelp<CR>',
+    { noremap = true, silent = true }
+  )
+
+  vim.api.nvim_buf_set_keymap(
+    window_data.buf,
+    'n',
+    'l',
+    ':DynamicThemeLoad<CR>',
+    { noremap = true, silent = true }
+  )
+
+  vim.api.nvim_buf_set_keymap(
+    window_data.buf,
+    'n',
+    'n',
+    ':DynamicThemeRename<CR>',
+    { noremap = true, silent = true }
+  )
 end
 
 local max_string_length = 40
