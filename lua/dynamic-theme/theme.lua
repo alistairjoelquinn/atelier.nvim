@@ -24,7 +24,7 @@ M.initialise_palette = function()
   end
   local loaded_file = file.read()
   if loaded_file then
-    return utils.findSelectedTheme(loaded_file)
+    return utils.findSelectedTheme(loaded_file).theme
   else
     vim.notify('Error initialising palette', vim.log.levels.ERROR)
   end
@@ -38,6 +38,7 @@ end
 -- Update the theme with updated current palette values
 M.update = function()
   local loaded_palette = M.initialise_palette()
+  print('TESTESTEST', vim.inspect(loaded_palette))
   local highlight_groups = M.create_highlight_groups(loaded_palette)
 
   for group, settings in pairs(highlight_groups) do

@@ -4,32 +4,6 @@ local M = {}
 
 M.path = config_path .. '/dynamic-theme.json'
 
-local findThemeByName = function(themeList, targetName)
-  for i, theme in ipairs(themeList) do
-    if theme.name == targetName then
-      return theme, i
-    end
-  end
-  return nil
-end
-
-local findSelectedTheme = function(themeList)
-  for i, theme in ipairs(themeList) do
-    if theme.selected then
-      return theme, i
-    end
-  end
-  return nil
-end
-
-local updateSelectedTheme = function(themeList, updatedTheme)
-  for i, theme in ipairs(themeList) do
-    if theme.selected then
-      themeList[i] = updatedTheme
-    end
-  end
-end
-
 ---@return boolean
 M.exists = function()
   local f = io.open(M.path, 'r')
@@ -52,9 +26,9 @@ M.read = function()
         return decoded
       end
     end
+  else
+    vim.notify('Error reading from theme file', vim.log.levels.ERROR)
   end
-  local palette = require 'dynamic-theme.palette'
-  return palette
 end
 
 M.write = function(themeList)
