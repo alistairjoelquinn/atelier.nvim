@@ -6,7 +6,18 @@ local M = {}
 
 M.initialise_palette = function()
   if not file.exists() then
-    file.write(palette)
+    file.write {
+      { name = 'dull-ish', selected = true, theme = palette },
+      { name = '<EMPTY>', selected = false, theme = nil },
+      { name = '<EMPTY>', selected = false, theme = nil },
+      { name = '<EMPTY>', selected = false, theme = nil },
+      { name = '<EMPTY>', selected = false, theme = nil },
+      { name = '<EMPTY>', selected = false, theme = nil },
+      { name = '<EMPTY>', selected = false, theme = nil },
+      { name = '<EMPTY>', selected = false, theme = nil },
+      { name = '<EMPTY>', selected = false, theme = nil },
+      { name = '<EMPTY>', selected = false, theme = nil },
+    }
   end
   local loaded_palette = file.read()
   if loaded_palette then

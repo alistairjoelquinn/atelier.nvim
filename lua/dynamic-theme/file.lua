@@ -31,7 +31,6 @@ M.read = function()
   return palette
 end
 
----@param palette DynamicThemePalette
 M.write = function(palette)
   local status, encoded = pcall(vim.json.encode, palette, { indent = true })
   if status then
