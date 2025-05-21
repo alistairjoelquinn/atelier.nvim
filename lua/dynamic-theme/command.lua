@@ -21,7 +21,9 @@ M.create = function()
     theme.reset()
   end, {})
 
-  vim.api.nvim_create_user_command('DynamicThemeHelp', function() end, {})
+  vim.api.nvim_create_user_command('DynamicThemeHelp', function()
+    window.show_help()
+  end, {})
 
   vim.api.nvim_create_user_command('DynamicThemeLoad', function() end, {})
 

@@ -163,4 +163,17 @@ M.close_window = function()
   end
 end
 
+M.show_help = function()
+  local lines = {
+    'Dynamic Theme Color Editor',
+    '--------------------------',
+    '',
+    "Edit hex color values below. Press 's' to save changes,",
+    "'q' to quit or 'r' to reset to the default theme.",
+    '',
+  }
+
+  vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
+end
+
 return M
