@@ -70,8 +70,7 @@ local function populate_buffer()
     'Dynamic Theme Color Editor',
     '--------------------------',
     '',
-    "Edit hex color values below. Press 's' to save changes,",
-    "'q' to quit or 'r' to reset to the default theme.",
+    "'?' to view the help menu",
     '',
   }
 
