@@ -1,4 +1,5 @@
 local file = require 'dynamic-theme.file'
+local utils = require 'dynamic-theme.utils'
 
 local M = {}
 
@@ -82,7 +83,8 @@ local function show_main_window()
     '',
   }
 
-  local current_palette = file.read()
+  local loaded_file = file.read()
+  local current_palette = utils.findSelectedTheme(loaded_file).theme
 
   for name, hex in pairs(current_palette) do
     local display_name = name:gsub('_', ' ')
