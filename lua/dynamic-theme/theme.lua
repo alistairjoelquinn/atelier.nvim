@@ -1,34 +1,37 @@
 ---@type DynamicThemePalette
 local palette = require 'dynamic-theme.palette'
 local file = require 'dynamic-theme.file'
+local utils = require 'dynamic-theme.utils'
+
+local defaultThemeList = {
+  { name = 'dull-ish', selected = true, theme = palette },
+  { name = '<EMPTY>', selected = false, theme = nil },
+  { name = '<EMPTY>', selected = false, theme = nil },
+  { name = '<EMPTY>', selected = false, theme = nil },
+  { name = '<EMPTY>', selected = false, theme = nil },
+  { name = '<EMPTY>', selected = false, theme = nil },
+  { name = '<EMPTY>', selected = false, theme = nil },
+  { name = '<EMPTY>', selected = false, theme = nil },
+  { name = '<EMPTY>', selected = false, theme = nil },
+  { name = '<EMPTY>', selected = false, theme = nil },
+}
 
 local M = {}
 
 M.initialise_palette = function()
   if not file.exists() then
-    file.write {
-      { name = 'dull-ish', selected = true, theme = palette },
-      { name = '<EMPTY>', selected = false, theme = nil },
-      { name = '<EMPTY>', selected = false, theme = nil },
-      { name = '<EMPTY>', selected = false, theme = nil },
-      { name = '<EMPTY>', selected = false, theme = nil },
-      { name = '<EMPTY>', selected = false, theme = nil },
-      { name = '<EMPTY>', selected = false, theme = nil },
-      { name = '<EMPTY>', selected = false, theme = nil },
-      { name = '<EMPTY>', selected = false, theme = nil },
-      { name = '<EMPTY>', selected = false, theme = nil },
-    }
+    file.write(defaultThemeList)
   end
-  local loaded_palette = file.read()
-  if loaded_palette then
-    return loaded_palette
+  local loaded_file = file.read()
+  if loaded_file then
+    return utils.findSelectedTheme(loaded_file)
   else
     vim.notify('Error initialising palette', vim.log.levels.ERROR)
   end
 end
 
 M.reset = function()
-  file.write(palette)
+  file.write(defaultThemeList)
   M.update()
 end
 
