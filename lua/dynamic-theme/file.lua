@@ -31,8 +31,8 @@ M.read = function()
   end
 end
 
-M.write = function(themeList)
-  local status, encoded = pcall(vim.json.encode, themeList, { indent = true })
+M.write = function(theme_list)
+  local status, encoded = pcall(vim.json.encode, theme_list, { indent = true })
   if status then
     local file = io.open(M.path, 'w')
     if file then

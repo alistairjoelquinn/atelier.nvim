@@ -4,16 +4,16 @@ local file = require 'dynamic-theme.file'
 local utils = require 'dynamic-theme.utils'
 
 local defaultThemeList = {
-  { name = 'dull-ish', selected = true, theme = palette },
-  { name = '<EMPTY>', selected = false, theme = nil },
-  { name = '<EMPTY>', selected = false, theme = nil },
-  { name = '<EMPTY>', selected = false, theme = nil },
-  { name = '<EMPTY>', selected = false, theme = nil },
-  { name = '<EMPTY>', selected = false, theme = nil },
-  { name = '<EMPTY>', selected = false, theme = nil },
-  { name = '<EMPTY>', selected = false, theme = nil },
-  { name = '<EMPTY>', selected = false, theme = nil },
-  { name = '<EMPTY>', selected = false, theme = nil },
+  { name = 'dull-ish', selected = true, palette = palette },
+  { name = '<EMPTY>', selected = false, palette = nil },
+  { name = '<EMPTY>', selected = false, palette = nil },
+  { name = '<EMPTY>', selected = false, palette = nil },
+  { name = '<EMPTY>', selected = false, palette = nil },
+  { name = '<EMPTY>', selected = false, palette = nil },
+  { name = '<EMPTY>', selected = false, palette = nil },
+  { name = '<EMPTY>', selected = false, palette = nil },
+  { name = '<EMPTY>', selected = false, palette = nil },
+  { name = '<EMPTY>', selected = false, palette = nil },
 }
 
 local M = {}
@@ -24,7 +24,7 @@ M.initialise_palette = function()
   end
   local loaded_file = file.read()
   if loaded_file then
-    return utils.findSelectedTheme(loaded_file).theme
+    return utils.findSelectedTheme(loaded_file).palette
   else
     vim.notify('Error initialising palette', vim.log.levels.ERROR)
   end
@@ -38,7 +38,6 @@ end
 -- Update the theme with updated current palette values
 M.update = function()
   local loaded_palette = M.initialise_palette()
-  print('TESTESTEST', vim.inspect(loaded_palette))
   local highlight_groups = M.create_highlight_groups(loaded_palette)
 
   for group, settings in pairs(highlight_groups) do

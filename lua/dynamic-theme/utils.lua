@@ -1,16 +1,16 @@
 local M = {}
 
-M.findThemeByName = function(themeList, targetName)
-  for i, theme in ipairs(themeList) do
-    if theme.name == targetName then
+M.findThemeByName = function(theme_list, target_name)
+  for i, theme in ipairs(theme_list) do
+    if theme.name == target_name then
       return theme, i
     end
   end
   return nil
 end
 
-M.findSelectedTheme = function(themeList)
-  for i, theme in ipairs(themeList) do
+M.findSelectedTheme = function(theme_list)
+  for i, theme in ipairs(theme_list) do
     if theme.selected then
       return theme, i
     end
@@ -18,10 +18,10 @@ M.findSelectedTheme = function(themeList)
   return nil
 end
 
-M.updateSelectedTheme = function(themeList, updatedTheme)
-  for i, theme in ipairs(themeList) do
+M.updateSelectedThemePalette = function(theme_list, updated_palette)
+  for i, theme in ipairs(theme_list) do
     if theme.selected then
-      themeList[i] = updatedTheme
+      theme_list[i].palette = updated_palette
     end
   end
 end

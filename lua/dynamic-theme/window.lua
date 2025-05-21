@@ -84,7 +84,7 @@ local function show_main_window()
   }
 
   local loaded_file = file.read()
-  local current_palette = utils.findSelectedTheme(loaded_file).theme
+  local current_palette = utils.findSelectedTheme(loaded_file).palette
 
   for name, hex in pairs(current_palette) do
     local display_name = name:gsub('_', ' ')
@@ -143,8 +143,13 @@ M.save_changes = function()
 
   -- Only proceed if we have values to save
   if next(updated_palette) then
+    local theme_list = file.read()
+    utils.updateSelectedThemePalette(theme_list, updated_palette)
+
+    -- having updated the theme, we first write to file before reloading it
+    file.write(theme_list)
+
     local theme = require 'dynamic-theme.theme'
-    file.write(updated_palette)
     theme.update()
   end
 end
