@@ -76,10 +76,9 @@ local max_string_length = 40
 
 local function show_main_window()
   local lines = {
-    'Dynamic Theme Color Editor',
-    '--------------------------',
-    '',
-    "'?' to view the help menu",
+    '             Dynamic Theme Color Editor',
+    '             --------------------------',
+    "             '?' to view the help menu",
     '',
   }
 
@@ -99,8 +98,8 @@ local function show_main_window()
 end
 
 local create_window = function()
-  local width = 60
-  local height = 22
+  local width = 52
+  local height = 19
   local col = math.floor((vim.o.columns - width) / 2)
   local row = math.floor((vim.o.lines - height) / 2)
 
@@ -183,10 +182,10 @@ end
 
 M.show_help = function()
   local lines = {
-    'Help',
-    '--------------------------',
+    '                        Help',
+    '             --------------------------',
     '',
-    "After editing hex color values, press 's' to save changes,",
+    "'s' to save changes,",
     "'q' to quit",
     "'r' to reset to the default theme.",
     "'l' to load a theme",
