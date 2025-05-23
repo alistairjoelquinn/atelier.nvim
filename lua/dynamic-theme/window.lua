@@ -42,8 +42,24 @@ local create_keymaps = function()
   vim.api.nvim_buf_set_keymap(
     window_data.buf,
     'n',
+    'c',
+    ':DynamicThemeColorPage<CR>',
+    { noremap = true, silent = true }
+  )
+
+  vim.api.nvim_buf_set_keymap(
+    window_data.buf,
+    'n',
     '?',
-    ':DynamicThemeHelp<CR>',
+    ':DynamicThemeHelpPage<CR>',
+    { noremap = true, silent = true }
+  )
+
+  vim.api.nvim_buf_set_keymap(
+    window_data.buf,
+    'n',
+    't',
+    ':DynamicThemeThemePage<CR>',
     { noremap = true, silent = true }
   )
 
@@ -62,21 +78,13 @@ local create_keymaps = function()
     ':DynamicThemeRename<CR>',
     { noremap = true, silent = true }
   )
-
-  vim.api.nvim_buf_set_keymap(
-    window_data.buf,
-    'n',
-    'b',
-    ':DynamicThemeBack<CR>',
-    { noremap = true, silent = true }
-  )
 end
 
 local MAX_STRING_LENGTH = 40
 local WINDOW_WIDTH = 52
 local WINDOW_HEIGHT = 19
 
-local function show_color_page()
+local function load_color_page()
   local lines = {
     '             Dynamic Theme Color Editor',
     '             --------------------------',
@@ -94,22 +102,6 @@ local function show_color_page()
     local input_line =
       string.format('  %s:%s%s', display_name, padding_spaces, hex)
     table.insert(lines, input_line)
-  end
-
-  vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
-end
-
-local function show_theme_page()
-  local lines = {
-    '                    Available Themes',
-    '             --------------------------',
-    '',
-  }
-
-  local loaded_file = file.read()
-
-  for i, theme in ipairs(loaded_file) do
-    table.insert(lines, string.format('%d. %s', i, theme.name))
   end
 
   vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
@@ -136,7 +128,7 @@ local create_window = function()
     vim.api.nvim_buf_set_option(window_data.buf, 'filetype', 'text')
   end
 
-  show_color_page()
+  load_color_page()
 
   window_data.win = vim.api.nvim_open_win(window_data.buf, true, config)
 end
@@ -192,11 +184,7 @@ M.close_window = function()
   end
 end
 
-M.back = function()
-  show_color_page()
-end
-
-M.show_help = function()
+M.show_help_page = function()
   local lines = {
     '                        Help',
     '             --------------------------',
@@ -223,7 +211,23 @@ M.show_help = function()
 end
 
 M.show_theme_page = function()
-  show_theme_page()
+  local lines = {
+    '                    Available Themes',
+    '             --------------------------',
+    '',
+  }
+
+  local loaded_file = file.read()
+
+  for i, theme in ipairs(loaded_file) do
+    table.insert(lines, string.format('%d. %s', i, theme.name))
+  end
+
+  vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
+end
+
+M.show_color_page = function()
+  load_color_page()
 end
 
 return M

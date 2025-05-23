@@ -21,17 +21,21 @@ M.create = function()
     theme.reset()
   end, {})
 
-  vim.api.nvim_create_user_command('DynamicThemeHelp', function()
-    window.show_help()
+  vim.api.nvim_create_user_command('DynamicThemeColorPage', function()
+    window.show_color_page()
+  end, {})
+
+  vim.api.nvim_create_user_command('DynamicThemeHelpPage', function()
+    window.show_help_page()
+  end, {})
+
+  vim.api.nvim_create_user_command('DynamicThemeThemePage', function()
+    window.show_theme_page()
   end, {})
 
   vim.api.nvim_create_user_command('DynamicThemeLoad', function() end, {})
 
   vim.api.nvim_create_user_command('DynamicThemeRename', function() end, {})
-
-  vim.api.nvim_create_user_command('DynamicThemeBack', function()
-    window.back()
-  end, {})
 end
 
 return M
