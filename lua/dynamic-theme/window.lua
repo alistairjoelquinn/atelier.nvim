@@ -179,15 +179,21 @@ local WINDOW_WIDTH = 52
 local WINDOW_HEIGHT = 19
 
 local function load_color_page()
+  local loaded_file = file.read()
+  local current_theme = utils.findSelectedTheme(loaded_file)
+
+  if current_theme == nil then
+    vim.notify('Warning, theme detected', vim.log.levels.ERROR)
+  end
+
+  local current_palette = current_theme.palette
+
   local lines = {
-    '             Dynamic Theme Color Editor',
+    '             Color Editor ( ' .. current_theme.name .. ' )',
     '             --------------------------',
     "             '?' to view the help menu",
     '',
   }
-
-  local loaded_file = file.read()
-  local current_palette = utils.findSelectedTheme(loaded_file).palette
 
   for name, hex in pairs(current_palette) do
     local display_name = name:gsub('_', ' ')

@@ -105,10 +105,11 @@ M.select_theme = function(new_index)
   -- always mark the new theme as selected
   new_theme.selected = true
 
+  -- persist new values and update
   file.write(theme_list)
   M.update()
 
-  -- refresh the color page
+  -- return to the color page for the newly selected theme
   local window = require 'dynamic-theme.window'
   window.show_color_page()
 end
