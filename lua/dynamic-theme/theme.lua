@@ -86,7 +86,6 @@ M.select_theme = function(new_index)
     local new_name = vim.fn.input 'Enter name for new theme: '
     if new_name and new_name ~= '' then
       new_theme.name = new_name
-      new_theme.selected = true
       new_theme.palette = default_grey_palette
     else
       vim.notify('Theme creation cancelled', vim.log.levels.INFO)
@@ -94,10 +93,22 @@ M.select_theme = function(new_index)
     end
   end
 
+  -- ensure the theme has a palette
+  if not new_theme.palette then
+    new_theme.palette = default_grey_palette
+    vim.notify(
+      'Palette not detected. Initialised theme with default grey palette',
+      vim.log.levels.WARN
+    )
+  end
+
+  -- always mark the new theme as selected
+  new_theme.selected = true
+
   file.write(theme_list)
   M.update()
 
-  -- Refresh the color page
+  -- refresh the color page
   local window = require 'dynamic-theme.window'
   window.show_color_page()
 end
