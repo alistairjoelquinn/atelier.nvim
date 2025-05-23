@@ -86,10 +86,8 @@ M.select_theme = function(new_index)
     local new_name = vim.fn.input 'Enter name for new theme: '
     if new_name and new_name ~= '' then
       if #new_name > 16 then
-        vim.notify(
-          'Theme name must be less than 16 characters',
-          vim.log.levels.ERROR
-        )
+        vim.cmd 'echohl ErrorMsg | echom "Theme name must be less than 16 characters" | echohl None'
+        vim.cmd 'call getchar()' --  user must acknowledge error before proceeding
         return
       end
       new_theme.name = new_name
