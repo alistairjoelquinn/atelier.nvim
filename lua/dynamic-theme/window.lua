@@ -258,22 +258,22 @@ M.show_help_page = function()
     '                        Help',
     '             --------------------------',
     '',
-    ' Color page commands:',
-    " 's' to save changes",
-    " 'r' to reset plugin defaults",
-    " 't' to go to the theme page",
-    " 'q' to quit",
+    '  Color page commands:',
+    "  's' to save changes",
+    "  'r' to reset plugin defaults",
+    "  't' to go to the theme page",
+    "  'q' to quit",
     '',
-    ' Theme page commands',
-    " 'l' to load a theme",
-    " 'n' to name / rename a theme",
-    " 'c' to go color page",
-    " 'q' to quit",
+    '  Theme page commands',
+    "  'l' to load a theme",
+    "  'n' to name / rename a theme",
+    "  'c' to go color page",
+    "  'q' to quit",
     '',
-    ' Help page commands',
-    " 'c' to go color page",
-    " 't' to go to the theme page",
-    " 'q' to quit",
+    '  Help page commands',
+    "  'c' to go color page",
+    "  't' to go to the theme page",
+    "  'q' to quit",
   }
 
   -- Make buffer modifiable FIRST (in case it was previously set to non-modifiable)
@@ -296,7 +296,7 @@ M.show_theme_page = function()
   local loaded_file = file.read()
 
   for i, theme in ipairs(loaded_file) do
-    table.insert(lines, ' ' .. string.format('%d. %s', i, theme.name))
+    table.insert(lines, '  ' .. string.format('%d. %s', i, theme.name))
   end
 
   -- Make buffer modifiable FIRST (in case it was previously set to non-modifiable)
