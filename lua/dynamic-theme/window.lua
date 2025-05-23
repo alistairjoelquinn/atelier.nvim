@@ -13,6 +13,11 @@ local window_data = {
   buf = -1,
 }
 
+local set_buffer_editable = function(editable)
+  vim.api.nvim_buf_set_option(window_data.buf, 'modifiable', editable)
+  vim.api.nvim_buf_set_option(window_data.buf, 'readonly', not editable)
+end
+
 local clear_buffer_keymaps = function()
   local keys_to_clear = { 's', 'r', 't', 'q', '?', 'l', 'n', 'c' }
   for _, key in ipairs(keys_to_clear) do
@@ -166,6 +171,7 @@ local function load_color_page()
 
   create_color_page_keymaps()
   vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
+  set_buffer_editable(false)
 end
 
 local create_window = function()
@@ -269,6 +275,7 @@ M.show_help_page = function()
 
   create_help_page_keymaps()
   vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
+  set_buffer_editable(false)
 end
 
 M.show_theme_page = function()
@@ -286,6 +293,7 @@ M.show_theme_page = function()
 
   create_theme_page_keymaps()
   vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
+  set_buffer_editable(true)
 end
 
 M.show_color_page = function()
