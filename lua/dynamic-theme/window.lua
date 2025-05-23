@@ -42,7 +42,6 @@ local clear_buffer_keymaps = function()
   end
 end
 
--- Create keymap for navigation and saving
 local create_color_page_keymaps = function()
   -- first clear any potentially existing keymaps
   clear_buffer_keymaps()
@@ -132,7 +131,6 @@ local create_theme_page_keymaps = function()
     { noremap = true, silent = true }
   )
 
-  -- Add number key mappings for theme selection
   local theme = require 'dynamic-theme.theme'
   for i = 1, 8 do
     vim.api.nvim_buf_set_keymap(window_data.buf, 'n', tostring(i), '', {
@@ -236,7 +234,6 @@ local create_window = function()
   window_data.win = vim.api.nvim_open_win(window_data.buf, true, config)
 end
 
--- Save changes from input fields
 M.save_changes = function()
   local lines = vim.api.nvim_buf_get_lines(window_data.buf, 0, -1, false)
   local updated_palette = {}
@@ -251,7 +248,7 @@ M.save_changes = function()
     end
   end
 
-  -- Only proceed if we have values to save
+  -- only proceed if we have values to save
   if next(updated_palette) then
     local theme_list = file.read()
     utils.updateSelectedThemePalette(theme_list, updated_palette)
@@ -268,7 +265,7 @@ M.open_window = function()
   if not vim.api.nvim_win_is_valid(window_data.win) then
     create_window()
 
-    -- Find first color line and position cursor at the hex code
+    -- find first color line and position cursor at the hex code
     local lines = vim.api.nvim_buf_get_lines(window_data.buf, 0, -1, false)
     for i, line in ipairs(lines) do
       local hex_start = line:find '%#%x+'
@@ -292,7 +289,6 @@ M.show_help_page = function()
   local lines = {
     '                        Help',
     '             --------------------------',
-    '',
     '  Color page commands:',
     "  's' to save changes",
     "  'r' to reset plugin defaults",
@@ -312,7 +308,7 @@ M.show_help_page = function()
     "  'q' to quit",
   }
 
-  -- Make buffer modifiable FIRST (in case it was previously set to non-modifiable)
+  -- make buffer modifiable first (in case it was previously set to non-modifiable)
   set_buffer_editable(true)
 
   vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
@@ -335,8 +331,7 @@ M.show_theme_page = function()
     table.insert(lines, '  ' .. string.format('%d. %s', i, theme.name))
   end
 
-  -- Make buffer modifiable FIRST (in case it was previously set to non-modifiable)
-
+  -- make buffer modifiable first (in case it was previously set to non-modifiable)
   set_buffer_editable(true)
 
   vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
