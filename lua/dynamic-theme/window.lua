@@ -169,9 +169,10 @@ local function load_color_page()
     table.insert(lines, input_line)
   end
 
+  set_buffer_editable(true)
+
   create_color_page_keymaps()
   vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
-  set_buffer_editable(false)
 end
 
 local create_window = function()
@@ -247,6 +248,8 @@ end
 M.close_window = function()
   if vim.api.nvim_win_is_valid(window_data.win) then
     vim.api.nvim_win_close(window_data.win, false)
+    -- ensure window is modifiable when re-opened
+    vim.api.nvim_buf_set_option(window_data.buf, 'modifiable', true)
   end
 end
 
@@ -274,7 +277,8 @@ M.show_help_page = function()
   }
 
   -- Make buffer modifiable FIRST (in case it was previously set to non-modifiable)
-  vim.api.nvim_buf_set_option(window_data.buf, 'modifiable', true)
+  set_buffer_editable(true)
+
   vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
 
   -- ensure buffer is no longer editable
@@ -296,11 +300,13 @@ M.show_theme_page = function()
   end
 
   -- Make buffer modifiable FIRST (in case it was previously set to non-modifiable)
-  vim.api.nvim_buf_set_option(window_data.buf, 'modifiable', true)
+
+  set_buffer_editable(true)
+
   vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
 
   -- ensure buffer is no longer editable
-  set_buffer_editable(true)
+  set_buffer_editable(false)
   create_theme_page_keymaps()
 end
 
