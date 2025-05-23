@@ -273,9 +273,13 @@ M.show_help_page = function()
     "'q' to quit",
   }
 
-  create_help_page_keymaps()
+  -- Make buffer modifiable FIRST (in case it was previously set to non-modifiable)
+  vim.api.nvim_buf_set_option(window_data.buf, 'modifiable', true)
   vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
+
+  -- ensure buffer is no longer editable
   set_buffer_editable(false)
+  create_help_page_keymaps()
 end
 
 M.show_theme_page = function()
@@ -291,9 +295,13 @@ M.show_theme_page = function()
     table.insert(lines, string.format('%d. %s', i, theme.name))
   end
 
-  create_theme_page_keymaps()
+  -- Make buffer modifiable FIRST (in case it was previously set to non-modifiable)
+  vim.api.nvim_buf_set_option(window_data.buf, 'modifiable', true)
   vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
+
+  -- ensure buffer is no longer editable
   set_buffer_editable(true)
+  create_theme_page_keymaps()
 end
 
 M.show_color_page = function()
