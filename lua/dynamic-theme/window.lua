@@ -14,15 +14,7 @@ local window_data = {
 }
 
 -- Create keymap for navigation and saving
-local create_keymaps = function()
-  vim.api.nvim_buf_set_keymap(
-    window_data.buf,
-    'n',
-    'q',
-    ':DynamicThemeClose<CR>',
-    { noremap = true, silent = true }
-  )
-
+local create_color_page_keymaps = function()
   vim.api.nvim_buf_set_keymap(
     window_data.buf,
     'n',
@@ -42,8 +34,16 @@ local create_keymaps = function()
   vim.api.nvim_buf_set_keymap(
     window_data.buf,
     'n',
-    'c',
-    ':DynamicThemeColorPage<CR>',
+    't',
+    ':DynamicThemeThemePage<CR>',
+    { noremap = true, silent = true }
+  )
+
+  vim.api.nvim_buf_set_keymap(
+    window_data.buf,
+    'n',
+    'q',
+    ':DynamicThemeClose<CR>',
     { noremap = true, silent = true }
   )
 
@@ -54,15 +54,9 @@ local create_keymaps = function()
     ':DynamicThemeHelpPage<CR>',
     { noremap = true, silent = true }
   )
+end
 
-  vim.api.nvim_buf_set_keymap(
-    window_data.buf,
-    'n',
-    't',
-    ':DynamicThemeThemePage<CR>',
-    { noremap = true, silent = true }
-  )
-
+local create_theme_page_keymaps = function()
   vim.api.nvim_buf_set_keymap(
     window_data.buf,
     'n',
@@ -76,6 +70,30 @@ local create_keymaps = function()
     'n',
     'n',
     ':DynamicThemeRename<CR>',
+    { noremap = true, silent = true }
+  )
+
+  vim.api.nvim_buf_set_keymap(
+    window_data.buf,
+    'n',
+    'c',
+    ':DynamicThemeColorPage<CR>',
+    { noremap = true, silent = true }
+  )
+
+  vim.api.nvim_buf_set_keymap(
+    window_data.buf,
+    'n',
+    'q',
+    ':DynamicThemeClose<CR>',
+    { noremap = true, silent = true }
+  )
+
+  vim.api.nvim_buf_set_keymap(
+    window_data.buf,
+    'n',
+    '?',
+    ':DynamicThemeHelpPage<CR>',
     { noremap = true, silent = true }
   )
 end
@@ -190,8 +208,8 @@ M.show_help_page = function()
     '             --------------------------',
     '',
     'Color page commands:',
-    "'s' to save changes,",
-    "'r' to reset to the default theme",
+    "'s' to save changes",
+    "'r' to reset plugin defaults",
     "'t' to go to the theme page",
     "'q' to quit",
     '',
