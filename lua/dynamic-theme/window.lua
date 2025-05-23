@@ -98,6 +98,32 @@ local create_theme_page_keymaps = function()
   )
 end
 
+local create_help_page_keymaps = function()
+  vim.api.nvim_buf_set_keymap(
+    window_data.buf,
+    'n',
+    'c',
+    ':DynamicThemeColorPage<CR>',
+    { noremap = true, silent = true }
+  )
+
+  vim.api.nvim_buf_set_keymap(
+    window_data.buf,
+    'n',
+    't',
+    ':DynamicThemeThemePage<CR>',
+    { noremap = true, silent = true }
+  )
+
+  vim.api.nvim_buf_set_keymap(
+    window_data.buf,
+    'n',
+    'q',
+    ':DynamicThemeClose<CR>',
+    { noremap = true, silent = true }
+  )
+end
+
 local MAX_STRING_LENGTH = 40
 local WINDOW_WIDTH = 52
 local WINDOW_HEIGHT = 19
