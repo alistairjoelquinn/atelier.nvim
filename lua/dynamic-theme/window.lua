@@ -19,7 +19,24 @@ local set_buffer_editable = function(editable)
 end
 
 local clear_buffer_keymaps = function()
-  local keys_to_clear = { 's', 'r', 't', 'q', '?', 'l', 'n', 'c' }
+  local keys_to_clear = {
+    's',
+    'r',
+    't',
+    'q',
+    '?',
+    'l',
+    'n',
+    'c',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+  }
   for _, key in ipairs(keys_to_clear) do
     pcall(vim.api.nvim_buf_del_keymap, window_data.buf, 'n', key)
   end
@@ -114,6 +131,18 @@ local create_theme_page_keymaps = function()
     ':DynamicThemeHelpPage<CR>',
     { noremap = true, silent = true }
   )
+
+  -- Add number key mappings for theme selection
+  local theme = require 'dynamic-theme.theme'
+  for i = 1, 8 do
+    vim.api.nvim_buf_set_keymap(window_data.buf, 'n', tostring(i), '', {
+      noremap = true,
+      silent = true,
+      callback = function()
+        theme.select_theme(i)
+      end,
+    })
+  end
 end
 
 local create_help_page_keymaps = function()
@@ -265,6 +294,7 @@ M.show_help_page = function()
     "  'q' to quit",
     '',
     '  Theme page commands',
+    "  '1-8' to select a theme by number",
     "  'l' to load a theme",
     "  'n' to name / rename a theme",
     "  'c' to go color page",
