@@ -13,8 +13,18 @@ local window_data = {
   buf = -1,
 }
 
+local clear_buffer_keymaps = function()
+  local keys_to_clear = { 's', 'r', 't', 'q', '?', 'l', 'n', 'c' }
+  for _, key in ipairs(keys_to_clear) do
+    pcall(vim.api.nvim_buf_del_keymap, window_data.buf, 'n', key)
+  end
+end
+
 -- Create keymap for navigation and saving
 local create_color_page_keymaps = function()
+  -- first clear any potentially existing keymaps
+  clear_buffer_keymaps()
+
   vim.api.nvim_buf_set_keymap(
     window_data.buf,
     'n',
@@ -57,6 +67,9 @@ local create_color_page_keymaps = function()
 end
 
 local create_theme_page_keymaps = function()
+  -- first clear any potentially existing keymaps
+  clear_buffer_keymaps()
+
   vim.api.nvim_buf_set_keymap(
     window_data.buf,
     'n',
@@ -99,6 +112,9 @@ local create_theme_page_keymaps = function()
 end
 
 local create_help_page_keymaps = function()
+  -- first clear any potentially existing keymaps
+  clear_buffer_keymaps()
+
   vim.api.nvim_buf_set_keymap(
     window_data.buf,
     'n',
@@ -148,6 +164,7 @@ local function load_color_page()
     table.insert(lines, input_line)
   end
 
+  create_color_page_keymaps()
   vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
 end
 
@@ -208,7 +225,6 @@ end
 M.open_window = function()
   if not vim.api.nvim_win_is_valid(window_data.win) then
     create_window()
-    create_keymaps()
 
     -- Find first color line and position cursor at the hex code
     local lines = vim.api.nvim_buf_get_lines(window_data.buf, 0, -1, false)
@@ -251,6 +267,7 @@ M.show_help_page = function()
     "'q' to quit",
   }
 
+  create_help_page_keymaps()
   vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
 end
 
@@ -267,6 +284,7 @@ M.show_theme_page = function()
     table.insert(lines, string.format('%d. %s', i, theme.name))
   end
 
+  create_theme_page_keymaps()
   vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
 end
 
