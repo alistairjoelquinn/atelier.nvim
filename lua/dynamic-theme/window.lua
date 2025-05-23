@@ -72,7 +72,9 @@ local create_keymaps = function()
   )
 end
 
-local max_string_length = 40
+local MAX_STRING_LENGTH = 40
+local WINDOW_WIDTH = 52
+local WINDOW_HEIGHT = 19
 
 local function show_main_window()
   local lines = {
@@ -88,7 +90,7 @@ local function show_main_window()
   for name, hex in pairs(current_palette) do
     local display_name = name:gsub('_', ' ')
     -- adding variable space between each key and value creates a visual table
-    local padding_spaces = string.rep(' ', max_string_length - #display_name)
+    local padding_spaces = string.rep(' ', MAX_STRING_LENGTH - #display_name)
     local input_line =
       string.format('  %s:%s%s', display_name, padding_spaces, hex)
     table.insert(lines, input_line)
@@ -98,17 +100,15 @@ local function show_main_window()
 end
 
 local create_window = function()
-  local width = 52
-  local height = 19
-  local col = math.floor((vim.o.columns - width) / 2)
-  local row = math.floor((vim.o.lines - height) / 2)
+  local col = math.floor((vim.o.columns - WINDOW_WIDTH) / 2)
+  local row = math.floor((vim.o.lines - WINDOW_HEIGHT) / 2)
 
   local config = {
     style = 'minimal',
     border = 'rounded',
     relative = 'editor',
-    width = width,
-    height = height,
+    width = WINDOW_WIDTH,
+    height = WINDOW_HEIGHT,
     row = row,
     col = col,
   }
@@ -117,7 +117,7 @@ local create_window = function()
   -- always create a new window as the old window can't be reused
   if not vim.api.nvim_buf_is_valid(window_data.buf) then
     window_data.buf = vim.api.nvim_create_buf(false, true)
-    vim.api.nvim_buf_set_option(window_data.buf, 'filetype', 'lua')
+    vim.api.nvim_buf_set_option(window_data.buf, 'filetype', 'text')
   end
 
   show_main_window()
@@ -185,9 +185,13 @@ M.show_help = function()
     '                        Help',
     '             --------------------------',
     '',
+    'Colors page commands:',
     "'s' to save changes,",
     "'q' to quit",
     "'r' to reset to the default theme.",
+    "'t' to go to the themes page",
+
+    'Themes page commands',
     "'l' to load a theme",
     "'n' to name / rename a theme",
     "'b' to go back to the previous window",
