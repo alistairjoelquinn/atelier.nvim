@@ -185,16 +185,22 @@ M.show_help = function()
     '                        Help',
     '             --------------------------',
     '',
-    'Colors page commands:',
+    'Color page commands:',
     "'s' to save changes,",
+    "'r' to reset to the default theme",
+    "'t' to go to the theme page",
     "'q' to quit",
-    "'r' to reset to the default theme.",
-    "'t' to go to the themes page",
-
-    'Themes page commands',
+    '',
+    'Theme page commands',
     "'l' to load a theme",
     "'n' to name / rename a theme",
-    "'b' to go back to the previous window",
+    "'c' to go color page",
+    "'q' to quit",
+    '',
+    'Help page commands',
+    "'c' to go color page",
+    "'t' to go to the theme page",
+    "'q' to quit",
   }
 
   vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
