@@ -85,6 +85,13 @@ M.select_theme = function(new_index)
   if new_theme.name == '<EMPTY>' then
     local new_name = vim.fn.input 'Enter name for new theme: '
     if new_name and new_name ~= '' then
+      if #new_name > 16 then
+        vim.notify(
+          'Theme name must be less than 16 characters',
+          vim.log.levels.ERROR
+        )
+        return
+      end
       new_theme.name = new_name
       new_theme.palette = default_grey_palette
     else
