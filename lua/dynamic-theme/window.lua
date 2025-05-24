@@ -181,7 +181,7 @@ local function load_color_page()
   local current_theme = utils.findSelectedTheme(loaded_file)
 
   if current_theme == nil then
-    vim.notify('Warning, theme detected', vim.log.levels.ERROR)
+    vim.notify('Warning, theme not detected', vim.log.levels.ERROR)
   end
 
   local current_palette = current_theme.palette
@@ -237,27 +237,6 @@ local create_window = function()
 
   load_color_page()
 
-  -- prevent common navigation keys from leaving the window
-  local blocked_keys =
-    { '<C-w>w', '<C-w><C-w>', '<C-w>h', '<C-w>j', '<C-w>k', '<C-w>l' }
-  for _, key in ipairs(blocked_keys) do
-    vim.api.nvim_buf_set_keymap(window_data.buf, 'n', key, '<Nop>', {
-      noremap = true,
-      silent = true,
-    })
-  end
-
-  -- prevent mouse click from movin focus away from the floating window
-  vim.api.nvim_create_autocmd('WinLeave', {
-    buffer = window_data.buf,
-    callback = function()
-      if vim.api.nvim_win_is_valid(window_data.win) then
-        vim.api.nvim_set_current_win(window_data.win)
-      end
-    end,
-    once = false,
-  })
-
   window_data.win = vim.api.nvim_open_win(window_data.buf, true, config)
 end
 
@@ -266,10 +245,10 @@ M.save_changes = function()
   local updated_palette = {}
 
   for _, line in ipairs(lines) do
-    -- Look for lines that have a color hex code
+    -- look for lines that have a color hex code
     local name, hex = line:match '  ([%w%s]+):%s+(%#%x+)'
     if name and hex then
-      -- Convert display name back to palette key
+      -- convert display name back to palette key
       local key = name:gsub(' ', '_')
       updated_palette[key] = hex
     end
@@ -324,8 +303,6 @@ M.show_help_page = function()
     '',
     '  Theme page commands',
     "  '1-8' to select a theme by number",
-    "  'l' to load a theme",
-    "  'n' to name / rename a theme",
     "  'c' to go color page",
     "  'q' to quit",
     '',
