@@ -8,7 +8,7 @@ When first loading the plugin, the [dull-ish theme](https://github.com/alistairj
 
 <img width="1019" alt="Screenshot 2025-05-24 at 20 37 23" src="https://github.com/user-attachments/assets/60e9d70e-cdac-447d-b5b4-1f3ec8ceec06" />
 
-From here, if you wish to open the plugin window you can do so with `:DynamicThemeOpen`, or `<leader>dt` which is preconfigured. This will present you with the color editor for the dullish theme.
+From here, if you wish to open the plugin window you can do so with `:DynamicThemeOpen`, or `<leader>dt` which is preconfigured. This will present you with the color editor for the dull-ish theme.
 
 ![Screenshot 2025-05-24 at 20 33 29](https://github.com/user-attachments/assets/3595e19d-48d0-4a48-b15d-73f78ec4084b)
 
