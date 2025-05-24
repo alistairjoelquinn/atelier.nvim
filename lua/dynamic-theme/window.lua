@@ -194,7 +194,7 @@ local function load_color_page()
 
   local lines = {
     centered_title,
-    '             --------------------------',
+    '             -------------------------',
     "             '?' to view the help menu",
     '',
   }
@@ -236,6 +236,27 @@ local create_window = function()
   end
 
   load_color_page()
+
+  -- prevent common navigation keys from leaving the window
+  local blocked_keys =
+    { '<C-w>w', '<C-w><C-w>', '<C-w>h', '<C-w>j', '<C-w>k', '<C-w>l' }
+  for _, key in ipairs(blocked_keys) do
+    vim.api.nvim_buf_set_keymap(window_data.buf, 'n', key, '<Nop>', {
+      noremap = true,
+      silent = true,
+    })
+  end
+
+  -- prevent mouse click from movin focus away from the floating window
+  vim.api.nvim_create_autocmd('WinLeave', {
+    buffer = window_data.buf,
+    callback = function()
+      if vim.api.nvim_win_is_valid(window_data.win) then
+        vim.api.nvim_set_current_win(window_data.win)
+      end
+    end,
+    once = false,
+  })
 
   window_data.win = vim.api.nvim_open_win(window_data.buf, true, config)
 end
