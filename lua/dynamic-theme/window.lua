@@ -2,25 +2,33 @@ local file = require 'dynamic-theme.file'
 local utils = require 'dynamic-theme.utils'
 local page = require 'dynamic-theme.page'
 
+---@class DynamicThemeWindow
 local M = {}
 
 ---@class WindowData
----@field win number
----@field buf number
+---@field win number window handle
+---@field buf number buffer handle
 
+---global window data shared across modules
 ---@type WindowData
 WINDOW_DATA = {
   win = -1,
   buf = -1,
 }
 
+---window dimensions
+---@type number
 local WINDOW_WIDTH = 52
+---@type number
 local WINDOW_HEIGHT = 19
 
+---create a centered floating window
+---@return nil
 local create_window = function()
   local col = math.floor((vim.o.columns - WINDOW_WIDTH) / 2)
   local row = math.floor((vim.o.lines - WINDOW_HEIGHT) / 2)
 
+  ---@type table window configuration
   local config = {
     style = 'minimal',
     border = 'rounded',
@@ -43,8 +51,11 @@ local create_window = function()
   WINDOW_DATA.win = vim.api.nvim_open_win(WINDOW_DATA.buf, true, config)
 end
 
+---save changes from the buffer to the theme
+---@return boolean success whether the save succeeded
 M.save_changes = function()
   local lines = vim.api.nvim_buf_get_lines(WINDOW_DATA.buf, 0, -1, false)
+  ---@type DynamicThemePalette
   local updated_palette = {}
 
   for _, line in ipairs(lines) do
@@ -60,16 +71,28 @@ M.save_changes = function()
   -- only proceed if we have values to save
   if next(updated_palette) then
     local theme_list = file.read()
+    if not theme_list then
+      return false
+    end
+    
     utils.updateSelectedThemePalette(theme_list, updated_palette)
 
     -- having updated the theme, we first write to file before reloading it
-    file.write(theme_list)
+    local success = file.write(theme_list)
+    if not success then
+      return false
+    end
 
     local theme = require 'dynamic-theme.theme'
     theme.update()
+    return true
   end
+  
+  return false
 end
 
+---open the theme editor window
+---@return nil
 M.open_window = function()
   if not vim.api.nvim_win_is_valid(WINDOW_DATA.win) then
     create_window()
@@ -86,6 +109,8 @@ M.open_window = function()
   end
 end
 
+---close the theme editor window
+---@return nil
 M.close_window = function()
   if vim.api.nvim_win_is_valid(WINDOW_DATA.win) then
     vim.api.nvim_win_close(WINDOW_DATA.win, false)

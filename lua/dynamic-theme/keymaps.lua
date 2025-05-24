@@ -1,6 +1,10 @@
+---@class DynamicThemeKeymaps
 local M = {}
 
+---clear all keymaps from the buffer
+---@return nil
 local clear_buffer_keymaps = function()
+  ---@type string[] list of keys to clear
   local keys_to_clear = {
     's',
     'r',
@@ -24,16 +28,21 @@ local clear_buffer_keymaps = function()
   end
 end
 
+---create keymaps for the color editor page
+---@return nil
 M.create_color_page_keymaps = function()
   -- first clear any potentially existing keymaps
   clear_buffer_keymaps()
+
+  ---@type table keymap options
+  local opts = { noremap = true, silent = true }
 
   vim.api.nvim_buf_set_keymap(
     WINDOW_DATA.buf,
     'n',
     's',
     ':DynamicThemeSave<CR>',
-    { noremap = true, silent = true }
+    opts
   )
 
   vim.api.nvim_buf_set_keymap(
@@ -41,7 +50,7 @@ M.create_color_page_keymaps = function()
     'n',
     'r',
     ':DynamicThemeReset<CR>',
-    { noremap = true, silent = true }
+    opts
   )
 
   vim.api.nvim_buf_set_keymap(
@@ -49,7 +58,7 @@ M.create_color_page_keymaps = function()
     'n',
     't',
     ':DynamicThemeThemePage<CR>',
-    { noremap = true, silent = true }
+    opts
   )
 
   vim.api.nvim_buf_set_keymap(
@@ -57,7 +66,7 @@ M.create_color_page_keymaps = function()
     'n',
     'q',
     ':DynamicThemeClose<CR>',
-    { noremap = true, silent = true }
+    opts
   )
 
   vim.api.nvim_buf_set_keymap(
@@ -65,20 +74,25 @@ M.create_color_page_keymaps = function()
     'n',
     '?',
     ':DynamicThemeHelpPage<CR>',
-    { noremap = true, silent = true }
+    opts
   )
 end
 
+---create keymaps for the theme selection page
+---@return nil
 M.create_theme_page_keymaps = function()
   -- first clear any potentially existing keymaps
   clear_buffer_keymaps()
+
+  ---@type table keymap options
+  local opts = { noremap = true, silent = true }
 
   vim.api.nvim_buf_set_keymap(
     WINDOW_DATA.buf,
     'n',
     'l',
     ':DynamicThemeLoad<CR>',
-    { noremap = true, silent = true }
+    opts
   )
 
   vim.api.nvim_buf_set_keymap(
@@ -86,7 +100,7 @@ M.create_theme_page_keymaps = function()
     'n',
     'n',
     ':DynamicThemeRename<CR>',
-    { noremap = true, silent = true }
+    opts
   )
 
   vim.api.nvim_buf_set_keymap(
@@ -94,7 +108,7 @@ M.create_theme_page_keymaps = function()
     'n',
     'c',
     ':DynamicThemeColorPage<CR>',
-    { noremap = true, silent = true }
+    opts
   )
 
   vim.api.nvim_buf_set_keymap(
@@ -102,7 +116,7 @@ M.create_theme_page_keymaps = function()
     'n',
     'q',
     ':DynamicThemeClose<CR>',
-    { noremap = true, silent = true }
+    opts
   )
 
   vim.api.nvim_buf_set_keymap(
@@ -110,7 +124,7 @@ M.create_theme_page_keymaps = function()
     'n',
     '?',
     ':DynamicThemeHelpPage<CR>',
-    { noremap = true, silent = true }
+    opts
   )
 
   local theme = require 'dynamic-theme.theme'
@@ -125,16 +139,21 @@ M.create_theme_page_keymaps = function()
   end
 end
 
+---create keymaps for the help page
+---@return nil
 M.create_help_page_keymaps = function()
   -- first clear any potentially existing keymaps
   clear_buffer_keymaps()
+
+  ---@type table keymap options
+  local opts = { noremap = true, silent = true }
 
   vim.api.nvim_buf_set_keymap(
     WINDOW_DATA.buf,
     'n',
     'c',
     ':DynamicThemeColorPage<CR>',
-    { noremap = true, silent = true }
+    opts
   )
 
   vim.api.nvim_buf_set_keymap(
@@ -142,7 +161,7 @@ M.create_help_page_keymaps = function()
     'n',
     't',
     ':DynamicThemeThemePage<CR>',
-    { noremap = true, silent = true }
+    opts
   )
 
   vim.api.nvim_buf_set_keymap(
@@ -150,7 +169,7 @@ M.create_help_page_keymaps = function()
     'n',
     'q',
     ':DynamicThemeClose<CR>',
-    { noremap = true, silent = true }
+    opts
   )
 end
 

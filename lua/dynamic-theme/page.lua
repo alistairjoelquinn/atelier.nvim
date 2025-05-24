@@ -2,16 +2,25 @@ local file = require 'dynamic-theme.file'
 local utils = require 'dynamic-theme.utils'
 local keymaps = require 'dynamic-theme.keymaps'
 
+---@class DynamicThemePage
 local M = {}
 
+---set buffer editable state
+---@param editable boolean whether the buffer should be editable
+---@return nil
 local set_buffer_editable = function(editable)
   vim.api.nvim_buf_set_option(WINDOW_DATA.buf, 'modifiable', editable)
   vim.api.nvim_buf_set_option(WINDOW_DATA.buf, 'readonly', not editable)
 end
 
+---maximum string length for formatting the color editor
+---@type number
 local MAX_STRING_LENGTH = 40
 
+---show the help page
+---@return nil
 M.show_help_page = function()
+  ---@type string[] lines to display in the buffer
   local lines = {
     '                        Help',
     '             --------------------------',
@@ -42,7 +51,10 @@ M.show_help_page = function()
   keymaps.create_help_page_keymaps()
 end
 
+---show the theme selection page
+---@return nil
 M.show_theme_page = function()
+  ---@type string[] lines to display in the buffer
   local lines = {
     '                    Available Themes',
     '             --------------------------',
@@ -50,6 +62,10 @@ M.show_theme_page = function()
   }
 
   local loaded_file = file.read()
+  if not loaded_file then
+    vim.notify('Error loading themes', vim.log.levels.ERROR)
+    return
+  end
 
   for i, theme in ipairs(loaded_file) do
     table.insert(lines, '  ' .. string.format('%d. %s', i, theme.name))
@@ -65,12 +81,19 @@ M.show_theme_page = function()
   keymaps.create_theme_page_keymaps()
 end
 
+---load the color editor page
+---@return nil
 M.load_color_page = function()
   local loaded_file = file.read()
+  if not loaded_file then
+    vim.notify('Error loading themes', vim.log.levels.ERROR)
+    return
+  end
+  
   local current_theme = utils.findSelectedTheme(loaded_file)
-
   if current_theme == nil then
     vim.notify('Warning, theme not detected', vim.log.levels.ERROR)
+    return
   end
 
   local current_palette = current_theme.palette
@@ -81,6 +104,7 @@ M.load_color_page = function()
   local padding = math.floor((52 - title_width) / 2)
   local centered_title = string.rep(' ', padding) .. title
 
+  ---@type string[] lines to display in the buffer
   local lines = {
     centered_title,
     '             -------------------------',
@@ -120,6 +144,8 @@ M.load_color_page = function()
   })
 end
 
+---show the color editor page
+---@return nil
 M.show_color_page = function()
   M.load_color_page()
 end

@@ -1,6 +1,9 @@
+---@class DynamicThemeUtils
 local M = {}
 
--- function to check if a hex color is a valid 6 digit hex color
+---check if a hex color is a valid 6 digit hex color
+---@param hex string|nil the hex color to validate
+---@return boolean whether the hex color is valid
 local function is_valid_hex_color(hex)
   return hex and hex:match '^#%x%x%x%x%x%x$' ~= nil
 end
@@ -8,6 +11,8 @@ end
 --[[ Function to determine if a color is dark. We use this when
 rendering the hex codes on the color page as we need to use light text over the
 top of dark backgrounds for readability. ]]
+---@param hex string the hex color to check
+---@return boolean whether the color is dark
 local function is_dark_color(hex)
   if not is_valid_hex_color(hex) then
     return false
@@ -24,24 +29,36 @@ local function is_dark_color(hex)
   return brightness < 0.5
 end
 
+---find a theme by name in the theme list
+---@param theme_list Theme[] the list of themes to search
+---@param target_name string the name of the theme to find
+---@return Theme|nil theme the found theme or nil
+---@return number|nil index the index of the found theme or nil
 M.findThemeByName = function(theme_list, target_name)
   for i, theme in ipairs(theme_list) do
     if theme.name == target_name then
       return theme, i
     end
   end
-  return nil
+  return nil, nil
 end
 
+---find the currently selected theme
+---@param theme_list Theme[] the list of themes to search
+---@return Theme|nil theme the selected theme or nil
+---@return number|nil index the index of the selected theme or nil
 M.findSelectedTheme = function(theme_list)
   for i, theme in ipairs(theme_list) do
     if theme.selected then
       return theme, i
     end
   end
-  return nil
+  return nil, nil
 end
 
+---update the palette of the currently selected theme
+---@param theme_list Theme[] the list of themes to update
+---@param updated_palette DynamicThemePalette the new palette to apply
 M.updateSelectedThemePalette = function(theme_list, updated_palette)
   for i, theme in ipairs(theme_list) do
     if theme.selected then
@@ -50,7 +67,7 @@ M.updateSelectedThemePalette = function(theme_list, updated_palette)
   end
 end
 
--- helper function to apply hex code highlighting
+---apply hex code highlighting to the buffer
 M.apply_hex_highlights = function()
   -- clear existing highlights
   vim.api.nvim_buf_clear_namespace(WINDOW_DATA.buf, -1, 0, -1)

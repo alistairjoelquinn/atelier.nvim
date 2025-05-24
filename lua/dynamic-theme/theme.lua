@@ -3,6 +3,7 @@ local palette = require 'dynamic-theme.palette'
 local file = require 'dynamic-theme.file'
 local utils = require 'dynamic-theme.utils'
 
+---@type Theme[] default theme list with one theme and seven empty slots
 local defaultThemeList = {
   { name = 'dull-ish', selected = true, palette = palette },
   { name = '<EMPTY>', selected = false, palette = nil },
@@ -14,13 +15,14 @@ local defaultThemeList = {
   { name = '<EMPTY>', selected = false, palette = nil },
 }
 
--- palete for empty themes before the user applies their own colors
+---palette for empty themes before the user applies their own colors
+---@type DynamicThemePalette
 local default_grey_palette = {
   main_background = '#010101',
   current_line_highlight = '#252830',
   keywords_and_delimiters = '#999999',
-  numbers_and_maths_symbols = '#777777',
-  emphasised_text = '#aaaaaa',
+  numbers_and_math_symbols = '#777777',
+  emphasized_text = '#aaaaaa',
   comments = '#5a5a5a',
   borders_and_line_numbers = '#464646',
   search_highlight_background = '#565656',
@@ -32,8 +34,11 @@ local default_grey_palette = {
   types_and_classes = '#444444',
 }
 
+---@class DynamicThemeTheme
 local M = {}
 
+---initialize the palette from file or create default if none exists
+---@return DynamicThemePalette|nil the palette of the selected theme
 M.initialise_palette = function()
   if not file.exists() then
     file.write(defaultThemeList)
@@ -43,17 +48,23 @@ M.initialise_palette = function()
     return utils.findSelectedTheme(loaded_file).palette
   else
     vim.notify('Error initialising palette', vim.log.levels.ERROR)
+    return nil
   end
 end
 
+---reset to plugin defaults
 M.reset = function()
   file.write(defaultThemeList)
   M.update()
 end
 
--- Update the theme with updated current palette values
+---update the theme with updated current palette values
 M.update = function()
   local loaded_palette = M.initialise_palette()
+  if not loaded_palette then
+    return
+  end
+  
   local highlight_groups = M.create_highlight_groups(loaded_palette)
 
   for group, settings in pairs(highlight_groups) do
@@ -61,7 +72,8 @@ M.update = function()
   end
 end
 
--- Select a theme by index
+---select a theme by index
+---@param new_index number the index of the theme to select
 M.select_theme = function(new_index)
   local theme_list = file.read()
   if not theme_list or new_index < 1 or new_index > #theme_list then
@@ -119,7 +131,9 @@ M.select_theme = function(new_index)
   page.show_color_page()
 end
 
----@return table<string, table> Highlight groups with their settings
+---create highlight groups based on colors
+---@param colors DynamicThemePalette the color palette to use
+---@return table<string, table> highlight groups with their settings
 M.create_highlight_groups = function(colors)
   return {
     -- Core editor elements
@@ -150,7 +164,7 @@ M.create_highlight_groups = function(colors)
       bg = colors.current_line_highlight,
     },
     PmenuSel = {
-      fg = colors.emphasised_text,
+      fg = colors.emphasized_text,
       bg = colors.borders_and_line_numbers,
     },
     PmenuSbar = { bg = colors.current_line_highlight },
@@ -158,15 +172,15 @@ M.create_highlight_groups = function(colors)
 
     -- Search highlighting
     Search = {
-      fg = colors.emphasised_text,
+      fg = colors.emphasized_text,
       bg = colors.search_highlight_background,
     },
     IncSearch = {
-      fg = colors.emphasised_text,
+      fg = colors.emphasized_text,
       bg = colors.search_highlight_background,
     },
     CurSearch = {
-      fg = colors.emphasised_text,
+      fg = colors.emphasized_text,
       bg = colors.search_highlight_background,
     },
 
@@ -191,7 +205,7 @@ M.create_highlight_groups = function(colors)
     -- Basic syntax elements
     Comment = { fg = colors.comments, italic = true },
     String = { fg = colors.strings_and_success },
-    Number = { fg = colors.numbers_and_maths_symbols },
+    Number = { fg = colors.numbers_and_math_symbols },
     Function = { fg = colors.functions_and_warnings, italic = true },
     Keyword = { fg = colors.keywords_and_delimiters },
     Constant = { fg = colors.errors_scope_and_special_characters },
@@ -201,7 +215,7 @@ M.create_highlight_groups = function(colors)
     Identifier = { fg = colors.variables_and_identifiers },
     PreProc = { fg = colors.keywords_and_delimiters },
     Delimiter = { fg = colors.keywords_and_delimiters },
-    Operator = { fg = colors.numbers_and_maths_symbols },
+    Operator = { fg = colors.numbers_and_math_symbols },
     Variable = { fg = colors.variables_and_identifiers },
 
     -- TreeSitter Syntax Groups:
@@ -259,7 +273,7 @@ M.create_highlight_groups = function(colors)
       fg = colors.errors_scope_and_special_characters,
     },
     ['@comment'] = { fg = colors.comments, italic = true },
-    ['@operator'] = { fg = colors.numbers_and_maths_symbols },
+    ['@operator'] = { fg = colors.numbers_and_math_symbols },
     ['@definition'] = { fg = colors.functions_and_warnings, italic = true },
 
     -- LSP Semantic Tokens
@@ -274,7 +288,7 @@ M.create_highlight_groups = function(colors)
     },
     ['@lsp.type.interface'] = { fg = colors.keywords_and_delimiters },
     ['@lsp.type.namespace'] = { fg = colors.keywords_and_delimiters },
-    ['@lsp.type.parameter'] = { fg = colors.numbers_and_maths_symbols },
+    ['@lsp.type.parameter'] = { fg = colors.numbers_and_math_symbols },
     ['@lsp.type.property'] = { fg = colors.variables_and_identifiers },
     ['@lsp.type.variable'] = { fg = colors.variables_and_identifiers },
     ['@lsp.mod.callable'] = {
@@ -289,10 +303,10 @@ M.create_highlight_groups = function(colors)
     DiagnosticHint = { fg = colors.strings_and_success },
 
     -- NvimTree
-    NvimTreeFolderName = { fg = colors.numbers_and_maths_symbols },
-    NvimTreeOpenedFolderName = { fg = colors.numbers_and_maths_symbols },
-    NvimTreeEmptyFolderName = { fg = colors.numbers_and_maths_symbols },
-    NvimTreeFolderIcon = { fg = colors.numbers_and_maths_symbols },
+    NvimTreeFolderName = { fg = colors.numbers_and_math_symbols },
+    NvimTreeOpenedFolderName = { fg = colors.numbers_and_math_symbols },
+    NvimTreeEmptyFolderName = { fg = colors.numbers_and_math_symbols },
+    NvimTreeFolderIcon = { fg = colors.numbers_and_math_symbols },
   }
 end
 
