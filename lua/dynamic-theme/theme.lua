@@ -35,6 +35,11 @@ local default_grey_palette = {
 }
 
 ---@class DynamicThemeTheme
+---@field initialise_palette fun(): DynamicThemePalette|nil initialize the palette from file or create default if none exists
+---@field reset fun(): nil reset to plugin defaults
+---@field update fun(): nil update the theme with updated current palette values
+---@field select_theme fun(new_index: number): nil select a theme by index
+---@field create_highlight_groups fun(colors: DynamicThemePalette): table<string, table> create highlight groups based on colors
 local M = {}
 
 ---initialize the palette from file or create default if none exists

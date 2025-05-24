@@ -3,6 +3,9 @@ local utils = require 'dynamic-theme.utils'
 local page = require 'dynamic-theme.page'
 
 ---@class DynamicThemeWindow
+---@field save_changes fun(): boolean save changes from the buffer to the theme
+---@field open_window fun(): nil open the theme editor window
+---@field close_window fun(): nil close the theme editor window
 local M = {}
 
 ---@class WindowData

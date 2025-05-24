@@ -3,6 +3,10 @@ local utils = require 'dynamic-theme.utils'
 local keymaps = require 'dynamic-theme.keymaps'
 
 ---@class DynamicThemePage
+---@field show_help_page fun(): nil show the help page
+---@field show_theme_page fun(): nil show the theme selection page
+---@field load_color_page fun(): nil load the color editor page
+---@field show_color_page fun(): nil show the color editor page
 local M = {}
 
 ---set buffer editable state

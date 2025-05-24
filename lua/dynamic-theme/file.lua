@@ -2,6 +2,10 @@ local config_path = vim.fn.stdpath 'config'
 
 ---@class DynamicThemeFile
 ---@field path string the path to the configuration JSON file
+---@field exists fun(): boolean check if the theme file exists
+---@field read fun(): Theme[]|nil read and parse the theme file
+---@field write fun(theme_list: Theme[]): boolean write themes to the theme file
+---@field save fun(): nil save changes from the UI to the theme file
 local M = {}
 
 M.path = config_path .. '/dynamic-theme.json'

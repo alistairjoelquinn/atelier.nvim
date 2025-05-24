@@ -1,4 +1,7 @@
 ---@class DynamicThemeKeymaps
+---@field create_color_page_keymaps fun(): nil create keymaps for the color editor page
+---@field create_theme_page_keymaps fun(): nil create keymaps for the theme selection page
+---@field create_help_page_keymaps fun(): nil create keymaps for the help page
 local M = {}
 
 ---clear all keymaps from the buffer

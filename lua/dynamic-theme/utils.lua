@@ -1,4 +1,8 @@
 ---@class DynamicThemeUtils
+---@field findThemeByName fun(theme_list: Theme[], target_name: string): Theme|nil, number|nil find a theme by name in the theme list
+---@field findSelectedTheme fun(theme_list: Theme[]): Theme|nil, number|nil find the currently selected theme
+---@field updateSelectedThemePalette fun(theme_list: Theme[], updated_palette: DynamicThemePalette): nil update the palette of the currently selected theme
+---@field apply_hex_highlights fun(): nil apply hex code highlighting to the buffer
 local M = {}
 
 ---check if a hex color is a valid 6 digit hex color

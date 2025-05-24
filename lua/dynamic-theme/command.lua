@@ -4,6 +4,7 @@ local file = require 'dynamic-theme.file'
 local page = require 'dynamic-theme.page'
 
 ---@class DynamicThemeCommand
+---@field create fun(): nil create plugin commands
 local M = {}
 
 ---create plugin commands
@@ -36,10 +37,6 @@ M.create = function()
   vim.api.nvim_create_user_command('DynamicThemeThemePage', function()
     page.show_theme_page()
   end, {})
-
-  vim.api.nvim_create_user_command('DynamicThemeLoad', function() end, {})
-
-  vim.api.nvim_create_user_command('DynamicThemeRename', function() end, {})
 end
 
 return M
