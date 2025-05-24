@@ -1,9 +1,9 @@
----@type DynamicThemePalette
+--- @type DynamicThemePalette
 local palette = require 'dynamic-theme.palette'
 local file = require 'dynamic-theme.file'
 local utils = require 'dynamic-theme.utils'
 
----@type Theme[] default theme list with one theme and seven empty slots
+--- @type Theme[]
 local defaultThemeList = {
   { name = 'dull-ish', selected = true, palette = palette },
   { name = '<EMPTY>', selected = false, palette = nil },
@@ -15,8 +15,8 @@ local defaultThemeList = {
   { name = '<EMPTY>', selected = false, palette = nil },
 }
 
----palette for empty themes before the user applies their own colors
----@type DynamicThemePalette
+--- palette for empty themes before the user applies their own colors
+--- @type DynamicThemePalette
 local default_grey_palette = {
   main_background = '#010101',
   current_line_highlight = '#252830',
@@ -34,17 +34,17 @@ local default_grey_palette = {
   types_and_classes = '#444444',
 }
 
----@class DynamicThemeTheme
----@field initialise_palette fun(): DynamicThemePalette|nil initialize the palette from file or create default if none exists
----@field reset fun(): nil reset to plugin defaults
----@field update fun(): nil update the theme with updated current palette values
----@field select_theme fun(new_index: number): nil select a theme by index
----@field create_highlight_groups fun(colors: DynamicThemePalette): table<string, table> create highlight groups based on colors
+--- @class DynamicThemeTheme
+--- @field initialize_palette fun(): DynamicThemePalette|nil
+--- @field reset fun(): nil
+--- @field update fun(): nil
+--- @field select_theme fun(new_index: number): nil
+--- @field create_highlight_groups fun(colors: DynamicThemePalette): table<string, table>
 local M = {}
 
----initialize the palette from file or create default if none exists
----@return DynamicThemePalette|nil the palette of the selected theme
-M.initialise_palette = function()
+--- initialize the palette from file or create default if none exists
+--- @return DynamicThemePalette|nil the palette of the selected theme
+M.initialize_palette = function()
   if not file.exists() then
     file.write(defaultThemeList)
   end
@@ -57,19 +57,19 @@ M.initialise_palette = function()
   end
 end
 
----reset to plugin defaults
+--- reset to plugin defaults
 M.reset = function()
   file.write(defaultThemeList)
   M.update()
 end
 
----update the theme with updated current palette values
+--- update the theme with updated current palette values
 M.update = function()
-  local loaded_palette = M.initialise_palette()
+  local loaded_palette = M.initialize_palette()
   if not loaded_palette then
     return
   end
-  
+
   local highlight_groups = M.create_highlight_groups(loaded_palette)
 
   for group, settings in pairs(highlight_groups) do
@@ -77,8 +77,8 @@ M.update = function()
   end
 end
 
----select a theme by index
----@param new_index number the index of the theme to select
+--- select a theme by index
+--- @param new_index number the index of the theme to select
 M.select_theme = function(new_index)
   local theme_list = file.read()
   if not theme_list or new_index < 1 or new_index > #theme_list then
@@ -98,7 +98,7 @@ M.select_theme = function(new_index)
 
   local new_theme = theme_list[new_index]
 
-  -- if the theme is empty, prompt for a name and initialise it
+  -- if the theme is empty, prompt for a name and initialize it
   if new_theme.name == '<EMPTY>' then
     local new_name = vim.fn.input 'Enter name for new theme: '
     if new_name and new_name ~= '' then
@@ -136,9 +136,9 @@ M.select_theme = function(new_index)
   page.show_color_page()
 end
 
----create highlight groups based on colors
----@param colors DynamicThemePalette the color palette to use
----@return table<string, table> highlight groups with their settings
+--- create highlight groups based on colors
+--- @param colors DynamicThemePalette the color palette to use
+--- @return table<string, table> highlight groups with their settings
 M.create_highlight_groups = function(colors)
   return {
     -- Core editor elements

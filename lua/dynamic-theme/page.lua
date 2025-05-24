@@ -2,29 +2,27 @@ local file = require 'dynamic-theme.file'
 local utils = require 'dynamic-theme.utils'
 local keymaps = require 'dynamic-theme.keymaps'
 
----@class DynamicThemePage
----@field show_help_page fun(): nil show the help page
----@field show_theme_page fun(): nil show the theme selection page
----@field load_color_page fun(): nil load the color editor page
----@field show_color_page fun(): nil show the color editor page
+--- @class DynamicThemePage
+--- @field show_help_page fun(): nil
+--- @field show_theme_page fun(): nil
+--- @field load_color_page fun(): nil
+--- @field show_color_page fun(): nil
 local M = {}
 
----set buffer editable state
----@param editable boolean whether the buffer should be editable
----@return nil
+--- set buffer editable state
+--- @param editable boolean
+--- @return nil
 local set_buffer_editable = function(editable)
   vim.api.nvim_buf_set_option(WINDOW_DATA.buf, 'modifiable', editable)
   vim.api.nvim_buf_set_option(WINDOW_DATA.buf, 'readonly', not editable)
 end
 
----maximum string length for formatting the color editor
----@type number
+--- @type number maximum string length for formatting the color editor
 local MAX_STRING_LENGTH = 40
 
----show the help page
----@return nil
+--- @return nil
 M.show_help_page = function()
-  ---@type string[] lines to display in the buffer
+  --- @type string[]
   local lines = {
     '                        Help',
     '             --------------------------',
@@ -55,10 +53,9 @@ M.show_help_page = function()
   keymaps.create_help_page_keymaps()
 end
 
----show the theme selection page
----@return nil
+--- @return nil
 M.show_theme_page = function()
-  ---@type string[] lines to display in the buffer
+  --- @type string[]
   local lines = {
     '                    Available Themes',
     '             --------------------------',
@@ -85,15 +82,14 @@ M.show_theme_page = function()
   keymaps.create_theme_page_keymaps()
 end
 
----load the color editor page
----@return nil
+--- @return nil
 M.load_color_page = function()
   local loaded_file = file.read()
   if not loaded_file then
     vim.notify('Error loading themes', vim.log.levels.ERROR)
     return
   end
-  
+
   local current_theme = utils.findSelectedTheme(loaded_file)
   if current_theme == nil then
     vim.notify('Warning, theme not detected', vim.log.levels.ERROR)
@@ -101,6 +97,15 @@ M.load_color_page = function()
   end
 
   local current_palette = current_theme.palette
+
+  if current_palette == nil then
+    vim.notify(
+      'Warning, no palette was found for this theme',
+      vim.log.levels.ERROR
+    )
+    return
+  end
+
   local title = 'Color Editor ( ' .. current_theme.name .. ' )'
 
   -- calculate padding to center the title within the window width
@@ -108,7 +113,7 @@ M.load_color_page = function()
   local padding = math.floor((52 - title_width) / 2)
   local centered_title = string.rep(' ', padding) .. title
 
-  ---@type string[] lines to display in the buffer
+  --- @type string[]
   local lines = {
     centered_title,
     '             -------------------------',
@@ -148,8 +153,7 @@ M.load_color_page = function()
   })
 end
 
----show the color editor page
----@return nil
+--- @return nil
 M.show_color_page = function()
   M.load_color_page()
 end

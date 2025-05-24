@@ -3,12 +3,12 @@ local theme = require 'dynamic-theme.theme'
 local file = require 'dynamic-theme.file'
 local page = require 'dynamic-theme.page'
 
----@class DynamicThemeCommand
----@field create fun(): nil create plugin commands
+--- @class DynamicThemeCommand
+--- @field create fun(): nil
 local M = {}
 
----create plugin commands
----@return nil
+--- create plugin commands for executing the user input operations
+--- @return nil
 M.create = function()
   vim.api.nvim_create_user_command('DynamicThemeOpen', function()
     window.open_window()
