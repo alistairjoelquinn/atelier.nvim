@@ -4,7 +4,7 @@ This Neovim theme comes with super powers. It allows you to update the current t
 
 ## Dull-ish
 
-When first loading the plugin, the [dull-ish theme](https://github.com/alistairjoelquinn/dull-ish.nvim) is applied. This is a low-contrast, minimalistic theme with just a few subtle color highlights. 
+When first loading the plugin, the [dull-ish theme](https://github.com/alistairjoelquinn/dull-ish.nvim) is applied. This is a low-contrast, minimalistic theme with just a few subtle color highlights.
 
 <img width="1019" alt="Screenshot 2025-05-24 at 20 37 23" src="https://github.com/user-attachments/assets/60e9d70e-cdac-447d-b5b4-1f3ec8ceec06" />
 
