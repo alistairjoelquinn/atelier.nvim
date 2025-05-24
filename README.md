@@ -62,5 +62,5 @@ That's all there is to it.
 
 ## Considerations
 
-- Dynamic theme uses JSON to persist the hex codes for each theme. One of the advantages of this is that the JSON file persisted in the `nvim` directory can be included in version control should you wish to share you saved config across devices. The reverse also being true, in that if you wish to keep them only on one machine, it can be ignored from version control.
+- Dynamic theme uses JSON to persist the hex codes for each theme. One of the advantages of this is that the JSON file persisted in the `nvim` directory can be included in version control, should you wish to share your saved config across devices. The reverse also being true, if you wish to persist you themes only on one machine, the file can be ignored from version control.
 - The color page is fully editable, this also means individual highlight groups can be deleted if desired.
