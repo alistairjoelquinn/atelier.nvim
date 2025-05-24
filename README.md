@@ -26,7 +26,7 @@ From here you can simply update one of the hex codes, and press `s` to save. The
 
 <img width="881" alt="Screenshot 2025-05-24 at 19 52 42" src="https://github.com/user-attachments/assets/1d89f05a-04d6-41dc-8412-99dd6f5988be" />
 
-In order to simply to creation and editing of theme, color highlights have been divided up into the 14 groups you can see in the window.
+In order to simplify the creation and editing of themes, the color highlights have been divided up into the 14 groups you can see in the window.
 
 ## Theme page
 
