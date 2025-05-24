@@ -6,7 +6,7 @@ This Neovim theme comes with super powers. It allows you to update the current t
 
 When first loading the plugin, the [dull-ish theme](https://github.com/alistairjoelquinn/dull-ish.nvim) is applied. This is a low-contrast, minimalistic theme with just a few subtle color highlights. From here, if you wish to open the plugin window you can do so with `:DynamicThemeOpen`, or `<leader>dt` which is preconfigured. This will present you with the color editor for the dullish theme.
 
-![Screenshot 2025-05-24 at 19 37 05](https://github.com/user-attachments/assets/a375b75c-964a-4903-8732-ac9985a82784)
+![Screenshot 2025-05-24 at 20 33 29](https://github.com/user-attachments/assets/3595e19d-48d0-4a48-b15d-73f78ec4084b)
 
 There are 2 other views for this window. The help page, which can be accessed with `?`.
 
@@ -20,7 +20,7 @@ And the theme page which can be accessed with `t`.
 
 We'll come back to these pages though. You can navigate back to the color page for the currently selected theme ([dull-ish](https://github.com/alistairjoelquinn/dull-ish.nvim)), with `c`.
 
-![Screenshot 2025-05-24 at 19 37 22](https://github.com/user-attachments/assets/8c2b242c-f9bf-4945-93ac-3f6357b07921)
+![Screenshot 2025-05-24 at 20 33 29](https://github.com/user-attachments/assets/309d28d7-6df1-4150-94cb-45eba35931ad)
 
 From here you can simply update one of the hex codes, and press `s` to save. The background to the hex code gives you immediate feedback as to what the color looks like, to make it easier to find a color which matches well with the rest of the palette. After saving you will see the theme update immediately to reflect the changes. Below we have updated the hex code for `functions and warnings`. You can see that both the hex code and the functions in the background now use the new color.
 
