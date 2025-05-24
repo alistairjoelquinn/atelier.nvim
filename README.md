@@ -1,10 +1,10 @@
 # Dynamic Theme - a Neovim theme plugin with a twist
 
-This Neovim theme comes with super powers. It allows you to update the current theme while you are working, as well as creating new themes from scratch. It's based on my own experience of wishing it was easier to update the colors slightly in the theme that I am using. Maybe there is one color which is a little too bright, or one you wish was a different color altogether. This plugin allows you to do just that.
+This Neovim theme comes with super powers. It allows you to update the current theme while you are working, as well as creating new themes from scratch. It's based on my own experience of wishing it was easier to update the theme that I am using. Perhaps you find there is one color which is a little too bright, or one you wish was a different color altogether. This plugin allows you to do just that.
 
 ## Dull-ish
 
-When first loading the theme, the [dull-ish theme](https://github.com/alistairjoelquinn/dull-ish.nvim) is applied. This is a low-contrast, minimalistic theme with just a few subtle color highlights. From here, if you wish to open the edit window you can do it with `:DynamicThemeOpen`, or `<leader>dt` which is preconfigured. This will present you with the color editor for the dullish theme.
+When first loading the plugin, the [dull-ish theme](https://github.com/alistairjoelquinn/dull-ish.nvim) is applied. This is a low-contrast, minimalistic theme with just a few subtle color highlights. From here, if you wish to open the plugin window you can do so with `:DynamicThemeOpen`, or `<leader>dt` which is preconfigured. This will present you with the color editor for the dullish theme.
 
 ![Screenshot 2025-05-24 at 19 37 05](https://github.com/user-attachments/assets/a375b75c-964a-4903-8732-ac9985a82784)
 
