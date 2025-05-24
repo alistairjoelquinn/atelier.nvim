@@ -39,14 +39,23 @@ From here you can select any one of the saved themes by choosing its number. Cur
 ![Screenshot 2025-05-24 at 19 38 12](https://github.com/user-attachments/assets/ca14376c-9fb1-4ee5-ad9b-4f9285f6327a)
 
 Let's call ours Muted Neon. Having entered the new name, you will lbe immediately navigated back to the color page, where the default dark theme has been applied. The window title indicates which theme is currently selected (Muted Neon).
+
 ![Screenshot 2025-05-24 at 19 38 30](https://github.com/user-attachments/assets/721f4aa7-0370-4823-bf25-96af7338717e)
+
 Here we can do exactly what we did before and update a hex code.
+
 ![Screenshot 2025-05-24 at 19 39 23](https://github.com/user-attachments/assets/f83646d3-7522-41dc-9f9f-9ec6c2a2c932)
+
 Again, after pressing `s`, for save, we will see the Neovim theme update immediately.
+
 ![Screenshot 2025-05-24 at 19 39 56](https://github.com/user-attachments/assets/75b39de3-4d8c-41f8-ba65-be44a4bfd261)
+
 Let's change a couple more.
+
 ![Screenshot 2025-05-24 at 19 41 10](https://github.com/user-attachments/assets/b244ff14-5325-4f34-9827-206908159396)
+
 We can return back to the theme page with `t` in order to change theme again. Here we can press `1` to return back to `dull-ish` or we can pick another number to create another new theme.
+
 ![Screenshot 2025-05-24 at 19 41 31](https://github.com/user-attachments/assets/d514c1b3-a4e3-4e9e-bfdb-991c00c0223a)
 
 ## Considerations
