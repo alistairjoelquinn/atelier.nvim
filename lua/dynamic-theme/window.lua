@@ -1,5 +1,6 @@
 local file = require 'dynamic-theme.file'
 local utils = require 'dynamic-theme.utils'
+local page = require 'dynamic-theme.page'
 
 local M = {}
 
@@ -8,289 +9,13 @@ local M = {}
 ---@field buf number
 
 ---@type WindowData
-local window_data = {
+WINDOW_DATA = {
   win = -1,
   buf = -1,
 }
 
-local set_buffer_editable = function(editable)
-  vim.api.nvim_buf_set_option(window_data.buf, 'modifiable', editable)
-  vim.api.nvim_buf_set_option(window_data.buf, 'readonly', not editable)
-end
-
-local clear_buffer_keymaps = function()
-  local keys_to_clear = {
-    's',
-    'r',
-    't',
-    'q',
-    '?',
-    'l',
-    'n',
-    'c',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-  }
-  for _, key in ipairs(keys_to_clear) do
-    pcall(vim.api.nvim_buf_del_keymap, window_data.buf, 'n', key)
-  end
-end
-
-local create_color_page_keymaps = function()
-  -- first clear any potentially existing keymaps
-  clear_buffer_keymaps()
-
-  vim.api.nvim_buf_set_keymap(
-    window_data.buf,
-    'n',
-    's',
-    ':DynamicThemeSave<CR>',
-    { noremap = true, silent = true }
-  )
-
-  vim.api.nvim_buf_set_keymap(
-    window_data.buf,
-    'n',
-    'r',
-    ':DynamicThemeReset<CR>',
-    { noremap = true, silent = true }
-  )
-
-  vim.api.nvim_buf_set_keymap(
-    window_data.buf,
-    'n',
-    't',
-    ':DynamicThemeThemePage<CR>',
-    { noremap = true, silent = true }
-  )
-
-  vim.api.nvim_buf_set_keymap(
-    window_data.buf,
-    'n',
-    'q',
-    ':DynamicThemeClose<CR>',
-    { noremap = true, silent = true }
-  )
-
-  vim.api.nvim_buf_set_keymap(
-    window_data.buf,
-    'n',
-    '?',
-    ':DynamicThemeHelpPage<CR>',
-    { noremap = true, silent = true }
-  )
-end
-
-local create_theme_page_keymaps = function()
-  -- first clear any potentially existing keymaps
-  clear_buffer_keymaps()
-
-  vim.api.nvim_buf_set_keymap(
-    window_data.buf,
-    'n',
-    'l',
-    ':DynamicThemeLoad<CR>',
-    { noremap = true, silent = true }
-  )
-
-  vim.api.nvim_buf_set_keymap(
-    window_data.buf,
-    'n',
-    'n',
-    ':DynamicThemeRename<CR>',
-    { noremap = true, silent = true }
-  )
-
-  vim.api.nvim_buf_set_keymap(
-    window_data.buf,
-    'n',
-    'c',
-    ':DynamicThemeColorPage<CR>',
-    { noremap = true, silent = true }
-  )
-
-  vim.api.nvim_buf_set_keymap(
-    window_data.buf,
-    'n',
-    'q',
-    ':DynamicThemeClose<CR>',
-    { noremap = true, silent = true }
-  )
-
-  vim.api.nvim_buf_set_keymap(
-    window_data.buf,
-    'n',
-    '?',
-    ':DynamicThemeHelpPage<CR>',
-    { noremap = true, silent = true }
-  )
-
-  local theme = require 'dynamic-theme.theme'
-  for i = 1, 8 do
-    vim.api.nvim_buf_set_keymap(window_data.buf, 'n', tostring(i), '', {
-      noremap = true,
-      silent = true,
-      callback = function()
-        theme.select_theme(i)
-      end,
-    })
-  end
-end
-
-local create_help_page_keymaps = function()
-  -- first clear any potentially existing keymaps
-  clear_buffer_keymaps()
-
-  vim.api.nvim_buf_set_keymap(
-    window_data.buf,
-    'n',
-    'c',
-    ':DynamicThemeColorPage<CR>',
-    { noremap = true, silent = true }
-  )
-
-  vim.api.nvim_buf_set_keymap(
-    window_data.buf,
-    'n',
-    't',
-    ':DynamicThemeThemePage<CR>',
-    { noremap = true, silent = true }
-  )
-
-  vim.api.nvim_buf_set_keymap(
-    window_data.buf,
-    'n',
-    'q',
-    ':DynamicThemeClose<CR>',
-    { noremap = true, silent = true }
-  )
-end
-
-local MAX_STRING_LENGTH = 40
 local WINDOW_WIDTH = 52
 local WINDOW_HEIGHT = 19
-
--- function to check if a hex color is a valid 6 digit hex color
-local function is_valid_hex_color(hex)
-  return hex and hex:match '^#%x%x%x%x%x%x$' ~= nil
-end
-
---[[ Function to determine if a color is dark. We use this when
-rendering the hex codes on the color page as we need to use light text over the
-top of dark backgrounds for readability. ]]
-local function is_dark_color(hex)
-  if not is_valid_hex_color(hex) then
-    return false
-  end
-
-  -- extract RGB components
-  local r = tonumber(hex:sub(2, 3), 16) or 0
-  local g = tonumber(hex:sub(4, 5), 16) or 0
-  local b = tonumber(hex:sub(6, 7), 16) or 0
-
-  -- calculate perceived brightness using common formula
-  local brightness = (0.299 * r + 0.587 * g + 0.114 * b) / 255
-
-  return brightness < 0.5
-end
-
--- helper function to apply hex code highlighting
-local function apply_hex_highlights()
-  -- clear existing highlights
-  vim.api.nvim_buf_clear_namespace(window_data.buf, -1, 0, -1)
-
-  local lines = vim.api.nvim_buf_get_lines(window_data.buf, 0, -1, false)
-  for i, line in ipairs(lines) do
-    local _, hex_start = line:find '%s+#'
-    if hex_start then
-      local hex_code = line:match('%#%x+', hex_start - 1)
-      if hex_code and is_valid_hex_color(hex_code) then
-        -- create a highlight group for each hex code
-        local hl_group = 'DynamicThemeColor' .. hex_code:gsub('#', '')
-
-        -- choose text color based on background darkness
-        local fg_color = is_dark_color(hex_code) and '#FFFFFF' or '#000000'
-
-        -- use pcall to gracefully handle the possibility of an error here
-        local success, _ = pcall(function()
-          vim.api.nvim_set_hl(0, hl_group, { bg = hex_code, fg = fg_color })
-        end)
-
-        if success then
-          vim.api.nvim_buf_add_highlight(
-            window_data.buf,
-            -1, -- namespace id (-1 for a new namespace)
-            hl_group,
-            i - 1, -- line index (0-based)
-            hex_start - 1, -- start column (0-based)
-            hex_start - 1 + #hex_code -- end column
-          )
-        end
-      end
-    end
-  end
-end
-
-local function load_color_page()
-  local loaded_file = file.read()
-  local current_theme = utils.findSelectedTheme(loaded_file)
-
-  if current_theme == nil then
-    vim.notify('Warning, theme not detected', vim.log.levels.ERROR)
-  end
-
-  local current_palette = current_theme.palette
-  local title = 'Color Editor ( ' .. current_theme.name .. ' )'
-
-  -- calculate padding to center the title within the window width
-  local title_width = vim.fn.strdisplaywidth(title)
-  local padding = math.floor((WINDOW_WIDTH - title_width) / 2)
-  local centered_title = string.rep(' ', padding) .. title
-
-  local lines = {
-    centered_title,
-    '             -------------------------',
-    "             '?' to view the help menu",
-    '',
-  }
-
-  for name, hex in pairs(current_palette) do
-    local display_name = name:gsub('_', ' ')
-    -- adding variable space between each key and value creates a visual table
-    local padding_spaces = string.rep(' ', MAX_STRING_LENGTH - #display_name)
-    local input_line =
-      string.format('  %s:%s%s', display_name, padding_spaces, hex)
-    table.insert(lines, input_line)
-  end
-
-  set_buffer_editable(true)
-
-  create_color_page_keymaps()
-  vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
-
-  apply_hex_highlights()
-
-  -- set up autocmd to refresh highlights when the buffer content changes
-  vim.api.nvim_create_autocmd('TextChanged', {
-    buffer = window_data.buf,
-    callback = function()
-      apply_hex_highlights()
-    end,
-  })
-
-  vim.api.nvim_create_autocmd('TextChangedI', {
-    buffer = window_data.buf,
-    callback = function()
-      apply_hex_highlights()
-    end,
-  })
-end
 
 local create_window = function()
   local col = math.floor((vim.o.columns - WINDOW_WIDTH) / 2)
@@ -308,18 +33,18 @@ local create_window = function()
 
   -- we always try and reuse the buffer from the previous open window, though
   -- always create a new window as the old window can't be reused
-  if not vim.api.nvim_buf_is_valid(window_data.buf) then
-    window_data.buf = vim.api.nvim_create_buf(false, true)
-    vim.api.nvim_buf_set_option(window_data.buf, 'filetype', 'text')
+  if not vim.api.nvim_buf_is_valid(WINDOW_DATA.buf) then
+    WINDOW_DATA.buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_buf_set_option(WINDOW_DATA.buf, 'filetype', 'text')
   end
 
-  load_color_page()
+  page.load_color_page()
 
-  window_data.win = vim.api.nvim_open_win(window_data.buf, true, config)
+  WINDOW_DATA.win = vim.api.nvim_open_win(WINDOW_DATA.buf, true, config)
 end
 
 M.save_changes = function()
-  local lines = vim.api.nvim_buf_get_lines(window_data.buf, 0, -1, false)
+  local lines = vim.api.nvim_buf_get_lines(WINDOW_DATA.buf, 0, -1, false)
   local updated_palette = {}
 
   for _, line in ipairs(lines) do
@@ -346,15 +71,15 @@ M.save_changes = function()
 end
 
 M.open_window = function()
-  if not vim.api.nvim_win_is_valid(window_data.win) then
+  if not vim.api.nvim_win_is_valid(WINDOW_DATA.win) then
     create_window()
 
     -- find first color line and position cursor at the hex code
-    local lines = vim.api.nvim_buf_get_lines(window_data.buf, 0, -1, false)
+    local lines = vim.api.nvim_buf_get_lines(WINDOW_DATA.buf, 0, -1, false)
     for i, line in ipairs(lines) do
       local hex_start = line:find '%#%x+'
       if hex_start then
-        vim.api.nvim_win_set_cursor(window_data.win, { i, hex_start })
+        vim.api.nvim_win_set_cursor(WINDOW_DATA.win, { i, hex_start })
         break
       end
     end
@@ -362,69 +87,11 @@ M.open_window = function()
 end
 
 M.close_window = function()
-  if vim.api.nvim_win_is_valid(window_data.win) then
-    vim.api.nvim_win_close(window_data.win, false)
+  if vim.api.nvim_win_is_valid(WINDOW_DATA.win) then
+    vim.api.nvim_win_close(WINDOW_DATA.win, false)
     -- ensure window is modifiable when re-opened
-    vim.api.nvim_buf_set_option(window_data.buf, 'modifiable', true)
+    vim.api.nvim_buf_set_option(WINDOW_DATA.buf, 'modifiable', true)
   end
-end
-
-M.show_help_page = function()
-  local lines = {
-    '                        Help',
-    '             --------------------------',
-    '  Color page commands:',
-    "  's' to save changes",
-    "  'r' to reset plugin defaults",
-    "  't' to go to the theme page",
-    "  'q' to quit",
-    '',
-    '  Theme page commands',
-    "  '1-8' to select a theme by number",
-    "  'c' to go color page",
-    "  'q' to quit",
-    '',
-    '  Help page commands',
-    "  'c' to go color page",
-    "  't' to go to the theme page",
-    "  'q' to quit",
-  }
-
-  -- make buffer modifiable first (in case it was previously set to non-modifiable)
-  set_buffer_editable(true)
-
-  vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
-
-  -- ensure buffer is no longer editable
-  set_buffer_editable(false)
-  create_help_page_keymaps()
-end
-
-M.show_theme_page = function()
-  local lines = {
-    '                    Available Themes',
-    '             --------------------------',
-    '',
-  }
-
-  local loaded_file = file.read()
-
-  for i, theme in ipairs(loaded_file) do
-    table.insert(lines, '  ' .. string.format('%d. %s', i, theme.name))
-  end
-
-  -- make buffer modifiable first (in case it was previously set to non-modifiable)
-  set_buffer_editable(true)
-
-  vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
-
-  -- ensure buffer is no longer editable
-  set_buffer_editable(false)
-  create_theme_page_keymaps()
-end
-
-M.show_color_page = function()
-  load_color_page()
 end
 
 return M

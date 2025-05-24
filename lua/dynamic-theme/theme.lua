@@ -115,8 +115,8 @@ M.select_theme = function(new_index)
   M.update()
 
   -- return to the color page for the newly selected theme
-  local window = require 'dynamic-theme.window'
-  window.show_color_page()
+  local page = require 'dynamic-theme.page'
+  page.show_color_page()
 end
 
 ---@return table<string, table> Highlight groups with their settings
