@@ -185,9 +185,15 @@ local function load_color_page()
   end
 
   local current_palette = current_theme.palette
+  local title = 'Color Editor ( ' .. current_theme.name .. ' )'
+
+  -- calculate padding to center the title within the window width
+  local title_width = vim.fn.strdisplaywidth(title)
+  local padding = math.floor((WINDOW_WIDTH - title_width) / 2)
+  local centered_title = string.rep(' ', padding) .. title
 
   local lines = {
-    '             Color Editor ( ' .. current_theme.name .. ' )',
+    centered_title,
     '             --------------------------',
     "             '?' to view the help menu",
     '',

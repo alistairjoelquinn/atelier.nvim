@@ -16,7 +16,7 @@ local defaultThemeList = {
 
 -- palete for empty themes before the user applies their own colors
 local default_grey_palette = {
-  main_background = '#1b1b20',
+  main_background = '#010101',
   current_line_highlight = '#252830',
   keywords_and_delimiters = '#999999',
   numbers_and_maths_symbols = '#777777',
