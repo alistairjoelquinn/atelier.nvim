@@ -1,28 +1,43 @@
 # Dynamic Theme - a Neovim theme plugin with a twist
 
-This Neovim theme comes with super powers. It allows you to update the current theme while you are working, as well as creating new themes from scratch. It's based on my own experience of wishing it was easier to update the colors slightly in the theme that I am using. Maybe there is one color which is a little too bright, or one you wish was a different color altogether. Well this plugin allows you to do just that.
+This Neovim theme comes with super powers. It allows you to update the current theme while you are working, as well as creating new themes from scratch. It's based on my own experience of wishing it was easier to update the colors slightly in the theme that I am using. Maybe there is one color which is a little too bright, or one you wish was a different color altogether. This plugin allows you to do just that.
 
 ## Dull-ish
+
 When first loading the theme, the [dull-ish theme](https://github.com/alistairjoelquinn/dull-ish.nvim) is applied. This is a low-contrast, minimalistic theme with just a few subtle color highlights. From here, if you wish to open the edit window you can do it with `:DynamicThemeOpen`, or `<leader>dt` which is preconfigured. This will present you with the color editor for the dullish theme.
+
 ![Screenshot 2025-05-24 at 19 37 05](https://github.com/user-attachments/assets/a375b75c-964a-4903-8732-ac9985a82784)
+
 There are 2 other views for this window. The help page, which can be accessed with `?`.
+
 ![Screenshot 2025-05-24 at 19 37 13](https://github.com/user-attachments/assets/39c349f3-ad84-46fc-9a24-68b19f8b719a)
+
 And the theme page which can be accessed with `t`.
+
 ![Screenshot 2025-05-24 at 19 37 44](https://github.com/user-attachments/assets/a4e18edc-aa9a-4459-b069-f87e52d015cb)
 
-
 ## Color page
+
 We'll come back to these pages though. You can navigate back to the color page for the currently selected theme ([dull-ish](https://github.com/alistairjoelquinn/dull-ish.nvim)), with `c`.
+
 ![Screenshot 2025-05-24 at 19 37 22](https://github.com/user-attachments/assets/8c2b242c-f9bf-4945-93ac-3f6357b07921)
+
 From here you can simply update one of the hex codes, and press `s` to save. The background to the hex code gives you immediate feedback as to what the color looks like, to make it easier to find a color which matches well with the rest of the palette. After saving you will see the theme update immediately to reflect the changes. Below we have updated the hex code for `functions and warnings`. You can see that both the hex code and the functions in the background now use the new color.
+
 <img width="881" alt="Screenshot 2025-05-24 at 19 52 42" src="https://github.com/user-attachments/assets/1d89f05a-04d6-41dc-8412-99dd6f5988be" />
+
 In order to simply to creation and editing of theme, color highlights have been divided up into the 14 groups you can see in the window.
 
 ## Theme page
+
 Now that we have managed to update the current theme, let's try and create a new one. Navigate to the theme page by pressing `t`. In total Dynamic Theme allows you to save up to 8 themes.
+
 ![Screenshot 2025-05-24 at 19 37 44](https://github.com/user-attachments/assets/990faff6-9e37-4509-b388-f368f2794ef2)
+
 From here you can select any one of the saved themes by choosing its number. Currently all the other themes are empty. The first time you choose an empty theme you will be prompted to choose it name.
+
 ![Screenshot 2025-05-24 at 19 38 12](https://github.com/user-attachments/assets/ca14376c-9fb1-4ee5-ad9b-4f9285f6327a)
+
 Let's call ours Muted Neon. Having entered the new name, you will lbe immediately navigated back to the color page, where the default dark theme has been applied. The window title indicates which theme is currently selected (Muted Neon).
 ![Screenshot 2025-05-24 at 19 38 30](https://github.com/user-attachments/assets/721f4aa7-0370-4823-bf25-96af7338717e)
 Here we can do exactly what we did before and update a hex code.
@@ -35,6 +50,6 @@ We can return back to the theme page with `t` in order to change theme again. He
 ![Screenshot 2025-05-24 at 19 41 31](https://github.com/user-attachments/assets/d514c1b3-a4e3-4e9e-bfdb-991c00c0223a)
 
 ## Considerations
+
 - Dynamic theme uses JSON to persist the hex codes for each theme. One of the advantages of this is that the JSON file persisted in the `nvim` directory can be included in version control should you wish to share you saved config across devices. The reverse also being true, in that if you wish to keep them only on one machine, it can be ignored from version control.
 - The color page is fully editable, this also means individual highlight groups can be deleted if desired.
-  
