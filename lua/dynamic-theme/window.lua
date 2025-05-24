@@ -176,6 +176,67 @@ local MAX_STRING_LENGTH = 40
 local WINDOW_WIDTH = 52
 local WINDOW_HEIGHT = 19
 
+-- function to check if a hex color is a valid 6 digit hex color
+local function is_valid_hex_color(hex)
+  return hex and hex:match '^#%x%x%x%x%x%x$' ~= nil
+end
+
+--[[ Function to determine if a color is dark. We use this when
+rendering the hex codes on the color page as we need to use light text over the
+top of dark backgrounds for readability. ]]
+local function is_dark_color(hex)
+  if not is_valid_hex_color(hex) then
+    return false
+  end
+
+  -- extract RGB components
+  local r = tonumber(hex:sub(2, 3), 16) or 0
+  local g = tonumber(hex:sub(4, 5), 16) or 0
+  local b = tonumber(hex:sub(6, 7), 16) or 0
+
+  -- calculate perceived brightness using common formula
+  local brightness = (0.299 * r + 0.587 * g + 0.114 * b) / 255
+
+  return brightness < 0.5
+end
+
+-- helper function to apply hex code highlighting
+local function apply_hex_highlights()
+  -- clear existing highlights
+  vim.api.nvim_buf_clear_namespace(window_data.buf, -1, 0, -1)
+
+  local lines = vim.api.nvim_buf_get_lines(window_data.buf, 0, -1, false)
+  for i, line in ipairs(lines) do
+    local _, hex_start = line:find '%s+#'
+    if hex_start then
+      local hex_code = line:match('%#%x+', hex_start - 1)
+      if hex_code and is_valid_hex_color(hex_code) then
+        -- create a highlight group for each hex code
+        local hl_group = 'DynamicThemeColor' .. hex_code:gsub('#', '')
+
+        -- choose text color based on background darkness
+        local fg_color = is_dark_color(hex_code) and '#FFFFFF' or '#000000'
+
+        -- use pcall to gracefully handle the possibility of an error here
+        local success, _ = pcall(function()
+          vim.api.nvim_set_hl(0, hl_group, { bg = hex_code, fg = fg_color })
+        end)
+
+        if success then
+          vim.api.nvim_buf_add_highlight(
+            window_data.buf,
+            -1, -- namespace id (-1 for a new namespace)
+            hl_group,
+            i - 1, -- line index (0-based)
+            hex_start - 1, -- start column (0-based)
+            hex_start - 1 + #hex_code -- end column
+          )
+        end
+      end
+    end
+  end
+end
+
 local function load_color_page()
   local loaded_file = file.read()
   local current_theme = utils.findSelectedTheme(loaded_file)
@@ -212,6 +273,23 @@ local function load_color_page()
 
   create_color_page_keymaps()
   vim.api.nvim_buf_set_lines(window_data.buf, 0, -1, false, lines)
+
+  apply_hex_highlights()
+
+  -- set up autocmd to refresh highlights when the buffer content changes
+  vim.api.nvim_create_autocmd('TextChanged', {
+    buffer = window_data.buf,
+    callback = function()
+      apply_hex_highlights()
+    end,
+  })
+
+  vim.api.nvim_create_autocmd('TextChangedI', {
+    buffer = window_data.buf,
+    callback = function()
+      apply_hex_highlights()
+    end,
+  })
 end
 
 local create_window = function()
