@@ -50,9 +50,14 @@ M.initialize_palette = function()
   end
   local loaded_file = file.read()
   if loaded_file then
-    return utils.findSelectedTheme(loaded_file).palette
+    local selected_theme = utils.findSelectedTheme(loaded_file)
+    if not selected_theme then
+      vim.notify('No selected theme detected', vim.log.levels.ERROR)
+      return nil
+    end
+    return selected_theme.palette
   else
-    vim.notify('Error initialising palette', vim.log.levels.ERROR)
+    vim.notify('Error initializing palette', vim.log.levels.ERROR)
     return nil
   end
 end
