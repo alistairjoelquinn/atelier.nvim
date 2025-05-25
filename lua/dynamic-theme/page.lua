@@ -82,6 +82,24 @@ M.show_theme_page = function()
   keymaps.create_theme_page_keymaps()
 end
 
+-- define the order of palette fields to ensure consistent display
+local ordered_keys = {
+  'main_background',
+  'current_line_highlight',
+  'keywords_and_delimiters',
+  'numbers_and_math_symbols',
+  'emphasized_text',
+  'comments',
+  'borders_and_line_numbers',
+  'search_highlight_background',
+  'visual_highlight_background',
+  'functions_and_warnings',
+  'strings_and_success',
+  'variables_and_identifiers',
+  'errors_scope_and_special_characters',
+  'types_and_classes',
+}
+
 --- @return nil
 M.load_color_page = function()
   local loaded_file = file.read()
@@ -121,13 +139,17 @@ M.load_color_page = function()
     '',
   }
 
-  for name, hex in pairs(current_palette) do
-    local display_name = name:gsub('_', ' ')
-    -- adding variable space between each key and value creates a visual table
-    local padding_spaces = string.rep(' ', MAX_STRING_LENGTH - #display_name)
-    local input_line =
-      string.format('  %s:%s%s', display_name, padding_spaces, hex)
-    table.insert(lines, input_line)
+  -- use the ordered keys to display palette items in consistent order
+  for _, name in ipairs(ordered_keys) do
+    local hex = current_palette[name]
+    if hex then
+      local display_name = name:gsub('_', ' ')
+      -- adding variable space between each key and value creates a visual table
+      local padding_spaces = string.rep(' ', MAX_STRING_LENGTH - #display_name)
+      local input_line =
+        string.format('  %s:%s%s', display_name, padding_spaces, hex)
+      table.insert(lines, input_line)
+    end
   end
 
   set_buffer_editable(true)
