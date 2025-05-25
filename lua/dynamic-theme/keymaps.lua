@@ -74,6 +74,14 @@ M.create_color_page_keymaps = function()
   vim.api.nvim_buf_set_keymap(
     WINDOW_DATA.buf,
     'n',
+    '<Esc>',
+    ':DynamicThemeClose<CR>',
+    opts
+  )
+
+  vim.api.nvim_buf_set_keymap(
+    WINDOW_DATA.buf,
+    'n',
     '?',
     ':DynamicThemeHelpPage<CR>',
     opts
@@ -113,6 +121,14 @@ M.create_theme_page_keymaps = function()
     WINDOW_DATA.buf,
     'n',
     'q',
+    ':DynamicThemeClose<CR>',
+    opts
+  )
+
+  vim.api.nvim_buf_set_keymap(
+    WINDOW_DATA.buf,
+    'n',
+    '<Esc>',
     ':DynamicThemeClose<CR>',
     opts
   )
@@ -162,6 +178,14 @@ M.create_help_page_keymaps = function()
     WINDOW_DATA.buf,
     'n',
     'q',
+    ':DynamicThemeClose<CR>',
+    opts
+  )
+
+  vim.api.nvim_buf_set_keymap(
+    WINDOW_DATA.buf,
+    'n',
+    '<Esc>',
     ':DynamicThemeClose<CR>',
     opts
   )
