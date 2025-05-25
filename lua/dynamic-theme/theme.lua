@@ -59,21 +59,18 @@ end
 
 --- reset to plugin defaults
 M.reset = function()
-  vim.api.nvim_echo({
-    { 'WARNING: ', 'WarningMsg' },
-    {
-      'This will reset all themes to factory defaults. All custom themes will be lost\n',
-      'Normal',
-    },
-    { 'Press ENTER to continue or ESC to cancel', 'Normal' },
-  }, true, {})
+  local choice = vim.fn.confirm(
+    'WARNING: This will reset all themes to factory defaults. All custom themes will be lost!',
+    '&Reset\n&Cancel',
+    2, -- Default to Cancel
+    'Warning'
+  )
 
-  local char = vim.fn.getchar()
-  if char == 27 then -- ESC key
-    return
-  elseif char == 13 then -- ENTER key
+  if choice == 1 then
     file.write(defaultThemeList)
     M.update()
+
+    -- reload the window content
     if WINDOW_DATA and vim.api.nvim_win_is_valid(WINDOW_DATA.win) then
       local page = require 'dynamic-theme.page'
       page.load_color_page()
