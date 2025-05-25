@@ -20,9 +20,11 @@ And the theme page which can be accessed with `t`.
 
 ![Screenshot 2025-05-24 at 19 37 44](https://github.com/user-attachments/assets/a4e18edc-aa9a-4459-b069-f87e52d015cb)
 
+We'll come back to these pages though. 
+
 ## Color page
 
-We'll come back to these pages though. You can navigate back to the color page for the currently selected theme ([dull-ish](https://github.com/alistairjoelquinn/dull-ish.nvim)), with `c`.
+You can navigate back to the color page for the currently selected theme ([dull-ish](https://github.com/alistairjoelquinn/dull-ish.nvim)), with `c`.
 
 ![Screenshot 2025-05-24 at 20 33 29](https://github.com/user-attachments/assets/309d28d7-6df1-4150-94cb-45eba35931ad)
 
