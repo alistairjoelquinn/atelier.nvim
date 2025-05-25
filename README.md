@@ -2,6 +2,17 @@
 
 This Neovim theme comes with super powers. It allows you to update the current theme while you are working, as well as creating new themes from scratch. It's based on my own experience of wishing it was easier to update the theme that I am using. Perhaps you find there is one color which is a little too bright, or one you wish was a different color altogether. This plugin allows you to do just that.
 
+## Installation
+
+You can install `dynamic-theme.nvim` with you preferred package manager. Here is an example using `lazy.nvim`
+```lua
+{
+  "alistairjoelquinn/dynamic-theme.nvim",
+  lazy = false,
+  priority = 1000,
+}
+```
+
 ## dull-ish
 
 When first loading the plugin, the [dull-ish theme](https://github.com/alistairjoelquinn/dull-ish.nvim) is applied. This is a low-contrast, minimalistic theme with just a few subtle color highlights.
