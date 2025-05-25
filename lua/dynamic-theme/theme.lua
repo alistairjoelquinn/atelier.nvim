@@ -59,8 +59,26 @@ end
 
 --- reset to plugin defaults
 M.reset = function()
-  file.write(defaultThemeList)
-  M.update()
+  vim.api.nvim_echo({
+    { 'WARNING: ', 'WarningMsg' },
+    {
+      'This will reset all themes to factory defaults. All custom themes will be lost\n',
+      'Normal',
+    },
+    { 'Press ENTER to continue or ESC to cancel', 'Normal' },
+  }, true, {})
+
+  local char = vim.fn.getchar()
+  if char == 27 then -- ESC key
+    return
+  elseif char == 13 then -- ENTER key
+    file.write(defaultThemeList)
+    M.update()
+    if WINDOW_DATA and vim.api.nvim_win_is_valid(WINDOW_DATA.win) then
+      local page = require 'dynamic-theme.page'
+      page.load_color_page()
+    end
+  end
 end
 
 --- update the theme with updated current palette values
