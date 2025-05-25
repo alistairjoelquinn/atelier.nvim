@@ -68,5 +68,8 @@ That's all there is to it.
 
 ## Considerations
 
-- Dynamic theme uses JSON to persist the hex codes for each theme. One of the advantages of this is that the JSON file persisted in the `nvim` directory can be included in version control, should you wish to share your saved config across devices. The reverse also being true, if you wish to persist you themes only on one machine, the file can be ignored from version control.
-- The color page is fully editable, this also means individual highlight groups can be deleted if desired.
+- The color page is an editable buffer, which makes it very easy to undo changes should you dislike an update you have applied. Simply undo any changes in the text and re-apply with `s`.
+  - This also means individual highlight groups can be deleted if desired.
+- The plugin uses JSON to persist the hex codes for each theme. One of the advantages of this is that the JSON file persisted in the `nvim` directory can be included in version control, should you wish to share your saved config across devices. The reverse also being true, if you wish to persist you themes only on one machine, the file can be ignored from version control.
+- When troubleshooting, bear in mind that as last resort, if problems are arising, you can simply delete the json file from the root of your `nvim` directory and start from scratch the next time you open the plugin (bear in mind that any themes saved will be lost).
+
