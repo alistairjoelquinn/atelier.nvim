@@ -5,6 +5,7 @@ This Neovim theme comes with super powers. It allows you to update the current t
 ## Installation
 
 You can install `dynamic-theme.nvim` with you preferred package manager. Here is an example using `lazy.nvim`
+
 ```lua
 {
   "alistairjoelquinn/dynamic-theme.nvim",
@@ -31,7 +32,7 @@ And the theme page which can be accessed with `t`.
 
 ![Screenshot 2025-05-24 at 19 37 44](https://github.com/user-attachments/assets/a4e18edc-aa9a-4459-b069-f87e52d015cb)
 
-We'll come back to these pages though. 
+We'll come back to these pages though.
 
 ## Color page
 
@@ -75,7 +76,18 @@ We can return back to the theme page with `t` in order to change theme again. He
 
 ![Screenshot 2025-05-24 at 19 41 31](https://github.com/user-attachments/assets/d514c1b3-a4e3-4e9e-bfdb-991c00c0223a)
 
-That's all there is to it.
+## Exporting Themes
+
+Once you've created a theme you're happy with, you can export it as a standalone theme plugin. This allows you to share your theme with others or use it with a plugin manager like any other Neovim theme.
+
+To export a theme:
+
+1. Navigate to the theme page by pressing `t`
+2. Press `e` followed by the number of the theme you want to export (e.g., `e2` for the second theme)
+3. You'll be prompted to specify a location on your filesystem where the theme will be exported
+4. The plugin will create a complete theme plugin directory with all necessary files
+
+The exported theme will be ready to use and can be published directly to GitHub.
 
 ## Considerations
 
@@ -83,4 +95,3 @@ That's all there is to it.
   - This also means individual highlight groups can be deleted if desired.
 - The plugin uses JSON to persist the hex codes for each theme. One of the advantages of this is that the JSON file persisted at the root of the `nvim` directory can be included in version control, should you wish to share your saved themes across devices. The reverse also being true, if you wish to persist your themes only on one machine, the file can be ignored from version control.
 - When troubleshooting, bear in mind that as last resort, if problems are arising, you can simply delete the json file from the root of your `nvim` directory and start from scratch the next time you open the plugin (any themes saved will be lost).
-
