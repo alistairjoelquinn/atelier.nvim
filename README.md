@@ -52,7 +52,7 @@ Now that we have managed to update the current theme, let's try and create a new
 
 ![Screenshot 2025-05-24 at 19 37 44](https://github.com/user-attachments/assets/990faff6-9e37-4509-b388-f368f2794ef2)
 
-From here you can select any one of the saved themes by choosing its number. Currently all the other themes are empty. The first time you choose an empty theme you will be prompted to choose a name.
+From here you can select any one of the themes by choosing its number. Currently all the other themes are empty. The first time you choose an empty theme you will be prompted to choose a name.
 
 ![Screenshot 2025-05-24 at 19 38 12](https://github.com/user-attachments/assets/ca14376c-9fb1-4ee5-ad9b-4f9285f6327a)
 
