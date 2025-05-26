@@ -40,7 +40,7 @@ You can navigate back to the color page for the currently selected theme ([dull-
 
 ![Screenshot 2025-05-24 at 20 33 29](https://github.com/user-attachments/assets/309d28d7-6df1-4150-94cb-45eba35931ad)
 
-From here you can simply update one of the hex codes, and press `s` to save. The background to the hex code gives you immediate feedback as to what the color looks like, to make it easier to find a color which matches well with the rest of the palette. After saving you will see the theme update immediately to reflect the changes. Below we have updated the hex code for `functions and warnings`. You can see that both the hex code and the functions in the background now use the new color.
+From here you can navigate up and down between the hex codes with `j` & `k`, then simply change one, and press `s` to save. The background to the hex code gives you immediate feedback as to what the color looks like, to make it easier to find a color which matches well with the rest of the palette. After saving you will see the theme update immediately to reflect the changes. Below we have updated the hex code for `functions and warnings`. You can see that both the hex code and the functions in the background now use the new color.
 
 <img width="881" alt="Screenshot 2025-05-24 at 19 52 42" src="https://github.com/user-attachments/assets/1d89f05a-04d6-41dc-8412-99dd6f5988be" />
 
