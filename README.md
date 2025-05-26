@@ -13,6 +13,7 @@ You can install `dynamic-theme.nvim` with you preferred package manager. Here is
   priority = 1000,
 }
 ```
+You can then apply dynamic theme, like you would apply any theme in your Neovim setup.
 
 ## dull-ish
 
