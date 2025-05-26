@@ -1,6 +1,6 @@
 # Dynamic Theme - a Neovim plugin for creating & editing themes
 
-Dynamic Theme allows you to update your current theme while you are working, as well as creating new themes from scratch. It's based on my own experience of wishing it was easier to update the theme that I am using. Perhaps you find there is one color which is a little too bright, or one you wish was a different color altogether. This plugin allows you to do just that.
+Dynamic Theme allows you to update your current theme while you are working, as well as creating new themes from scratch. It's based on my own experience of wishing it was easier to update the theme that I am using. Perhaps you find there is one color which is a little too bright, or one you wish was a different color altogether. This plugin allows you to open a window, tweak the color, and get back to work.
 
 ## Installation
 
