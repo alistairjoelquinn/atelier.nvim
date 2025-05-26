@@ -26,7 +26,7 @@ From here, if you wish to open the plugin window you can do so with `:DynamicThe
 
 There are 2 other views for this window. The help page, which can be accessed with `?`.
 
-![Screenshot 2025-05-24 at 19 37 13](https://github.com/user-attachments/assets/39c349f3-ad84-46fc-9a24-68b19f8b719a)
+<img width="481" alt="Screenshot 2025-05-26 at 14 44 57" src="https://github.com/user-attachments/assets/5819172f-4c7e-49c5-8a63-3d6abdae1d9c" />
 
 And the theme page which can be accessed with `t`.
 
