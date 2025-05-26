@@ -16,7 +16,7 @@ You can install `dynamic-theme.nvim` with you preferred package manager. Here is
 
 ## dull-ish
 
-When first loading the plugin, the [dull-ish theme](https://github.com/alistairjoelquinn/dull-ish.nvim) is applied. This is a low-contrast, minimalistic theme with just a few subtle color highlights.
+When first loading the plugin, the [dull-ish theme](https://github.com/alistairjoelquinn/dull-ish.nvim) is applied. This is a low-contrast, minimalistic theme with a few subtle color highlights.
 
 <img width="775" alt="Screenshot 2025-05-25 at 14 42 31" src="https://github.com/user-attachments/assets/6fa96121-25c4-4630-ba55-3834f8a62543" />
 
