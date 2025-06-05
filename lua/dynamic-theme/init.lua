@@ -9,6 +9,13 @@ M.setup = function()
 
   theme.apply()
   command.create()
+
+  vim.keymap.set(
+    'n',
+    '<leader>dt',
+    ':DynamicThemeOpen<CR>',
+    { desc = 'Opens the window for dynamic theme' }
+  )
 end
 
 return M
