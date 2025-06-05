@@ -37,29 +37,31 @@ local default_grey_palette = {
 --- @class DynamicThemeTheme
 --- @field initialize_palette fun(): DynamicThemePalette|nil
 --- @field reset fun(): nil
---- @field update fun(): nil
+--- @field apply fun(): nil
 --- @field select_theme fun(new_index: number): nil
 --- @field create_highlight_groups fun(colors: DynamicThemePalette): table<string, table>
 local M = {}
 
 --- initialize the palette from file or create default if none exists
---- @return DynamicThemePalette|nil the palette of the selected theme
+--- @return DynamicThemePalette|nil
 M.initialize_palette = function()
   if not file.exists() then
     file.write(defaultThemeList)
   end
+
   local loaded_file = file.read()
-  if loaded_file then
-    local selected_theme = utils.findSelectedTheme(loaded_file)
-    if not selected_theme then
-      vim.notify('No selected theme detected', vim.log.levels.ERROR)
-      return nil
-    end
-    return selected_theme.palette
-  else
-    vim.notify('Error initializing palette', vim.log.levels.ERROR)
+  if not loaded_file then
+    vim.notify('Error loading theme', vim.log.levels.ERROR)
     return nil
   end
+
+  local selected_theme = utils.findSelectedTheme(loaded_file)
+  if not selected_theme then
+    vim.notify('No selected theme detected', vim.log.levels.ERROR)
+    return nil
+  end
+
+  return selected_theme.palette
 end
 
 --- reset to plugin defaults
@@ -73,7 +75,7 @@ M.reset = function()
 
   if choice == 1 then
     file.write(defaultThemeList)
-    M.update()
+    M.apply()
 
     -- reload the window content
     if WINDOW_DATA and vim.api.nvim_win_is_valid(WINDOW_DATA.win) then
@@ -84,9 +86,10 @@ M.reset = function()
 end
 
 --- update the theme with updated current palette values
-M.update = function()
+M.apply = function()
   local loaded_palette = M.initialize_palette()
   if not loaded_palette then
+    vim.notify('Error initializing palette', vim.log.levels.ERROR)
     return
   end
 
@@ -149,7 +152,7 @@ M.select_theme = function(new_index)
 
   -- persist new values and update
   file.write(theme_list)
-  M.update()
+  M.apply()
 
   -- return to the color page for the newly selected theme
   local page = require 'dynamic-theme.page'
