@@ -3,7 +3,6 @@
 local M = {}
 
 --- setup function to initialize the plugin
---- @return nil
 M.setup = function()
   local theme = require 'dynamic-theme.theme'
   local command = require 'dynamic-theme.command'
@@ -16,9 +15,10 @@ M.setup = function()
     for group, settings in pairs(highlight_groups) do
       vim.api.nvim_set_hl(0, group, settings)
     end
+    command.create()
+  else
+    vim.notify('Error initializing palette', vim.log.levels.ERROR)
   end
-
-  command.create()
 end
 
 return M
