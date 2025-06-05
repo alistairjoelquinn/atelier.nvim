@@ -1,5 +1,3 @@
-local config_path = vim.fn.stdpath 'config'
-
 --- @class Theme
 --- @field name string the name of the theme
 --- @field selected boolean whether this theme is currently selected
@@ -13,6 +11,7 @@ local config_path = vim.fn.stdpath 'config'
 --- @field save fun(): nil save changes from the UI to the theme file
 local M = {}
 
+local config_path = vim.fn.stdpath 'config'
 M.path = config_path .. '/dynamic-theme.json'
 
 --- check if the theme file exists

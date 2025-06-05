@@ -86,7 +86,7 @@ M.save_changes = function()
     end
 
     local theme = require 'dynamic-theme.theme'
-    theme.update()
+    theme.apply()
     return true
   end
 
