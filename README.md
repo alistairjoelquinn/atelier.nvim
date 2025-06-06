@@ -1,10 +1,10 @@
-# Dynamic Theme - a plugin for creating & editing Neovim themes
+# Dynamic Theme - a Neovim plugin for creating & editing colorschemes / themes
 
 Dynamic Theme allows you to update your current theme while you are working, as well as creating new themes from scratch. It's based on my own experience of wishing it was easier to update the theme that I am using. Perhaps you find there is one color which is a little too bright, or one you wish was a different color altogether. This plugin allows you to open a window, tweak the color, and get back to work.
 
 ## Installation
 
-You can install `dynamic-theme.nvim` with you preferred package manager. Here is an example using `lazy.nvim`
+You can install `dynamic-theme.nvim` with your preferred package manager. Here is an example using `lazy.nvim`
 
 ```lua
 {
@@ -13,7 +13,8 @@ You can install `dynamic-theme.nvim` with you preferred package manager. Here is
   priority = 1000,
 }
 ```
-You can then apply dynamic theme, like you would apply any theme in your Neovim setup.
+
+You can then apply dynamic-theme, like you would apply any theme in your Neovim setup.
 
 ## dull-ish
 
