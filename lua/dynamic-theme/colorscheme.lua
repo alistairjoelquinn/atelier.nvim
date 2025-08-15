@@ -3,8 +3,8 @@ local palette = require 'dynamic-theme.palette'
 local file = require 'dynamic-theme.file'
 local utils = require 'dynamic-theme.utils'
 
---- @type Theme[]
-local defaultThemeList = {
+--- @type Colorscheme[]
+local defaultColorschemeList = {
   { name = 'dull-ish', selected = true, palette = palette },
   { name = '<EMPTY>', selected = false, palette = nil },
   { name = '<EMPTY>', selected = false, palette = nil },
@@ -15,7 +15,7 @@ local defaultThemeList = {
   { name = '<EMPTY>', selected = false, palette = nil },
 }
 
---- palette for empty themes before the user applies their own colors
+--- palette for empty colorschemes before the user applies their own colors
 --- @type DynamicThemePalette
 local default_grey_palette = {
   main_background = '#010101',
@@ -38,7 +38,7 @@ local default_grey_palette = {
 --- @field initialize_palette fun(): DynamicThemePalette|nil
 --- @field reset fun(): nil
 --- @field apply fun(): nil
---- @field select_theme fun(new_index: number): nil
+--- @field select_colorscheme fun(new_index: number): nil
 --- @field create_highlight_groups fun(colors: DynamicThemePalette): table<string, table>
 local M = {}
 
@@ -46,18 +46,18 @@ local M = {}
 --- @return DynamicThemePalette|nil
 M.initialize_palette = function()
   if not file.exists() then
-    file.write(defaultThemeList)
+    file.write(defaultColorschemeList)
   end
 
   local loaded_file = file.read()
   if not loaded_file then
-    vim.notify('Error loading theme', vim.log.levels.ERROR)
+    vim.notify('Error loading colorscheme', vim.log.levels.ERROR)
     return nil
   end
 
-  local selected_colorscheme = utils.findSelectedTheme(loaded_file)
+  local selected_colorscheme = utils.findSelectedColorscheme(loaded_file)
   if not selected_colorscheme then
-    vim.notify('No selected theme detected', vim.log.levels.ERROR)
+    vim.notify('No selected colorscheme detected', vim.log.levels.ERROR)
     return nil
   end
 
@@ -67,14 +67,14 @@ end
 --- reset to plugin defaults
 M.reset = function()
   local choice = vim.fn.confirm(
-    'WARNING: This will reset all themes to factory defaults. All custom themes will be lost!',
+    'WARNING: This will reset all colorschemes to factory defaults. All custom colorschemes will be lost!',
     '&Reset\n&Cancel',
     2, -- Default to Cancel
     'Warning'
   )
 
   if choice == 1 then
-    file.write(defaultThemeList)
+    file.write(defaultColorschemeList)
     M.apply()
 
     -- reload the window content
@@ -85,7 +85,7 @@ M.reset = function()
   end
 end
 
---- update the theme with updated current palette values
+--- update the colorscheme with updated current palette values
 M.apply = function()
   local loaded_palette = M.initialize_palette()
   if not loaded_palette then
@@ -100,26 +100,26 @@ M.apply = function()
   end
 end
 
---- select a theme by index
---- @param new_index number the index of the theme to select
-M.select_theme = function(new_index)
-  local theme_list = file.read()
-  if not theme_list or new_index < 1 or new_index > #theme_list then
+--- select a colorscheme by index
+--- @param new_index number the index of the colorscheme to select
+M.select_colorscheme = function(new_index)
+  local colorscheme_list = file.read()
+  if not colorscheme_list or new_index < 1 or new_index > #colorscheme_list then
     return
   end
 
-  local _, current_index = utils.findSelectedTheme(theme_list)
+  local _, current_index = utils.findSelectedColorscheme(colorscheme_list)
   if current_index then
     if current_index == new_index then
       -- if the user tries to re-select the current them, do nothing
       return
     else
       -- otherwise persist that the old theme is no longer selected
-      theme_list[current_index].selected = false
+      colorscheme_list[current_index].selected = false
     end
   end
 
-  local new_theme = theme_list[new_index]
+  local new_theme = colorscheme_list[new_index]
 
   -- if the theme is empty, prompt for a name and initialize it
   if new_theme.name == '<EMPTY>' then
@@ -151,7 +151,7 @@ M.select_theme = function(new_index)
   new_theme.selected = true
 
   -- persist new values and update
-  file.write(theme_list)
+  file.write(colorscheme_list)
   M.apply()
 
   -- return to the color page for the newly selected theme

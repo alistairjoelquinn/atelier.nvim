@@ -1,20 +1,20 @@
---- @class Theme
---- @field name string the name of the theme
---- @field selected boolean whether this theme is currently selected
---- @field palette DynamicThemePalette|nil the color palette for this theme
+--- @class Colorscheme
+--- @field name string the name of the colorscheme
+--- @field selected boolean whether this colorscheme is currently selected
+--- @field palette DynamicThemePalette|nil the color palette for this colorscheme
 
 --- @class DynamicThemeFile
 --- @field path string the path to the configuration JSON file
 --- @field exists fun(): boolean check if the dynamic-theme file exists
---- @field read fun(): Theme[]|nil read and parse the dynamic-theme file
---- @field write fun(theme_list: Theme[]): boolean write themes to the theme file
---- @field save fun(): nil save changes from the UI to the theme file
+--- @field read fun(): Colorscheme[]|nil read and parse the dynamic-theme file
+--- @field write fun(colorscheme_list: Colorscheme[]): boolean write colorschemes to the colorscheme file
+--- @field save fun(): nil save changes from the UI to the colorscheme file
 local M = {}
 
 local config_path = vim.fn.stdpath 'config'
 M.path = config_path .. '/dynamic-theme.json'
 
---- check if the theme file exists
+--- check if the colorscheme file exists
 --- @return boolean
 M.exists = function()
   local f = io.open(M.path, 'r')
@@ -26,8 +26,8 @@ M.exists = function()
   end
 end
 
---- read and parse the theme file
---- @return Theme[]|nil the array of themes or nil if reading failed
+--- read and parse the colorscheme file
+--- @return Colorscheme[]|nil the array of colorscheme or nil if reading failed
 M.read = function()
   local file = io.open(M.path, 'r')
   if file then
@@ -40,16 +40,17 @@ M.read = function()
       end
     end
   else
-    vim.notify('Error reading from theme file', vim.log.levels.ERROR)
+    vim.notify('Error reading from colorscheme file', vim.log.levels.ERROR)
   end
   return nil
 end
 
---- write themes to the theme file
---- @param theme_list Theme[] the array of themes to write
+--- write colorscheme to the colorscheme file
+--- @param colorscheme_list Colorscheme[] the array of colorschemes to write
 --- @return boolean whether the write operation succeeded
-M.write = function(theme_list)
-  local status, encoded = pcall(vim.json.encode, theme_list, { indent = true })
+M.write = function(colorscheme_list)
+  local status, encoded =
+    pcall(vim.json.encode, colorscheme_list, { indent = true })
   if status then
     local file = io.open(M.path, 'w')
     if file then
@@ -61,7 +62,7 @@ M.write = function(theme_list)
   return false
 end
 
---- save changes from the UI to the theme file
+--- save changes from the UI to the colorscheme file
 M.save = function()
   local window = require 'dynamic-theme.window'
   window.save_changes()
