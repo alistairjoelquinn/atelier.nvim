@@ -4,7 +4,7 @@ local keymaps = require 'dynamic-theme.keymaps'
 
 --- @class DynamicThemePage
 --- @field show_help_page fun(): nil
---- @field show_theme_page fun(): nil
+--- @field show_colorscheme_page fun(): nil
 --- @field load_color_page fun(): nil
 --- @field show_color_page fun(): nil
 local M = {}
@@ -55,7 +55,7 @@ M.show_help_page = function()
 end
 
 --- @return nil
-M.show_theme_page = function()
+M.show_colorscheme_page = function()
   --- @type string[]
   local lines = {
     '                    Available Themes',
@@ -69,8 +69,8 @@ M.show_theme_page = function()
     return
   end
 
-  for i, theme in ipairs(loaded_file) do
-    table.insert(lines, '  ' .. string.format('%d. %s', i, theme.name))
+  for i, colorscheme in ipairs(loaded_file) do
+    table.insert(lines, '  ' .. string.format('%d. %s', i, colorscheme.name))
   end
 
   -- make buffer modifiable first (in case it was previously set to non-modifiable)
@@ -80,7 +80,7 @@ M.show_theme_page = function()
 
   -- ensure buffer is no longer editable
   set_buffer_editable(false)
-  keymaps.create_theme_page_keymaps()
+  keymaps.create_colorscheme_page_keymaps()
 end
 
 -- define the order of palette fields to ensure consistent display
@@ -109,7 +109,7 @@ M.load_color_page = function()
     return
   end
 
-  local current_theme = utils.findSelectedTheme(loaded_file)
+  local current_theme = utils.findSelectedColorscheme(loaded_file)
   if current_theme == nil then
     vim.notify('Warning, theme not detected', vim.log.levels.ERROR)
     return

@@ -1,6 +1,6 @@
 --- @class DynamicThemeKeymaps
 --- @field create_color_page_keymaps fun(): nil
---- @field create_theme_page_keymaps fun(): nil
+--- @field create_colorscheme_page_keymaps fun(): nil
 --- @field create_help_page_keymaps fun(): nil
 local M = {}
 
@@ -90,7 +90,7 @@ M.create_color_page_keymaps = function()
 end
 
 --- @return nil
-M.create_theme_page_keymaps = function()
+M.create_colorscheme_page_keymaps = function()
   -- first clear any potentially existing keymaps
   clear_buffer_keymaps()
 
@@ -143,23 +143,23 @@ M.create_theme_page_keymaps = function()
   )
 
   for i = 1, 8 do
-    -- theme selection keymaps
+    -- colorscheme selection keymaps
     vim.api.nvim_buf_set_keymap(WINDOW_DATA.buf, 'n', tostring(i), '', {
       noremap = true,
       silent = true,
       callback = function()
         local theme = require 'lua.dynamic-theme.colorscheme'
-        theme.select_theme(i)
+        theme.select_colorscheme(i)
       end,
     })
 
-    -- export theme keymaps, using 'e' followed by a theme number
+    -- export colorscheme keymaps, using 'e' followed by a colorscheme number
     vim.api.nvim_buf_set_keymap(WINDOW_DATA.buf, 'n', 'e' .. tostring(i), '', {
       noremap = true,
       silent = true,
       callback = function()
         local export = require 'dynamic-theme.export'
-        export.export_theme(i)
+        export.export_colorscheme(i)
       end,
     })
   end
