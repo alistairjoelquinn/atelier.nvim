@@ -7,24 +7,24 @@ local M = {}
 --- @param colorscheme_index number
 --- @return nil
 M.export_colorscheme = function(colorscheme_index)
-  local theme_list = file.read()
+  local colorscheme_list = file.read()
   if
-    not theme_list
+    not colorscheme_list
     or colorscheme_index < 1
-    or colorscheme_index > #theme_list
+    or colorscheme_index > #colorscheme_list
   then
-    vim.notify('Invalid theme index', vim.log.levels.ERROR)
+    vim.notify('Invalid colorscheme index', vim.log.levels.ERROR)
     return
   end
 
-  local theme = theme_list[colorscheme_index]
-  if theme.name == '<EMPTY>' then
-    vim.notify('Cannot export an empty theme', vim.log.levels.ERROR)
+  local colorscheme = colorscheme_list[colorscheme_index]
+  if colorscheme.name == '<EMPTY>' then
+    vim.notify('Cannot export an empty colorscheme', vim.log.levels.ERROR)
     return
   end
 
-  if not theme.palette then
-    vim.notify('Theme has no palette to export', vim.log.levels.ERROR)
+  if not colorscheme.palette then
+    vim.notify('Colorscheme has no palette to export', vim.log.levels.ERROR)
     return
   end
 
@@ -45,8 +45,8 @@ M.export_colorscheme = function(colorscheme_index)
     export_path = export_path .. '/'
   end
 
-  -- create theme plugin name (normalize for filesystem)
-  local plugin_name = theme.name:gsub(' ', '-'):lower() .. '.nvim'
+  -- create colorscheme plugin name (normalize for filesystem)
+  local plugin_name = colorscheme.name:gsub(' ', '-'):lower() .. '.nvim'
   local plugin_path = export_path .. plugin_name
 
   -- create directory structure
@@ -72,25 +72,24 @@ M.export_colorscheme = function(colorscheme_index)
         .. '/lua/'
         .. plugin_name:gsub('%.nvim$', '')
         .. '/init.lua',
-      content = M.generate_init_file(theme),
+      content = M.generate_init_file(colorscheme),
     },
     {
       path = plugin_path
         .. '/lua/'
         .. plugin_name:gsub('%.nvim$', '')
         .. '/palette.lua',
-      content = M.generate_palette_file(theme),
+      content = M.generate_palette_file(colorscheme),
     },
     {
-      path = plugin_path
-        .. '/colors/'
-        .. theme.name:gsub(' ', '-'):lower()
-        .. '.lua',
-      content = M.generate_colors_file(theme),
+      path = plugin_path .. '/colors/' .. colorscheme.name
+        :gsub(' ', '-')
+        :lower() .. '.lua',
+      content = M.generate_colors_file(colorscheme),
     },
     {
       path = plugin_path .. '/README.md',
-      content = M.generate_readme(theme),
+      content = M.generate_readme(colorscheme),
     },
   }
 
@@ -107,12 +106,12 @@ M.export_colorscheme = function(colorscheme_index)
     end
   end
 
-  vim.notify('Theme exported to: ' .. plugin_path, vim.log.levels.INFO)
+  vim.notify('Colorscheme exported to: ' .. plugin_path, vim.log.levels.INFO)
 end
 
---- @param theme Colorscheme
+--- @param colorscheme Colorscheme
 --- @return string content
-M.generate_init_file = function(theme)
+M.generate_init_file = function(colorscheme)
   return string.format(
     [[
 -- %s: A Neovim colorscheme
@@ -311,16 +310,16 @@ end
 
 return M
 ]],
-    theme.name,
-    theme.name:gsub(' ', '-'):lower()
+    colorscheme.name,
+    colorscheme.name:gsub(' ', '-'):lower()
   )
 end
 
---- @param theme Colorscheme
+--- @param colorscheme Colorscheme
 --- @return string content
-M.generate_palette_file = function(theme)
+M.generate_palette_file = function(colorscheme)
   local palette_entries = {}
-  for key, value in pairs(theme.palette) do
+  for key, value in pairs(colorscheme.palette) do
     table.insert(palette_entries, string.format("  %s = '%s',", key, value))
   end
 
@@ -338,16 +337,16 @@ return {
 %s
 }
 ]],
-    theme.name,
+    colorscheme.name,
     palette_content
   )
 end
 
---- @param theme Colorscheme
+--- @param colorscheme Colorscheme
 --- @return string content
-M.generate_colors_file = function(theme)
-  local theme_name_normalized = theme.name:gsub(' ', '_'):lower()
-  local plugin_name = theme.name:gsub(' ', '-'):lower()
+M.generate_colors_file = function(colorscheme)
+  local colorscheme_name_normalized = colorscheme.name:gsub(' ', '_'):lower()
+  local plugin_name = colorscheme.name:gsub(' ', '-'):lower()
 
   return string.format(
     [[
@@ -365,17 +364,17 @@ vim.g.colors_name = '%s'
 
 require('%s').setup()
 ]],
-    theme.name,
-    theme_name_normalized,
+    colorscheme.name,
+    colorscheme_name_normalized,
     plugin_name
   )
 end
 
 --- Generate README.md file
---- @param theme Colorscheme the theme to generate for
+--- @param colorscheme Colorscheme the colorscheme to generate for
 --- @return string content for README.md
-M.generate_readme = function(theme)
-  local theme_name_normalized = theme.name:gsub(' ', '-'):lower()
+M.generate_readme = function(colorscheme)
+  local colorscheme_name_normalized = colorscheme.name:gsub(' ', '-'):lower()
 
   return string.format(
     [[
@@ -399,12 +398,12 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim):
 
 [Add screenshots here]
 ]],
-    theme.name,
+    colorscheme.name,
     'yourusername',
-    theme_name_normalized,
+    colorscheme_name_normalized,
     'yourusername',
-    theme_name_normalized,
-    theme.name:gsub(' ', '_'):lower()
+    colorscheme_name_normalized,
+    colorscheme.name:gsub(' ', '_'):lower()
   )
 end
 
