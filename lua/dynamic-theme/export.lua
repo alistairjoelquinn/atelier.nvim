@@ -1,19 +1,23 @@
 local file = require 'dynamic-theme.file'
 
 --- @class DynamicThemeExport
---- @field export_theme fun(theme_index: number): nil
+--- @field export_colorscheme fun(colorscheme_index: number): nil
 local M = {}
 
---- @param theme_index number
+--- @param colorscheme_index number
 --- @return nil
-M.export_theme = function(theme_index)
+M.export_colorscheme = function(colorscheme_index)
   local theme_list = file.read()
-  if not theme_list or theme_index < 1 or theme_index > #theme_list then
+  if
+    not theme_list
+    or colorscheme_index < 1
+    or colorscheme_index > #theme_list
+  then
     vim.notify('Invalid theme index', vim.log.levels.ERROR)
     return
   end
 
-  local theme = theme_list[theme_index]
+  local theme = theme_list[colorscheme_index]
   if theme.name == '<EMPTY>' then
     vim.notify('Cannot export an empty theme', vim.log.levels.ERROR)
     return
@@ -106,7 +110,7 @@ M.export_theme = function(theme_index)
   vim.notify('Theme exported to: ' .. plugin_path, vim.log.levels.INFO)
 end
 
---- @param theme Theme
+--- @param theme Colorscheme
 --- @return string content
 M.generate_init_file = function(theme)
   return string.format(
@@ -312,7 +316,7 @@ return M
   )
 end
 
---- @param theme Theme
+--- @param theme Colorscheme
 --- @return string content
 M.generate_palette_file = function(theme)
   local palette_entries = {}
@@ -339,7 +343,7 @@ return {
   )
 end
 
---- @param theme Theme
+--- @param theme Colorscheme
 --- @return string content
 M.generate_colors_file = function(theme)
   local theme_name_normalized = theme.name:gsub(' ', '_'):lower()
@@ -368,7 +372,7 @@ require('%s').setup()
 end
 
 --- Generate README.md file
---- @param theme Theme the theme to generate for
+--- @param theme Colorscheme the theme to generate for
 --- @return string content for README.md
 M.generate_readme = function(theme)
   local theme_name_normalized = theme.name:gsub(' ', '-'):lower()

@@ -1,5 +1,5 @@
 local window = require 'dynamic-theme.window'
-local theme = require 'lua.dynamic-theme.colorscheme'
+local colorscheme = require 'lua.dynamic-theme.colorscheme'
 local file = require 'dynamic-theme.file'
 local page = require 'dynamic-theme.page'
 
@@ -23,7 +23,7 @@ M.create = function()
   end, {})
 
   vim.api.nvim_create_user_command('DynamicThemeReset', function()
-    theme.reset()
+    colorscheme.reset()
   end, {})
 
   vim.api.nvim_create_user_command('DynamicThemeColorPage', function()

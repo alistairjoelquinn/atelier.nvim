@@ -111,36 +111,36 @@ M.select_colorscheme = function(new_index)
   local _, current_index = utils.findSelectedColorscheme(colorscheme_list)
   if current_index then
     if current_index == new_index then
-      -- if the user tries to re-select the current them, do nothing
+      -- if the user tries to re-select the current colorscheme, do nothing
       return
     else
-      -- otherwise persist that the old theme is no longer selected
+      -- otherwise persist that the old colorscheme is no longer selected
       colorscheme_list[current_index].selected = false
     end
   end
 
-  local new_theme = colorscheme_list[new_index]
+  local new_colorscheme = colorscheme_list[new_index]
 
-  -- if the theme is empty, prompt for a name and initialize it
-  if new_theme.name == '<EMPTY>' then
-    local new_name = vim.fn.input 'Enter name for new theme: '
+  -- if the colorscheme is empty, prompt for a name and initialize it
+  if new_colorscheme.name == '<EMPTY>' then
+    local new_name = vim.fn.input 'Enter name for new colorscheme: '
     if new_name and new_name ~= '' then
       if #new_name > 16 then
-        vim.cmd 'echohl ErrorMsg | echom "Theme name must be less than 16 characters" | echohl None'
+        vim.cmd 'echohl ErrorMsg | echom "Colorscheme name must be less than 16 characters" | echohl None'
         vim.cmd 'call getchar()' --  user must acknowledge error before proceeding
         return
       end
-      new_theme.name = new_name
-      new_theme.palette = default_grey_palette
+      new_colorscheme.name = new_name
+      new_colorscheme.palette = default_grey_palette
     else
-      vim.notify('Theme creation cancelled', vim.log.levels.INFO)
+      vim.notify('Colorscheme creation cancelled', vim.log.levels.INFO)
       return
     end
   end
 
-  -- ensure the theme has a palette
-  if not new_theme.palette then
-    new_theme.palette = default_grey_palette
+  -- ensure the colorscheme has a palette
+  if not new_colorscheme.palette then
+    new_colorscheme.palette = default_grey_palette
     vim.notify(
       'Palette not detected. Initialised theme with default grey palette',
       vim.log.levels.WARN
@@ -148,7 +148,7 @@ M.select_colorscheme = function(new_index)
   end
 
   -- always mark the new theme as selected
-  new_theme.selected = true
+  new_colorscheme.selected = true
 
   -- persist new values and update
   file.write(colorscheme_list)
