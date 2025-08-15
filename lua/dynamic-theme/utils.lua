@@ -1,7 +1,7 @@
 --- @class DynamicThemeUtils
---- @field findColorschemeByName fun(theme_list: Theme[], target_name: string): Theme|nil, number|nil
---- @field findSelectedColorscheme fun(theme_list: Theme[]): Theme|nil, number|nil
---- @field updateSelectedColorschemePalette fun(theme_list: Theme[], updated_palette: DynamicThemePalette): nil
+--- @field findColorschemeByName fun(colorscheme_list: Colorscheme[], target_name: string): Colorscheme|nil, number|nil
+--- @field findSelectedColorscheme fun(colorscheme_list: Colorscheme[]): Colorscheme|nil, number|nil
+--- @field updateSelectedColorschemePalette fun(colorscheme_list: Colorscheme[], updated_palette: DynamicThemePalette): nil
 --- @field apply_hex_highlights fun(): nil
 local M = {}
 
@@ -36,40 +36,40 @@ local function is_dark_color(hex)
   return brightness < 0.5
 end
 
---- find a theme by name in the theme list
---- @param theme_list Theme[]
---- @param target_name string the name of the theme to find
---- @return Theme|nil theme
+--- find a colorscheme by name in the colorscheme list
+--- @param colorscheme_list Colorscheme[]
+--- @param target_name string the name of the colorscheme to find
+--- @return Colorscheme|nil colorscheme
 --- @return number|nil index
-M.findColorschemeByName = function(theme_list, target_name)
-  for i, theme in ipairs(theme_list) do
-    if theme.name == target_name then
-      return theme, i
+M.findColorschemeByName = function(colorscheme_list, target_name)
+  for i, colorscheme in ipairs(colorscheme_list) do
+    if colorscheme.name == target_name then
+      return colorscheme, i
     end
   end
   return nil, nil
 end
 
---- find the currently selected theme
---- @param theme_list Theme[]
---- @return Theme|nil theme
+--- find the currently selected colorscheme
+--- @param colorscheme_list Colorscheme[]
+--- @return Colorscheme|nil colorscheme
 --- @return number|nil index
-M.findSelectedColorscheme = function(theme_list)
-  for i, theme in ipairs(theme_list) do
-    if theme.selected then
-      return theme, i
+M.findSelectedColorscheme = function(colorscheme_list)
+  for i, colorscheme in ipairs(colorscheme_list) do
+    if colorscheme.selected then
+      return colorscheme, i
     end
   end
   return nil, nil
 end
 
---- update the palette of the currently selected theme
---- @param theme_list Theme[]
+--- update the palette of the currently selected colorscheme
+--- @param colorscheme_list Colorscheme[]
 --- @param updated_palette DynamicThemePalette
-M.updateSelectedColorschemePalette = function(theme_list, updated_palette)
-  for i, theme in ipairs(theme_list) do
-    if theme.selected then
-      theme_list[i].palette = updated_palette
+M.updateSelectedColorschemePalette = function(colorscheme_list, updated_palette)
+  for i, colorscheme in ipairs(colorscheme_list) do
+    if colorscheme.selected then
+      colorscheme_list[i].palette = updated_palette
     end
   end
 end
