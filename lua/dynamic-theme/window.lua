@@ -54,7 +54,7 @@ local create_window = function()
   WINDOW_DATA.win = vim.api.nvim_open_win(WINDOW_DATA.buf, true, config)
 end
 
---- save changes from the buffer to the theme
+--- save changes from the buffer to the colorscheme
 --- @return boolean success: whether the save succeeded
 M.save_changes = function()
   local lines = vim.api.nvim_buf_get_lines(WINDOW_DATA.buf, 0, -1, false)
@@ -72,28 +72,28 @@ M.save_changes = function()
 
   -- only proceed if we have values to save
   if next(updated_palette) then
-    local theme_list = file.read()
-    if not theme_list then
+    local colorscheme_list = file.read()
+    if not colorscheme_list then
       return false
     end
 
-    utils.updateSelectedThemePalette(theme_list, updated_palette)
+    utils.updateSelectedColorschemePalette(colorscheme_list, updated_palette)
 
-    -- having updated the theme, we first write to file before reloading it
-    local success = file.write(theme_list)
+    -- having updated the colorscheme, we first write to file before reloading it
+    local success = file.write(colorscheme_list)
     if not success then
       return false
     end
 
-    local theme = require 'lua.dynamic-theme.colorscheme'
-    theme.apply()
+    local colorscheme = require 'lua.dynamic-theme.colorscheme'
+    colorscheme.apply()
     return true
   end
 
   return false
 end
 
---- open the theme editor window
+--- open the colorscheme editor window
 --- @return nil
 M.open_window = function()
   if not vim.api.nvim_win_is_valid(WINDOW_DATA.win) then
@@ -111,7 +111,7 @@ M.open_window = function()
   end
 end
 
---- close the theme editor window
+--- close the colorscheme editor window
 --- @return nil
 M.close_window = function()
   if vim.api.nvim_win_is_valid(WINDOW_DATA.win) then
