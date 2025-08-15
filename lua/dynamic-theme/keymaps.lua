@@ -148,7 +148,7 @@ M.create_theme_page_keymaps = function()
       noremap = true,
       silent = true,
       callback = function()
-        local theme = require 'dynamic-theme.theme'
+        local theme = require 'lua.dynamic-theme.colorscheme'
         theme.select_theme(i)
       end,
     })

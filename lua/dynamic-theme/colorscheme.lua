@@ -55,13 +55,13 @@ M.initialize_palette = function()
     return nil
   end
 
-  local selected_theme = utils.findSelectedTheme(loaded_file)
-  if not selected_theme then
+  local selected_colorscheme = utils.findSelectedTheme(loaded_file)
+  if not selected_colorscheme then
     vim.notify('No selected theme detected', vim.log.levels.ERROR)
     return nil
   end
 
-  return selected_theme.palette
+  return selected_colorscheme.palette
 end
 
 --- reset to plugin defaults

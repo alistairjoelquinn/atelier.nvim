@@ -1,7 +1,7 @@
 --- @class DynamicThemeUtils
---- @field findThemeByName fun(theme_list: Theme[], target_name: string): Theme|nil, number|nil
---- @field findSelectedTheme fun(theme_list: Theme[]): Theme|nil, number|nil
---- @field updateSelectedThemePalette fun(theme_list: Theme[], updated_palette: DynamicThemePalette): nil
+--- @field findColorschemeByName fun(theme_list: Theme[], target_name: string): Theme|nil, number|nil
+--- @field findSelectedColorscheme fun(theme_list: Theme[]): Theme|nil, number|nil
+--- @field updateSelectedColorschemePalette fun(theme_list: Theme[], updated_palette: DynamicThemePalette): nil
 --- @field apply_hex_highlights fun(): nil
 local M = {}
 
@@ -41,7 +41,7 @@ end
 --- @param target_name string the name of the theme to find
 --- @return Theme|nil theme
 --- @return number|nil index
-M.findThemeByName = function(theme_list, target_name)
+M.findColorschemeByName = function(theme_list, target_name)
   for i, theme in ipairs(theme_list) do
     if theme.name == target_name then
       return theme, i
@@ -54,7 +54,7 @@ end
 --- @param theme_list Theme[]
 --- @return Theme|nil theme
 --- @return number|nil index
-M.findSelectedTheme = function(theme_list)
+M.findSelectedColorscheme = function(theme_list)
   for i, theme in ipairs(theme_list) do
     if theme.selected then
       return theme, i
@@ -66,7 +66,7 @@ end
 --- update the palette of the currently selected theme
 --- @param theme_list Theme[]
 --- @param updated_palette DynamicThemePalette
-M.updateSelectedThemePalette = function(theme_list, updated_palette)
+M.updateSelectedColorschemePalette = function(theme_list, updated_palette)
   for i, theme in ipairs(theme_list) do
     if theme.selected then
       theme_list[i].palette = updated_palette

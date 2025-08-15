@@ -85,7 +85,7 @@ M.save_changes = function()
       return false
     end
 
-    local theme = require 'dynamic-theme.theme'
+    local theme = require 'lua.dynamic-theme.colorscheme'
     theme.apply()
     return true
   end

@@ -1,5 +1,5 @@
 local window = require 'dynamic-theme.window'
-local theme = require 'dynamic-theme.theme'
+local theme = require 'lua.dynamic-theme.colorscheme'
 local file = require 'dynamic-theme.file'
 local page = require 'dynamic-theme.page'
 

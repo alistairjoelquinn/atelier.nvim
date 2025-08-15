@@ -4,7 +4,7 @@ local M = {}
 
 --- setup function to initialize the plugin
 M.setup = function()
-  local theme = require 'dynamic-theme.theme'
+  local theme = require 'lua.dynamic-theme.colorscheme'
   local command = require 'dynamic-theme.command'
 
   theme.apply()
