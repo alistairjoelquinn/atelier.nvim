@@ -1,6 +1,6 @@
 --- @class AtelierKeymaps
 --- @field create_color_page_keymaps fun(): nil
---- @field create_colorscheme_page_keymaps fun(): nil
+--- @field create_library_keymaps fun(): nil
 --- @field create_help_page_keymaps fun(): nil
 local M = {}
 
@@ -90,7 +90,7 @@ M.create_color_page_keymaps = function()
 end
 
 --- @return nil
-M.create_colorscheme_page_keymaps = function()
+M.create_library_keymaps = function()
   -- first clear any potentially existing keymaps
   clear_buffer_keymaps()
 
@@ -173,8 +173,8 @@ M.create_help_page_keymaps = function()
   vim.api.nvim_buf_set_keymap(
     WINDOW_DATA.buf,
     'n',
-    't',
-    ':AtelierColorschemePage<CR>',
+    'o',
+    ':AtelierLibrary<CR>',
     opts
   )
 
