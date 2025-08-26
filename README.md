@@ -1,20 +1,20 @@
-# Dynamic Theme - a Neovim plugin for creating & editing colorschemes / themes
+# Atelier - a Neovim plugin for creating & editing colorschemes
 
-Dynamic Theme allows you to update your current theme while you are working, as well as creating new themes from scratch. It's based on my own experience of wishing it was easier to update the theme that I am using. Perhaps you find there is one color which is a little too bright, or one you wish was a different color altogether. This plugin allows you to open a window, tweak the color, and get back to work.
+Atelier allows you to update your current theme while you are working, as well as creating new themes from scratch. It's based on my own experience of wishing it was easier to update the theme that I am using. Perhaps you find there is one color which is a little too bright, or one you wish was a different color altogether. This plugin allows you to open a window, tweak the color, and get back to work.
 
 ## Installation
 
-You can install `dynamic-theme.nvim` with your preferred package manager. Here is an example using `lazy.nvim`
+You can install `atelier.nvim` with your preferred package manager. Here is an example using `lazy.nvim`
 
 ```lua
 {
-  "alistairjoelquinn/dynamic-theme.nvim",
+  "alistairjoelquinn/atelier.nvim",
   lazy = false,
   priority = 1000,
 }
 ```
 
-You can then apply dynamic-theme, like you would apply any theme in your Neovim setup.
+You can then apply atelier, like you would apply any theme in your Neovim setup.
 
 ## dull-ish
 
@@ -22,7 +22,7 @@ When first loading the plugin, the [dull-ish theme](https://github.com/alistairj
 
 <img width="775" alt="Screenshot 2025-05-25 at 14 42 31" src="https://github.com/user-attachments/assets/6fa96121-25c4-4630-ba55-3834f8a62543" />
 
-From here, if you wish to open the plugin window you can do so with `:DynamicThemeOpen`, or `<leader>dt` which is preconfigured. This will present you with the color editor for the dull-ish theme.
+From here, if you wish to open the plugin window you can do so with `:AtelierOpen`, or `<leader>at` which is preconfigured. This will present you with the color editor for the dull-ish theme.
 
 ![Screenshot 2025-05-24 at 20 33 29](https://github.com/user-attachments/assets/3595e19d-48d0-4a48-b15d-73f78ec4084b)
 
@@ -50,7 +50,7 @@ In order to simplify the creation and editing of themes, the color highlights ha
 
 ## Theme page
 
-Now that we have managed to update the current theme, let's try and create a new one. Navigate to the theme page by pressing `t`. In total `dynamic-theme.nvim` allows you to save up to 8 themes.
+Now that we have managed to update the current theme, let's try and create a new one. Navigate to the theme page by pressing `t`. In total `atelier.nvim` allows you to save up to 8 themes.
 
 ![Screenshot 2025-05-24 at 19 37 44](https://github.com/user-attachments/assets/990faff6-9e37-4509-b388-f368f2794ef2)
 
