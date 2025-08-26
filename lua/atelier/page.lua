@@ -29,18 +29,18 @@ M.show_help_page = function()
     '  Color page commands:',
     "  's' to save changes",
     "  'r' to reset plugin defaults",
-    "  't' to go to the theme page",
+    "  'l' to go to the library",
     "  'q' to quit",
     '',
-    '  Theme page commands',
-    "  '1-8' to select a theme by number",
-    "  'e1-e8' to export a theme by number",
+    '  Library commands',
+    "  '1-8' to select a colorscheme by number",
+    "  'e1-e8' to export a colorscheme by number",
     "  'c' to go to the color page",
     "  'q' to quit",
     '',
     '  Help page commands',
     "  'c' to go to the color page",
-    "  't' to go to the theme page",
+    "  'l' to go to the library",
     "  'q' to quit",
   }
 
@@ -58,14 +58,14 @@ end
 M.show_colorscheme_page = function()
   --- @type string[]
   local lines = {
-    '                    Available Themes',
+    '                    Available Colorschemes',
     '             --------------------------',
     '',
   }
 
   local loaded_file = file.read()
   if not loaded_file then
-    vim.notify('Error loading themes', vim.log.levels.ERROR)
+    vim.notify('Error loading colorschemes', vim.log.levels.ERROR)
     return
   end
 

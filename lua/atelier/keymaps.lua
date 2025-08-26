@@ -59,8 +59,8 @@ M.create_color_page_keymaps = function()
   vim.api.nvim_buf_set_keymap(
     WINDOW_DATA.buf,
     'n',
-    't',
-    ':AtelierThemePage<CR>',
+    'l',
+    ':AtelierLibrary<CR>',
     opts
   )
 
@@ -182,7 +182,7 @@ M.create_help_page_keymaps = function()
     WINDOW_DATA.buf,
     'n',
     't',
-    ':AtelierThemePage<CR>',
+    ':AtelierColorschemePage<CR>',
     opts
   )
 

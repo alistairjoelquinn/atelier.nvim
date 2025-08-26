@@ -34,7 +34,7 @@ local default_grey_palette = {
   types_and_classes = '#444444',
 }
 
---- @class AtelierTheme
+--- @class AtelierColorscheme
 --- @field initialize_palette fun(): AtelierPalette|nil
 --- @field reset fun(): nil
 --- @field apply fun(): nil
@@ -147,7 +147,7 @@ M.select_colorscheme = function(new_index)
     )
   end
 
-  -- always mark the new theme as selected
+  -- always mark the new colorscheme as selected
   new_colorscheme.selected = true
 
   -- persist new values and update
