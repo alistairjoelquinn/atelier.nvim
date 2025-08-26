@@ -1,5 +1,5 @@
 local window = require 'atelier.window'
-local colorscheme = require 'lua.atelier.colorscheme'
+local colorscheme = require 'atelier.colorscheme'
 local file = require 'atelier.file'
 local page = require 'atelier.page'
 

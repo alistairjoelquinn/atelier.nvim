@@ -4,7 +4,7 @@ local M = {}
 
 --- setup function to initialize the plugin
 M.setup = function()
-  local colorscheme = require 'lua.atelier.colorscheme'
+  local colorscheme = require 'atelier.colorscheme'
   local command = require 'atelier.command'
 
   colorscheme.apply()

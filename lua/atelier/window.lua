@@ -85,7 +85,7 @@ M.save_changes = function()
       return false
     end
 
-    local colorscheme = require 'lua.atelier.colorscheme'
+    local colorscheme = require 'atelier.colorscheme'
     colorscheme.apply()
     return true
   end
