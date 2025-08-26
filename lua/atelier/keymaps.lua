@@ -148,8 +148,8 @@ M.create_colorscheme_page_keymaps = function()
       noremap = true,
       silent = true,
       callback = function()
-        local theme = require 'lua.atelier.colorscheme'
-        theme.select_colorscheme(i)
+        local colorscheme = require 'lua.atelier.colorscheme'
+        colorscheme.select_colorscheme(i)
       end,
     })
 

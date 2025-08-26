@@ -35,7 +35,7 @@ M.create = function()
   end, {})
 
   vim.api.nvim_create_user_command('AtelierLibrary', function()
-    page.show_theme_page()
+    page.show_library()
   end, {})
 end
 

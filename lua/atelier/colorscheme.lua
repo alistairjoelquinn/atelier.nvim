@@ -142,7 +142,7 @@ M.select_colorscheme = function(new_index)
   if not new_colorscheme.palette then
     new_colorscheme.palette = default_grey_palette
     vim.notify(
-      'Palette not detected. Initialised theme with default grey palette',
+      'Palette not detected. Initialised colorscheme with default grey palette',
       vim.log.levels.WARN
     )
   end
@@ -154,7 +154,7 @@ M.select_colorscheme = function(new_index)
   file.write(colorscheme_list)
   M.apply()
 
-  -- return to the color page for the newly selected theme
+  -- return to the color page for the newly selected colorscheme
   local page = require 'atelier.page'
   page.show_color_page()
 end

@@ -55,7 +55,7 @@ M.show_help_page = function()
 end
 
 --- @return nil
-M.show_colorscheme_page = function()
+M.show_library = function()
   --- @type string[]
   local lines = {
     '                    Available Colorschemes',
@@ -105,27 +105,27 @@ local ordered_keys = {
 M.load_color_page = function()
   local loaded_file = file.read()
   if not loaded_file then
-    vim.notify('Error loading themes', vim.log.levels.ERROR)
+    vim.notify('Error loading colorschemes', vim.log.levels.ERROR)
     return
   end
 
-  local current_theme = utils.findSelectedColorscheme(loaded_file)
-  if current_theme == nil then
-    vim.notify('Warning, theme not detected', vim.log.levels.ERROR)
+  local current_colorscheme = utils.findSelectedColorscheme(loaded_file)
+  if current_colorscheme == nil then
+    vim.notify('Warning, colorscheme not detected', vim.log.levels.ERROR)
     return
   end
 
-  local current_palette = current_theme.palette
+  local current_palette = current_colorscheme.palette
 
   if current_palette == nil then
     vim.notify(
-      'Warning, no palette was found for this theme',
+      'Warning, no palette was found for this colorscheme',
       vim.log.levels.ERROR
     )
     return
   end
 
-  local title = 'Color Editor ( ' .. current_theme.name .. ' )'
+  local title = 'Color Editor ( ' .. current_colorscheme.name .. ' )'
 
   -- calculate padding to center the title within the window width
   local title_width = vim.fn.strdisplaywidth(title)
