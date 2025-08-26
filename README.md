@@ -32,7 +32,7 @@ There are 2 other views for this window. The help page, which can be accessed wi
 
 <img width="481" alt="Screenshot 2025-05-26 at 14 44 57" src="https://github.com/user-attachments/assets/5819172f-4c7e-49c5-8a63-3d6abdae1d9c" />
 
-And the library which can be accessed with `l`.
+And the library, which can be accessed with `o` (for "options").
 
 ![Screenshot 2025-05-24 at 19 37 44](https://github.com/user-attachments/assets/a4e18edc-aa9a-4459-b069-f87e52d015cb)
 
@@ -52,7 +52,7 @@ In order to simplify the creation and editing of colorschemes, the color highlig
 
 ## Library
 
-Now that we have managed to update the current colorscheme, let's try and create a new one. Navigate to the library by pressing `l`. In total `atelier.nvim` allows you to save up to 8 colorschemes.
+Now that we have managed to update the current colorscheme, let's try and create a new one. Navigate to the library by pressing `o`. In total `atelier.nvim` allows you to save up to 8 colorschemes.
 
 ![Screenshot 2025-05-24 at 19 37 44](https://github.com/user-attachments/assets/990faff6-9e37-4509-b388-f368f2794ef2)
 
@@ -76,7 +76,7 @@ Let's change a couple more.
 
 ![Screenshot 2025-05-24 at 19 41 10](https://github.com/user-attachments/assets/b244ff14-5325-4f34-9827-206908159396)
 
-We can return back to the library with `l` in order to change colorscheme again. Here we can press the number `1` to return back to `dull-ish` or we can pick another number to create another new colorscheme.
+We can return back to the library with `o` in order to change colorscheme again. Here we can press the number `1` to return back to `dull-ish` or we can pick another number to create another new colorscheme.
 
 ![Screenshot 2025-05-24 at 19 41 31](https://github.com/user-attachments/assets/d514c1b3-a4e3-4e9e-bfdb-991c00c0223a)
 
@@ -86,7 +86,7 @@ Once you've created a colorscheme you're happy with, you can export it as a stan
 
 To export a colorscheme:
 
-1. Navigate to the library by pressing `l`
+1. Navigate to the library by pressing `o`
 2. Press `e` followed by the number of the colorscheme you want to export (e.g., `e2` for the second colorscheme)
 3. You'll be prompted to specify a location on your filesystem where the colorscheme will be exported
 4. The plugin will create a complete colorscheme plugin directory with all necessary files

@@ -29,7 +29,7 @@ M.show_help_page = function()
     '  Color page commands:',
     "  's' to save changes",
     "  'r' to reset plugin defaults",
-    "  'l' to go to the library",
+    "  'o' to go to the library",
     "  'q' to quit",
     '',
     '  Library commands',
@@ -40,7 +40,7 @@ M.show_help_page = function()
     '',
     '  Help page commands',
     "  'c' to go to the color page",
-    "  'l' to go to the library",
+    "  'o' to go to the library",
     "  'q' to quit",
   }
 

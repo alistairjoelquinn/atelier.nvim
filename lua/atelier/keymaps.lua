@@ -59,7 +59,7 @@ M.create_color_page_keymaps = function()
   vim.api.nvim_buf_set_keymap(
     WINDOW_DATA.buf,
     'n',
-    'l',
+    'o',
     ':AtelierLibrary<CR>',
     opts
   )
@@ -93,14 +93,6 @@ end
 M.create_colorscheme_page_keymaps = function()
   -- first clear any potentially existing keymaps
   clear_buffer_keymaps()
-
-  vim.api.nvim_buf_set_keymap(
-    WINDOW_DATA.buf,
-    'n',
-    'l',
-    ':AtelierLoad<CR>',
-    opts
-  )
 
   vim.api.nvim_buf_set_keymap(
     WINDOW_DATA.buf,
