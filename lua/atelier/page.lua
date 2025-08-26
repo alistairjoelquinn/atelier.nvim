@@ -58,7 +58,7 @@ end
 M.show_library = function()
   --- @type string[]
   local lines = {
-    '                    Available Colorschemes',
+    '               Available Colorschemes  ',
     '             --------------------------',
     '',
   }
@@ -80,7 +80,7 @@ M.show_library = function()
 
   -- ensure buffer is no longer editable
   set_buffer_editable(false)
-  keymaps.create_colorscheme_page_keymaps()
+  keymaps.create_library_keymaps()
 end
 
 -- define the order of palette fields to ensure consistent display
