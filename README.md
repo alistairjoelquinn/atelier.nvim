@@ -1,6 +1,8 @@
 # Atelier - a Neovim plugin for creating & editing colorschemes
 
-Atelier allows you to update your current colorscheme while you are working, as well as creating new ones from scratch. It's based on my own experience of wishing it was easier to update a colorscheme on the fly, while I am using it. Perhaps you find there is one color which is a little too bright, or one you wish was a different color altogether. This plugin allows you to open a window, tweak the color, and get back to work.
+Atelier allows you to update your current colorscheme while you are working. Additionally you can create new colorschemes from scratch, and export them as a stand alone plugin.
+
+Atelier is based on my own experience of wishing it was easier to update a colorscheme on the fly while I am using it. Perhaps you find there is one color which is a little too bright, or one you wish was a different color altogether. This plugin allows you to open a window, tweak the color, and get back to work.
 
 ## Installation
 
