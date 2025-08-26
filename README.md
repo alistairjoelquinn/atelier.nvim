@@ -26,7 +26,7 @@ When first loading the plugin, the [dull-ish colorscheme](https://github.com/ali
 
 From here, if you wish to open the plugin window you can do so with `:AtelierOpen`, or `<leader>at` which is preconfigured. This will present you with the color editor for the dull-ish colorscheme.
 
-![Screenshot 2025-05-24 at 20 33 29](https://github.com/user-attachments/assets/3595e19d-48d0-4a48-b15d-73f78ec4084b)
+<img width="512" height="470" alt="Screenshot 2025-08-26 at 18 12 23" src="https://github.com/user-attachments/assets/10ac6df7-30e9-4ffa-9fb6-70d5e281cf2e" />
 
 There are 2 other views for this window. The help page, which can be accessed with `?`.
 
