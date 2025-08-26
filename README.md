@@ -34,7 +34,7 @@ There are 2 other views for this window. The help page, which can be accessed wi
 
 And the library, which can be accessed with `o` (for "options").
 
-![Screenshot 2025-05-24 at 19 37 44](https://github.com/user-attachments/assets/a4e18edc-aa9a-4459-b069-f87e52d015cb)
+<img width="516" height="472" alt="Screenshot 2025-08-26 at 18 08 34" src="https://github.com/user-attachments/assets/504470c5-cbba-4d9b-81c0-f533eb806c00" />
 
 We'll come back to these pages though.
 
@@ -54,7 +54,7 @@ In order to simplify the creation and editing of colorschemes, the color highlig
 
 Now that we have managed to update the current colorscheme, let's try and create a new one. Navigate to the library by pressing `o`. In total `atelier.nvim` allows you to save up to 8 colorschemes.
 
-![Screenshot 2025-05-24 at 19 37 44](https://github.com/user-attachments/assets/990faff6-9e37-4509-b388-f368f2794ef2)
+<img width="516" height="472" alt="Screenshot 2025-08-26 at 18 08 34" src="https://github.com/user-attachments/assets/9fd3fa1f-3cff-4d1a-84dc-f2412c437099" />
 
 From here you can select any one of the colorschemes by choosing its number. Currently all the other colorschemes are empty. The first time you choose an empty colorscheme you will be prompted to choose a name.
 
