@@ -1,4 +1,4 @@
-# Atelier - a Neovim plugin for creating & editing colorschemes
+colorschemes Atelier - a Neovim plugin for creating & editing colorschemes
 
 Atelier allows you to update your current colorscheme while you are working, or you can create new colorschemes from scratch, and export them as a stand alone plugin.
 
@@ -97,5 +97,5 @@ The exported colorscheme will be ready to use and can be published directly to G
 
 - The color page is an editable buffer, which makes it very easy to undo changes should you dislike an update you have applied. Simply undo any changes in the text and re-apply with `s`.
   - This also means individual highlight groups can be deleted if desired.
-- The plugin uses JSON to persist the hex codes for each colorscheme. One of the advantages of this is that the JSON file persisted at the root of the `nvim` directory can be included in version control, should you wish to share your saved colorschemes across devices. The reverse also being true, if you wish to persist your themes only on one machine, the file can be ignored from version control.
+- The plugin uses JSON to persist the hex codes for each colorscheme. One of the advantages of this is that the JSON file persisted at the root of the `nvim` directory can be included in version control, should you wish to share your saved colorschemes across devices. The reverse also being true, if you wish to persist your colorschemes only on one machine, the file can be ignored from version control.
 - When troubleshooting, bear in mind that as last resort, if problems are arising, you can simply delete the json file from the root of your `nvim` directory and start from scratch the next time you open the plugin (any colorschemes saved will be lost).
