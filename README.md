@@ -42,7 +42,7 @@ We'll come back to these pages though.
 
 You can navigate back to the color page for the currently selected colorscheme ([dull-ish](https://github.com/alistairjoelquinn/dull-ish.nvim)), with `c`.
 
-![Screenshot 2025-05-24 at 20 33 29](https://github.com/user-attachments/assets/309d28d7-6df1-4150-94cb-45eba35931ad)
+<img width="512" height="470" alt="Screenshot 2025-08-26 at 18 12 23" src="https://github.com/user-attachments/assets/64f3184e-f404-4524-946d-bbaa4a890354" />
 
 From here you can navigate up and down between the hex codes with `j` & `k`, then simply change one, and press `s` to save. After changing a hex code, its background gives you immediate feedback as to what the color looks like, to make it easier to find a color which matches well with the rest of the palette. After saving you will see the colorscheme update immediately to reflect any changes. Below we have updated the hex code for `functions and warnings`. You can see that both the hex code and the functions in the background use the new color.
 
