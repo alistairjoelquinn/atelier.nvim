@@ -30,7 +30,7 @@ From here, if you wish to open the plugin window you can do so with `:AtelierOpe
 
 There are 2 other views for this window. The help page, which can be accessed with `?`.
 
-<img width="481" alt="Screenshot 2025-05-26 at 14 44 57" src="https://github.com/user-attachments/assets/5819172f-4c7e-49c5-8a63-3d6abdae1d9c" />
+<img width="515" height="470" alt="Screenshot 2025-08-26 at 18 07 36" src="https://github.com/user-attachments/assets/919d3896-26ea-4267-b471-c81d07f8569d" />
 
 And the library, which can be accessed with `o` (for "options").
 
