@@ -74,11 +74,11 @@ Again, after pressing `s`, for save, we will see the Neovim colorscheme update i
 
 Let's change a couple more.
 
-![Screenshot 2025-05-24 at 19 41 10](https://github.com/user-attachments/assets/b244ff14-5325-4f34-9827-206908159396)
+<img width="1512" height="616" alt="Screenshot 2025-08-26 at 18 25 30" src="https://github.com/user-attachments/assets/f03ea94f-a302-47d5-b2c2-7c06e1d1bff1" />
 
 We can return back to the library with `o` in order to change colorscheme again. Here we can press the number `1` to return back to `dull-ish` or we can pick another number to create another new colorscheme.
 
-![Screenshot 2025-05-24 at 19 41 31](https://github.com/user-attachments/assets/d514c1b3-a4e3-4e9e-bfdb-991c00c0223a)
+<img width="707" height="606" alt="Screenshot 2025-08-26 at 18 26 02" src="https://github.com/user-attachments/assets/a368d05b-cad2-4214-a44a-7a23c632c99d" />
 
 ## Exporting colorschemes
 
