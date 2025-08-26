@@ -58,19 +58,19 @@ Now that we have managed to update the current colorscheme, let's try and create
 
 From here you can select any one of the colorschemes by choosing its number. Currently all the other colorschemes are empty. The first time you choose an empty colorscheme you will be prompted to choose a name.
 
-![Screenshot 2025-05-24 at 19 38 12](https://github.com/user-attachments/assets/ca14376c-9fb1-4ee5-ad9b-4f9285f6327a)
+<img width="333" height="28" alt="Screenshot 2025-08-26 at 18 15 37" src="https://github.com/user-attachments/assets/f3cb2a34-960f-4392-998a-7ca317141fc1" />
 
 Let's call ours Muted Neon. Having entered the new name, you will be immediately navigated back to the color page, where the default dark colorscheme has been applied. The window title indicates that Muted Neon is currently selected.
 
-![Screenshot 2025-05-24 at 19 38 30](https://github.com/user-attachments/assets/721f4aa7-0370-4823-bf25-96af7338717e)
+<img width="515" height="470" alt="Screenshot 2025-08-26 at 18 16 09" src="https://github.com/user-attachments/assets/d997c2a4-5822-47c0-b3d9-db0b2f18917c" />
 
 Now we can repeat the process from before and update a hex code.
 
-![Screenshot 2025-05-24 at 19 39 23](https://github.com/user-attachments/assets/f83646d3-7522-41dc-9f9f-9ec6c2a2c932)
+<img width="538" height="498" alt="Screenshot 2025-08-26 at 18 18 12" src="https://github.com/user-attachments/assets/67575813-4a34-4071-8b31-6c1d913e77e9" />
 
 Again, after pressing `s`, for save, we will see the Neovim colorscheme update immediately.
 
-![Screenshot 2025-05-24 at 19 39 56](https://github.com/user-attachments/assets/75b39de3-4d8c-41f8-ba65-be44a4bfd261)
+<img width="1512" height="692" alt="Screenshot 2025-08-26 at 18 17 27" src="https://github.com/user-attachments/assets/aaadbe5b-5086-4325-acf5-e21603392ee4" />
 
 Let's change a couple more.
 
