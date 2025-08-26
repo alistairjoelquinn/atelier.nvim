@@ -20,7 +20,7 @@ You can then apply atelier, like you would apply any colorscheme in your Neovim 
 
 ## dull-ish
 
-When first loading the plugin, the [dull-ish colorscheme](https://github.com/alistairjoelquinn/dull-ish.nvim) is applied. This is a low-contrast, minimalistic theme with a few subtle color highlights.
+When first loading the plugin, the [dull-ish colorscheme](https://github.com/alistairjoelquinn/dull-ish.nvim) is applied. This is a low-contrast, minimalistic colorscheme with a few subtle color highlights.
 
 <img width="775" alt="Screenshot 2025-05-25 at 14 42 31" src="https://github.com/user-attachments/assets/6fa96121-25c4-4630-ba55-3834f8a62543" />
 
@@ -32,7 +32,7 @@ There are 2 other views for this window. The help page, which can be accessed wi
 
 <img width="481" alt="Screenshot 2025-05-26 at 14 44 57" src="https://github.com/user-attachments/assets/5819172f-4c7e-49c5-8a63-3d6abdae1d9c" />
 
-And the colorscheme page which can be accessed with `t`.
+And the colorscheme page which can be accessed with `l` (for library).
 
 ![Screenshot 2025-05-24 at 19 37 44](https://github.com/user-attachments/assets/a4e18edc-aa9a-4459-b069-f87e52d015cb)
 
@@ -50,13 +50,13 @@ From here you can navigate up and down between the hex codes with `j` & `k`, the
 
 In order to simplify the creation and editing of colorschemes, the color highlights have been divided up into the 14 groups you can see in the window.
 
-## colorscheme page
+## Library
 
-Now that we have managed to update the current colorscheme, let's try and create a new one. Navigate to the theme page by pressing `t`. In total `atelier.nvim` allows you to save up to 8 colorschemes.
+Now that we have managed to update the current colorscheme, let's try and create a new one. Navigate to the library by pressing `l`. In total `atelier.nvim` allows you to save up to 8 colorschemes.
 
 ![Screenshot 2025-05-24 at 19 37 44](https://github.com/user-attachments/assets/990faff6-9e37-4509-b388-f368f2794ef2)
 
-From here you can select any one of the colorschemes by choosing its number. Currently all the other colorschemes are empty. The first time you choose an empty theme you will be prompted to choose a name.
+From here you can select any one of the colorschemes by choosing its number. Currently all the other colorschemes are empty. The first time you choose an empty colorscheme you will be prompted to choose a name.
 
 ![Screenshot 2025-05-24 at 19 38 12](https://github.com/user-attachments/assets/ca14376c-9fb1-4ee5-ad9b-4f9285f6327a)
 
@@ -76,18 +76,18 @@ Let's change a couple more.
 
 ![Screenshot 2025-05-24 at 19 41 10](https://github.com/user-attachments/assets/b244ff14-5325-4f34-9827-206908159396)
 
-We can return back to the colorscheme page with `t` in order to change theme again. Here we can press `1` to return back to `dull-ish` or we can pick another number to create another new theme.
+We can return back to the library with `l` in order to change colorscheme again. Here we can press the number `1` to return back to `dull-ish` or we can pick another number to create another new colorscheme.
 
 ![Screenshot 2025-05-24 at 19 41 31](https://github.com/user-attachments/assets/d514c1b3-a4e3-4e9e-bfdb-991c00c0223a)
 
 ## Exporting colorschemes
 
-Once you've created a colorscheme you're happy with, you can export it as a standalone theme plugin. This allows you to share your theme with others or use it with a plugin manager like any other Neovim theme.
+Once you've created a colorscheme you're happy with, you can export it as a standalone plugin. This allows you to share your colorscheme with others or use it with a plugin manager like any other Neovim colorscheme.
 
 To export a colorscheme:
 
-1. Navigate to the colorscheme page by pressing `t`
-2. Press `e` followed by the number of the colorscheme you want to export (e.g., `e2` for the second theme)
+1. Navigate to the library by pressing `l`
+2. Press `e` followed by the number of the colorscheme you want to export (e.g., `e2` for the second colorscheme)
 3. You'll be prompted to specify a location on your filesystem where the colorscheme will be exported
 4. The plugin will create a complete colorscheme plugin directory with all necessary files
 
