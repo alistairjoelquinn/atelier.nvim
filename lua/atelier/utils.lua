@@ -1,7 +1,7 @@
---- @class DynamicThemeUtils
+--- @class AtelierUtils
 --- @field findColorschemeByName fun(colorscheme_list: Colorscheme[], target_name: string): Colorscheme|nil, number|nil
 --- @field findSelectedColorscheme fun(colorscheme_list: Colorscheme[]): Colorscheme|nil, number|nil
---- @field updateSelectedColorschemePalette fun(colorscheme_list: Colorscheme[], updated_palette: DynamicThemePalette): nil
+--- @field updateSelectedColorschemePalette fun(colorscheme_list: Colorscheme[], updated_palette: AtelierPalette): nil
 --- @field apply_hex_highlights fun(): nil
 local M = {}
 
@@ -65,7 +65,7 @@ end
 
 --- update the palette of the currently selected colorscheme
 --- @param colorscheme_list Colorscheme[]
---- @param updated_palette DynamicThemePalette
+--- @param updated_palette AtelierPalette
 M.updateSelectedColorschemePalette = function(colorscheme_list, updated_palette)
   for i, colorscheme in ipairs(colorscheme_list) do
     if colorscheme.selected then
@@ -86,7 +86,7 @@ M.apply_hex_highlights = function()
       local hex_code = line:match('%#%x+', hex_start - 1)
       if hex_code and is_valid_hex_color(hex_code) then
         -- create a highlight group for each hex code
-        local hl_group = 'DynamicThemeColor' .. hex_code:gsub('#', '')
+        local hl_group = 'AtelierColor' .. hex_code:gsub('#', '')
 
         -- choose text color based on background darkness
         local fg_color = is_dark_color(hex_code) and '#FFFFFF' or '#000000'

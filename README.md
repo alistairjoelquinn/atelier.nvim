@@ -32,7 +32,7 @@ There are 2 other views for this window. The help page, which can be accessed wi
 
 <img width="481" alt="Screenshot 2025-05-26 at 14 44 57" src="https://github.com/user-attachments/assets/5819172f-4c7e-49c5-8a63-3d6abdae1d9c" />
 
-And the colorscheme page which can be accessed with `l` (for library).
+And the library which can be accessed with `l`.
 
 ![Screenshot 2025-05-24 at 19 37 44](https://github.com/user-attachments/assets/a4e18edc-aa9a-4459-b069-f87e52d015cb)
 

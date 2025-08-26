@@ -1,8 +1,8 @@
-local file = require 'dynamic-theme.file'
-local utils = require 'dynamic-theme.utils'
-local page = require 'dynamic-theme.page'
+local file = require 'atelier.file'
+local utils = require 'atelier.utils'
+local page = require 'atelier.page'
 
---- @class DynamicThemeWindow
+--- @class AtelierWindow
 --- @field save_changes fun(): boolean
 --- @field open_window fun(): nil
 --- @field close_window fun(): nil
@@ -85,7 +85,7 @@ M.save_changes = function()
       return false
     end
 
-    local colorscheme = require 'lua.dynamic-theme.colorscheme'
+    local colorscheme = require 'lua.atelier.colorscheme'
     colorscheme.apply()
     return true
   end

@@ -1,7 +1,7 @@
---- @type DynamicThemePalette
-local palette = require 'dynamic-theme.palette'
-local file = require 'dynamic-theme.file'
-local utils = require 'dynamic-theme.utils'
+--- @type AtelierPalette
+local palette = require 'atelier.palette'
+local file = require 'atelier.file'
+local utils = require 'atelier.utils'
 
 --- @type Colorscheme[]
 local defaultColorschemeList = {
@@ -16,7 +16,7 @@ local defaultColorschemeList = {
 }
 
 --- palette for empty colorschemes before the user applies their own colors
---- @type DynamicThemePalette
+--- @type AtelierPalette
 local default_grey_palette = {
   main_background = '#010101',
   current_line_highlight = '#252830',
@@ -34,16 +34,16 @@ local default_grey_palette = {
   types_and_classes = '#444444',
 }
 
---- @class DynamicThemeTheme
---- @field initialize_palette fun(): DynamicThemePalette|nil
+--- @class AtelierTheme
+--- @field initialize_palette fun(): AtelierPalette|nil
 --- @field reset fun(): nil
 --- @field apply fun(): nil
 --- @field select_colorscheme fun(new_index: number): nil
---- @field create_highlight_groups fun(colors: DynamicThemePalette): table<string, table>
+--- @field create_highlight_groups fun(colors: AtelierPalette): table<string, table>
 local M = {}
 
 --- initialize the palette from file or create default if none exists
---- @return DynamicThemePalette|nil
+--- @return AtelierPalette|nil
 M.initialize_palette = function()
   if not file.exists() then
     file.write(defaultColorschemeList)
@@ -79,7 +79,7 @@ M.reset = function()
 
     -- reload the window content
     if WINDOW_DATA and vim.api.nvim_win_is_valid(WINDOW_DATA.win) then
-      local page = require 'dynamic-theme.page'
+      local page = require 'atelier.page'
       page.load_color_page()
     end
   end
@@ -155,12 +155,12 @@ M.select_colorscheme = function(new_index)
   M.apply()
 
   -- return to the color page for the newly selected theme
-  local page = require 'dynamic-theme.page'
+  local page = require 'atelier.page'
   page.show_color_page()
 end
 
 --- create highlight groups based on colors
---- @param colors DynamicThemePalette the color palette to use
+--- @param colors AtelierPalette the color palette to use
 --- @return table<string, table> highlight groups with their settings
 M.create_highlight_groups = function(colors)
   return {

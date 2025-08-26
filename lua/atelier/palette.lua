@@ -1,4 +1,4 @@
---- @class DynamicThemePalette
+--- @class AtelierPalette
 --- @field main_background string main background color
 --- @field current_line_highlight string current line highlight color
 --- @field keywords_and_delimiters string keyword color
@@ -15,7 +15,7 @@
 --- @field types_and_classes string types and classes color
 
 -- color palette definition
---- @return DynamicThemePalette the default color palette
+--- @return AtelierPalette the default color palette
 return {
   -- background colors
   main_background = '#1b1b20',

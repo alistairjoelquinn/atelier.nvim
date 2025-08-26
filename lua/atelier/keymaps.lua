@@ -1,4 +1,4 @@
---- @class DynamicThemeKeymaps
+--- @class AtelierKeymaps
 --- @field create_color_page_keymaps fun(): nil
 --- @field create_colorscheme_page_keymaps fun(): nil
 --- @field create_help_page_keymaps fun(): nil
@@ -44,7 +44,7 @@ M.create_color_page_keymaps = function()
     WINDOW_DATA.buf,
     'n',
     's',
-    ':DynamicThemeSave<CR>',
+    ':AtelierSave<CR>',
     opts
   )
 
@@ -52,7 +52,7 @@ M.create_color_page_keymaps = function()
     WINDOW_DATA.buf,
     'n',
     'r',
-    ':DynamicThemeReset<CR>',
+    ':AtelierReset<CR>',
     opts
   )
 
@@ -60,7 +60,7 @@ M.create_color_page_keymaps = function()
     WINDOW_DATA.buf,
     'n',
     't',
-    ':DynamicThemeThemePage<CR>',
+    ':AtelierThemePage<CR>',
     opts
   )
 
@@ -68,7 +68,7 @@ M.create_color_page_keymaps = function()
     WINDOW_DATA.buf,
     'n',
     'q',
-    ':DynamicThemeClose<CR>',
+    ':AtelierClose<CR>',
     opts
   )
 
@@ -76,7 +76,7 @@ M.create_color_page_keymaps = function()
     WINDOW_DATA.buf,
     'n',
     '<Esc>',
-    ':DynamicThemeClose<CR>',
+    ':AtelierClose<CR>',
     opts
   )
 
@@ -84,7 +84,7 @@ M.create_color_page_keymaps = function()
     WINDOW_DATA.buf,
     'n',
     '?',
-    ':DynamicThemeHelpPage<CR>',
+    ':AtelierHelpPage<CR>',
     opts
   )
 end
@@ -98,7 +98,7 @@ M.create_colorscheme_page_keymaps = function()
     WINDOW_DATA.buf,
     'n',
     'l',
-    ':DynamicThemeLoad<CR>',
+    ':AtelierLoad<CR>',
     opts
   )
 
@@ -106,7 +106,7 @@ M.create_colorscheme_page_keymaps = function()
     WINDOW_DATA.buf,
     'n',
     'n',
-    ':DynamicThemeRename<CR>',
+    ':AtelierRename<CR>',
     opts
   )
 
@@ -114,7 +114,7 @@ M.create_colorscheme_page_keymaps = function()
     WINDOW_DATA.buf,
     'n',
     'c',
-    ':DynamicThemeColorPage<CR>',
+    ':AtelierColorPage<CR>',
     opts
   )
 
@@ -122,7 +122,7 @@ M.create_colorscheme_page_keymaps = function()
     WINDOW_DATA.buf,
     'n',
     'q',
-    ':DynamicThemeClose<CR>',
+    ':AtelierClose<CR>',
     opts
   )
 
@@ -130,7 +130,7 @@ M.create_colorscheme_page_keymaps = function()
     WINDOW_DATA.buf,
     'n',
     '<Esc>',
-    ':DynamicThemeClose<CR>',
+    ':AtelierClose<CR>',
     opts
   )
 
@@ -138,7 +138,7 @@ M.create_colorscheme_page_keymaps = function()
     WINDOW_DATA.buf,
     'n',
     '?',
-    ':DynamicThemeHelpPage<CR>',
+    ':AtelierHelpPage<CR>',
     opts
   )
 
@@ -148,7 +148,7 @@ M.create_colorscheme_page_keymaps = function()
       noremap = true,
       silent = true,
       callback = function()
-        local theme = require 'lua.dynamic-theme.colorscheme'
+        local theme = require 'lua.atelier.colorscheme'
         theme.select_colorscheme(i)
       end,
     })
@@ -158,7 +158,7 @@ M.create_colorscheme_page_keymaps = function()
       noremap = true,
       silent = true,
       callback = function()
-        local export = require 'dynamic-theme.export'
+        local export = require 'atelier.export'
         export.export_colorscheme(i)
       end,
     })
@@ -174,7 +174,7 @@ M.create_help_page_keymaps = function()
     WINDOW_DATA.buf,
     'n',
     'c',
-    ':DynamicThemeColorPage<CR>',
+    ':AtelierColorPage<CR>',
     opts
   )
 
@@ -182,7 +182,7 @@ M.create_help_page_keymaps = function()
     WINDOW_DATA.buf,
     'n',
     't',
-    ':DynamicThemeThemePage<CR>',
+    ':AtelierThemePage<CR>',
     opts
   )
 
@@ -190,7 +190,7 @@ M.create_help_page_keymaps = function()
     WINDOW_DATA.buf,
     'n',
     'q',
-    ':DynamicThemeClose<CR>',
+    ':AtelierClose<CR>',
     opts
   )
 
@@ -198,7 +198,7 @@ M.create_help_page_keymaps = function()
     WINDOW_DATA.buf,
     'n',
     '<Esc>',
-    ':DynamicThemeClose<CR>',
+    ':AtelierClose<CR>',
     opts
   )
 end

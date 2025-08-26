@@ -1,18 +1,18 @@
 --- @class Colorscheme
 --- @field name string the name of the colorscheme
 --- @field selected boolean whether this colorscheme is currently selected
---- @field palette DynamicThemePalette|nil the color palette for this colorscheme
+--- @field palette AtelierPalette|nil the color palette for this colorscheme
 
---- @class DynamicThemeFile
+--- @class AtelierFile
 --- @field path string the path to the configuration JSON file
---- @field exists fun(): boolean check if the dynamic-theme file exists
---- @field read fun(): Colorscheme[]|nil read and parse the dynamic-theme file
+--- @field exists fun(): boolean check if the atelier file exists
+--- @field read fun(): Colorscheme[]|nil read and parse the atelier file
 --- @field write fun(colorscheme_list: Colorscheme[]): boolean write colorschemes to the colorscheme file
 --- @field save fun(): nil save changes from the UI to the colorscheme file
 local M = {}
 
 local config_path = vim.fn.stdpath 'config'
-M.path = config_path .. '/dynamic-theme.json'
+M.path = config_path .. '/atelier.json'
 
 --- check if the colorscheme file exists
 --- @return boolean
@@ -64,7 +64,7 @@ end
 
 --- save changes from the UI to the colorscheme file
 M.save = function()
-  local window = require 'dynamic-theme.window'
+  local window = require 'atelier.window'
   window.save_changes()
 end
 

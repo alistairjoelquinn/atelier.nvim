@@ -1,8 +1,8 @@
-local file = require 'dynamic-theme.file'
-local utils = require 'dynamic-theme.utils'
-local keymaps = require 'dynamic-theme.keymaps'
+local file = require 'atelier.file'
+local utils = require 'atelier.utils'
+local keymaps = require 'atelier.keymaps'
 
---- @class DynamicThemePage
+--- @class AtelierPage
 --- @field show_help_page fun(): nil
 --- @field show_colorscheme_page fun(): nil
 --- @field load_color_page fun(): nil
