@@ -102,10 +102,13 @@ end
 
 --- apply hex code highlighting to the buffer
 M.apply_hex_highlights = function()
+  local window = require 'atelier.window'
+  local buf = window.get_buffer()
+  
   -- clear existing highlights
-  vim.api.nvim_buf_clear_namespace(WINDOW_DATA.buf, -1, 0, -1)
+  vim.api.nvim_buf_clear_namespace(buf, -1, 0, -1)
 
-  local lines = vim.api.nvim_buf_get_lines(WINDOW_DATA.buf, 0, -1, false)
+  local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
   for i, line in ipairs(lines) do
     local _, hex_start = line:find '%s+#'
     if hex_start then
@@ -124,7 +127,7 @@ M.apply_hex_highlights = function()
 
         if success then
           vim.api.nvim_buf_add_highlight(
-            WINDOW_DATA.buf,
+            buf,
             -1, -- namespace id (-1 for a new namespace)
             hl_group,
             i - 1, -- line index (0-based)

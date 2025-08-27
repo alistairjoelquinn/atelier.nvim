@@ -13,8 +13,10 @@ local M = {}
 --- @param editable boolean
 --- @return nil
 local set_buffer_editable = function(editable)
-  vim.api.nvim_buf_set_option(WINDOW_DATA.buf, 'modifiable', editable)
-  vim.api.nvim_buf_set_option(WINDOW_DATA.buf, 'readonly', not editable)
+  local window = require 'atelier.window'
+  local buf = window.get_buffer()
+  vim.api.nvim_buf_set_option(buf, 'modifiable', editable)
+  vim.api.nvim_buf_set_option(buf, 'readonly', not editable)
 end
 
 --- @type number maximum string length for formatting the color editor
@@ -47,7 +49,9 @@ M.show_help_page = function()
   -- make buffer modifiable first (in case it was previously set to non-modifiable)
   set_buffer_editable(true)
 
-  vim.api.nvim_buf_set_lines(WINDOW_DATA.buf, 0, -1, false, lines)
+  local window = require 'atelier.window'
+  local buf = window.get_buffer()
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
 
   -- ensure buffer is no longer editable
   set_buffer_editable(false)
@@ -76,7 +80,9 @@ M.show_library = function()
   -- make buffer modifiable first (in case it was previously set to non-modifiable)
   set_buffer_editable(true)
 
-  vim.api.nvim_buf_set_lines(WINDOW_DATA.buf, 0, -1, false, lines)
+  local window = require 'atelier.window'
+  local buf = window.get_buffer()
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
 
   -- ensure buffer is no longer editable
   set_buffer_editable(false)
@@ -156,20 +162,22 @@ M.load_color_page = function()
   set_buffer_editable(true)
 
   keymaps.create_color_page_keymaps()
-  vim.api.nvim_buf_set_lines(WINDOW_DATA.buf, 0, -1, false, lines)
+  local window = require 'atelier.window'
+  local buf = window.get_buffer()
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
 
   utils.apply_hex_highlights()
 
   -- set up autocmd to refresh highlights when the buffer content changes
   vim.api.nvim_create_autocmd('TextChanged', {
-    buffer = WINDOW_DATA.buf,
+    buffer = buf,
     callback = function()
       utils.apply_hex_highlights()
     end,
   })
 
   vim.api.nvim_create_autocmd('TextChangedI', {
-    buffer = WINDOW_DATA.buf,
+    buffer = buf,
     callback = function()
       utils.apply_hex_highlights()
     end,

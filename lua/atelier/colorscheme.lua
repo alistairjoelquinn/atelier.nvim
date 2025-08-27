@@ -78,7 +78,8 @@ M.reset = function()
     M.apply()
 
     -- reload the window content
-    if WINDOW_DATA and vim.api.nvim_win_is_valid(WINDOW_DATA.win) then
+    local window = require 'atelier.window'
+    if window.is_window_valid() then
       local page = require 'atelier.page'
       page.load_color_page()
     end

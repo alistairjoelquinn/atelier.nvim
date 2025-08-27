@@ -7,6 +7,9 @@ local M = {}
 --- clear all keymaps from the buffer
 --- @return nil
 local clear_buffer_keymaps = function()
+  local window = require 'atelier.window'
+  local buf = window.get_buffer()
+  
   --- @type string[] list of keys to clear
   local keys_to_clear = {
     's',
@@ -28,7 +31,7 @@ local clear_buffer_keymaps = function()
     '8',
   }
   for _, key in ipairs(keys_to_clear) do
-    pcall(vim.api.nvim_buf_del_keymap, WINDOW_DATA.buf, 'n', key)
+    pcall(vim.api.nvim_buf_del_keymap, buf, 'n', key)
   end
 end
 
@@ -37,11 +40,14 @@ local opts = { noremap = true, silent = true }
 
 --- @return nil
 M.create_color_page_keymaps = function()
+  local window = require 'atelier.window'
+  local buf = window.get_buffer()
+  
   -- first clear any potentially existing keymaps
   clear_buffer_keymaps()
 
   vim.api.nvim_buf_set_keymap(
-    WINDOW_DATA.buf,
+    buf,
     'n',
     's',
     ':AtelierSave<CR>',
@@ -49,7 +55,7 @@ M.create_color_page_keymaps = function()
   )
 
   vim.api.nvim_buf_set_keymap(
-    WINDOW_DATA.buf,
+    buf,
     'n',
     'r',
     ':AtelierReset<CR>',
@@ -57,7 +63,7 @@ M.create_color_page_keymaps = function()
   )
 
   vim.api.nvim_buf_set_keymap(
-    WINDOW_DATA.buf,
+    buf,
     'n',
     'o',
     ':AtelierLibrary<CR>',
@@ -65,7 +71,7 @@ M.create_color_page_keymaps = function()
   )
 
   vim.api.nvim_buf_set_keymap(
-    WINDOW_DATA.buf,
+    buf,
     'n',
     'q',
     ':AtelierClose<CR>',
@@ -73,7 +79,7 @@ M.create_color_page_keymaps = function()
   )
 
   vim.api.nvim_buf_set_keymap(
-    WINDOW_DATA.buf,
+    buf,
     'n',
     '<Esc>',
     ':AtelierClose<CR>',
@@ -81,7 +87,7 @@ M.create_color_page_keymaps = function()
   )
 
   vim.api.nvim_buf_set_keymap(
-    WINDOW_DATA.buf,
+    buf,
     'n',
     '?',
     ':AtelierHelpPage<CR>',
@@ -91,11 +97,13 @@ end
 
 --- @return nil
 M.create_library_keymaps = function()
+  local window = require 'atelier.window'
+  local buf = window.get_buffer()
   -- first clear any potentially existing keymaps
   clear_buffer_keymaps()
 
   vim.api.nvim_buf_set_keymap(
-    WINDOW_DATA.buf,
+    buf,
     'n',
     'n',
     ':AtelierRename<CR>',
@@ -103,7 +111,7 @@ M.create_library_keymaps = function()
   )
 
   vim.api.nvim_buf_set_keymap(
-    WINDOW_DATA.buf,
+    buf,
     'n',
     'c',
     ':AtelierColorPage<CR>',
@@ -111,7 +119,7 @@ M.create_library_keymaps = function()
   )
 
   vim.api.nvim_buf_set_keymap(
-    WINDOW_DATA.buf,
+    buf,
     'n',
     'q',
     ':AtelierClose<CR>',
@@ -119,7 +127,7 @@ M.create_library_keymaps = function()
   )
 
   vim.api.nvim_buf_set_keymap(
-    WINDOW_DATA.buf,
+    buf,
     'n',
     '<Esc>',
     ':AtelierClose<CR>',
@@ -127,7 +135,7 @@ M.create_library_keymaps = function()
   )
 
   vim.api.nvim_buf_set_keymap(
-    WINDOW_DATA.buf,
+    buf,
     'n',
     '?',
     ':AtelierHelpPage<CR>',
@@ -136,7 +144,7 @@ M.create_library_keymaps = function()
 
   for i = 1, 8 do
     -- colorscheme selection keymaps
-    vim.api.nvim_buf_set_keymap(WINDOW_DATA.buf, 'n', tostring(i), '', {
+    vim.api.nvim_buf_set_keymap(buf, 'n', tostring(i), '', {
       noremap = true,
       silent = true,
       callback = function()
@@ -146,7 +154,7 @@ M.create_library_keymaps = function()
     })
 
     -- export colorscheme keymaps, using 'e' followed by a colorscheme number
-    vim.api.nvim_buf_set_keymap(WINDOW_DATA.buf, 'n', 'e' .. tostring(i), '', {
+    vim.api.nvim_buf_set_keymap(buf, 'n', 'e' .. tostring(i), '', {
       noremap = true,
       silent = true,
       callback = function()
@@ -159,11 +167,13 @@ end
 
 --- @return nil
 M.create_help_page_keymaps = function()
+  local window = require 'atelier.window'
+  local buf = window.get_buffer()
   -- first clear any potentially existing keymaps
   clear_buffer_keymaps()
 
   vim.api.nvim_buf_set_keymap(
-    WINDOW_DATA.buf,
+    buf,
     'n',
     'c',
     ':AtelierColorPage<CR>',
@@ -171,7 +181,7 @@ M.create_help_page_keymaps = function()
   )
 
   vim.api.nvim_buf_set_keymap(
-    WINDOW_DATA.buf,
+    buf,
     'n',
     'o',
     ':AtelierLibrary<CR>',
@@ -179,7 +189,7 @@ M.create_help_page_keymaps = function()
   )
 
   vim.api.nvim_buf_set_keymap(
-    WINDOW_DATA.buf,
+    buf,
     'n',
     'q',
     ':AtelierClose<CR>',
@@ -187,7 +197,7 @@ M.create_help_page_keymaps = function()
   )
 
   vim.api.nvim_buf_set_keymap(
-    WINDOW_DATA.buf,
+    buf,
     'n',
     '<Esc>',
     ':AtelierClose<CR>',
