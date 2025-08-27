@@ -125,11 +125,25 @@ M.select_colorscheme = function(new_index)
   if new_colorscheme.name == '<EMPTY>' then
     local new_name = vim.fn.input 'Enter name for new colorscheme: '
     if new_name and new_name ~= '' then
+      -- validate the name for filesystem safety
+      local is_valid_filename, error_message = utils.is_valid_filename(new_name)
+      if not is_valid_filename then
+        vim.cmd(
+          'echohl ErrorMsg | echom "Invalid name: '
+            .. error_message
+            .. '" | echohl None'
+        )
+        vim.cmd 'call getchar()' --  user must acknowledge error before proceeding
+        return
+      end
+
+      -- check length limit
       if #new_name > 16 then
         vim.cmd 'echohl ErrorMsg | echom "Colorscheme name must be less than 16 characters" | echohl None'
         vim.cmd 'call getchar()' --  user must acknowledge error before proceeding
         return
       end
+
       new_colorscheme.name = new_name
       new_colorscheme.palette = default_grey_palette
     else

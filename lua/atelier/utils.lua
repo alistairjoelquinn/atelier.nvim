@@ -3,6 +3,7 @@
 --- @field findSelectedColorscheme fun(colorscheme_list: Colorscheme[]): Colorscheme|nil, number|nil
 --- @field updateSelectedColorschemePalette fun(colorscheme_list: Colorscheme[], updated_palette: AtelierPalette): nil
 --- @field apply_hex_highlights fun(): nil
+--- @field is_valid_filename fun(name: string): boolean, string|nil
 local M = {}
 
 --- check if a hex color is a valid 6 digit hex color
@@ -34,6 +35,31 @@ local function is_dark_color(hex)
   local brightness = (0.299 * r + 0.587 * g + 0.114 * b) / 255
 
   return brightness < 0.5
+end
+
+--- validate if a name is safe for filesystem usage
+--- @param name string
+--- @return boolean is_valid_filename
+--- @return string|nil error_message
+M.is_valid_filename = function(name)
+  if not name or name == '' then
+    return false, 'Name cannot be empty'
+  end
+
+  -- check for invalid characters that can break filesystem operations
+  -- < > : " | ? * \ / and control characters
+  local invalid_chars = '[<>:"|?*\\/\000-\031\127]'
+  if name:match(invalid_chars) then
+    return false,
+      'Name contains invalid characters (< > : " | ? * \\ / or control characters)'
+  end
+
+  -- check for names that start or end with spaces or dots
+  if name:match '^[ .]' or name:match '[ .]$' then
+    return false, 'Name cannot start or end with spaces or dots'
+  end
+
+  return true, nil
 end
 
 --- find a colorscheme by name in the colorscheme list
