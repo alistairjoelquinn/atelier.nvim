@@ -48,10 +48,10 @@ M.is_valid_filename = function(name)
 
   -- check for invalid characters that can break filesystem operations
   -- < > : " | ? * \ / and control characters
-  local invalid_chars = '[<>:"|?*\\/\000-\031\127]'
+  local invalid_chars = '[<>:"|?*\\/\000-\031\127%]]'
   if name:match(invalid_chars) then
     return false,
-      'Name contains invalid characters (< > : " | ? * \\ / or control characters)'
+      'Name contains invalid characters (< > : " | ? * \\ / ] or control characters)'
   end
 
   -- check for names that start or end with spaces or dots
