@@ -37,7 +37,9 @@ local function is_dark_color(hex)
   return brightness < 0.5
 end
 
---- validate if a name is safe for filesystem usage
+--- validate if a name is safe for filesystem usage, currently we aren't using
+--- the error message returned from this function, though I wil likely use this
+--- in the future
 --- @param name string
 --- @return boolean is_valid_filename
 --- @return string|nil error_message
@@ -46,17 +48,21 @@ M.is_valid_filename = function(name)
     return false, 'Name cannot be empty'
   end
 
-  -- check for invalid characters that can break filesystem operations
-  -- < > : " | ? * \ / and control characters
-  local invalid_chars = '[<>:"|?*\\/\000-\031\127%]]'
+  -- check for invalid characters
+  local invalid_chars = '[<>:"|?*\\/]'
   if name:match(invalid_chars) then
     return false,
-      'Name contains invalid characters (< > : " | ? * \\ / ] or control characters)'
+      'Name contains invalid characters (< > : " | ? * \\ / or control characters)'
   end
 
   -- check for names that start or end with spaces or dots
   if name:match '^[ .]' or name:match '[ .]$' then
     return false, 'Name cannot start or end with spaces or dots'
+  end
+
+  -- check for relative path components
+  if name == '.' or name == '..' then
+    return false, 'Name cannot be "." or ".."'
   end
 
   return true, nil
@@ -104,7 +110,7 @@ end
 M.apply_hex_highlights = function()
   local window = require 'atelier.window'
   local buf = window.get_buffer()
-  
+
   -- clear existing highlights
   vim.api.nvim_buf_clear_namespace(buf, -1, 0, -1)
 
